@@ -7,10 +7,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.TextView;
 
-import com.tkdev.weatherapp.model.WeatherCurrent;
-import com.tkdev.weatherapp.model.WeatherForecast;
+import com.tkdev.weatherapp.model.Weather;
 
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 
@@ -39,25 +37,27 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-//        WeatherCurrentTask currentTask = new WeatherCurrentTask();
-//        currentTask.execute();
-//        WeatherCurrent current = null;
-//        try {
-//            current = currentTask.get();
-//        } catch (InterruptedException | ExecutionException e) {
-//            e.printStackTrace();
-//        }
-//
-//        assert current != null;
-
-        WeatherForecastTask forecastTask = new WeatherForecastTask();
-        forecastTask.execute();
-        List<WeatherForecast> current = null;
+        // test WeatherCurrentTask
+        WeatherCurrentTask currentTask = new WeatherCurrentTask();
+        currentTask.execute();
+        Weather current = null;
         try {
-            current = forecastTask.get();
-        } catch (ExecutionException | InterruptedException e) {
+            current = currentTask.get();
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+        assert current != null;
+
+        // testWeatherForecastTask
+//        WeatherForecastTask forecastTask = new WeatherForecastTask();
+//        forecastTask.execute();
+//        List<WeatherForecast> current = null;
+//        try {
+//            current = forecastTask.get();
+//        } catch (ExecutionException | InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        assert current != null;
 
 
         currentV = findViewById(R.id.tempCurrent);
@@ -65,13 +65,10 @@ public class MainActivity extends AppCompatActivity {
         maxV = findViewById(R.id.tempMax);
         weatherV = findViewById(R.id.weatherDescripton);
 
-        assert current != null;
-        currentV.setText(String.valueOf(current.get(0).getTemperatureCurrent()));
-        minV.setText(String.valueOf(current.get(3).getTemperatureMin()));
-        maxV.setText(String.valueOf(current.get(6).getTemperatureMax()));
-        weatherV.setText(String.valueOf(current.get(1).getWeatherDescription()));
-
-
+        currentV.setText(String.valueOf(current.getTemperatureCurrent()));
+        minV.setText(String.valueOf(current.getTemperatureMin()));
+        maxV.setText(String.valueOf(current.getTemperatureMax()));
+        weatherV.setText(current.getWeather());
 
 
     }
@@ -82,53 +79,3 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 }
-//
-//    WeatherCurrentTask currentTask = new WeatherCurrentTask();
-//        currentTask.execute();
-//                WeatherCurrent current = null;
-//                try {
-//                current = currentTask.get();
-//                } catch (InterruptedException | ExecutionException e) {
-//                e.printStackTrace();
-//                }
-//
-//                assert current != null;
-//                System.out.println(current.getTemperatureCur());
-//                System.out.println(current.getTemperatureMin());
-//                System.out.println(current.getTemperatureMax());
-//                System.out.println(current.getWeatherDescription());
-//                System.out.println(current.getDateOfLastUpdate());
-//                System.out.println(current.getHumidity());
-
-
-//
-//        new WeatherForecastTask().execute();
-//
-//        WeatherForecastTask forecastTask = new WeatherForecastTask();
-//        forecastTask.execute();
-//        List<WeatherForecast> forecasts = null;
-//        try {
-//            forecasts = forecastTask.get();
-//        } catch (ExecutionException | InterruptedException e) {
-//            e.printStackTrace();
-//        }
-
-
-//
-//        if (forecasts !=null){
-//        for (WeatherForecast forecast: forecasts){
-//            System.out.println("***********************************");
-//            double tempCur = forecast.getTemperatureCurrent();
-//            double tempMin = forecast.getTemperatureMin();
-//            double tempMax = forecast.getTemperatureMax();
-//            System.out.println(forecast.getDayOfForecast());
-//            System.out.println("***********************************");
-//            System.out.println(tempCur + "!!!!!!");
-//            System.out.println("***********************************");
-//            System.out.println(tempMin);
-//            System.out.println("***********************************");
-//            System.out.println(tempMax);
-//            System.out.println("***********************************");
-//            System.out.println(forecast.getWeatherDescription());
-//            System.out.println("***********************************");
-//        }}

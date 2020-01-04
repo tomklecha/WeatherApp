@@ -3,7 +3,6 @@ package com.tkdev.weatherapp;
 import android.os.AsyncTask;
 
 import com.tkdev.weatherapp.model.Weather;
-import com.tkdev.weatherapp.model.WeatherCurrent;
 
 import static com.tkdev.weatherapp.MainActivity.WEATHER_API_KEY;
 import static com.tkdev.weatherapp.MainActivity.WEATHER_API_PREFIX;
@@ -12,11 +11,11 @@ import static com.tkdev.weatherapp.MainActivity.WEATHER_CURRENT_REQUEST;
 import static com.tkdev.weatherapp.MainActivity.WEATHER_TEMPERATURE;
 import static com.tkdev.weatherapp.MainActivity.WEATHER_TEMPERATURE_PREFIX;
 
-public class WeatherCurrentTask extends AsyncTask <Void, Void, WeatherCurrent> {
+public class WeatherCurrentTask extends AsyncTask <Void, Void, Weather> {
 
 
     @Override
-    protected WeatherCurrent doInBackground(Void... voids) {
+    protected Weather doInBackground(Void... voids) {
         String uri = WEATHER_CURRENT_REQUEST +
                 WEATHER_CITY_ID +
                 WEATHER_TEMPERATURE_PREFIX +

@@ -1,43 +1,71 @@
 package com.tkdev.weatherapp.model;
 
+import java.util.Date;
+
 public class Weather {
 
-    private final String weatherDescription;
-    private final double temperatureCurrent;
-    private final double temperatureMin;
-    private final double temperatureMax;
+    private double temperatureCurrent;
+    private double temperatureMin;
+    private double temperatureMax;
+    private int humidity;
+    private Date dateOfLastUpdate;
+    private String dayOfForecast;
+    private String weather;
 
-
-    public Weather(String weatherDescription, double temperatureCurrent, double temperatureMin, double temperatureMax) {
-        this.weatherDescription = weatherDescription;
-        this.temperatureCurrent = temperatureCurrent;
-        this.temperatureMin = temperatureMin;
-        this.temperatureMax = temperatureMax;
+    public String getWeather() {
+        return weather;
     }
 
-    public String getWeatherDescription() {
-        return weatherDescription;
+    public void setWeather(String weather) {
+        this.weather = weather;
     }
 
     public double getTemperatureCurrent() {
         return temperatureCurrent;
     }
 
+    public void setTemperatureCurrent(double temperatureCurrent) {
+        this.temperatureCurrent = temperatureCurrent;
+    }
+
     public double getTemperatureMin() {
         return temperatureMin;
+    }
+
+    public void setTemperatureMin(double temperatureMin) {
+        this.temperatureMin = temperatureMin;
     }
 
     public double getTemperatureMax() {
         return temperatureMax;
     }
 
-    @Override
-    public String toString() {
-        return "Weather{" +
-                "weatherDescription='" + weatherDescription + '\'' +
-                ", temperatureCurrent=" + temperatureCurrent +
-                ", temperatureMin=" + temperatureMin +
-                ", temperatureMax=" + temperatureMax +
-                '}';
+    public void setTemperatureMax(double temperatureMax) {
+        this.temperatureMax = temperatureMax;
     }
+
+    public int getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(int humidity) {
+        this.humidity = humidity;
+    }
+
+    public Date getDateOfLastUpdate() {
+        return dateOfLastUpdate;
+    }
+
+    public void setDateOfLastUpdate(Date dateOfLastUpdate) {
+        this.dateOfLastUpdate = dateOfLastUpdate;
+    }
+
+    public String getDayOfForecast() {
+        return dayOfForecast;
+    }
+
+    public void setDayOfForecast(String dayOfForecast) {
+        this.dayOfForecast = dayOfForecast;
+    }
+
 }

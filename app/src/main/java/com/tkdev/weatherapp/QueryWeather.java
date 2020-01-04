@@ -3,8 +3,7 @@ package com.tkdev.weatherapp;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.tkdev.weatherapp.model.WeatherCurrent;
-import com.tkdev.weatherapp.model.WeatherForecast;
+import com.tkdev.weatherapp.model.Weather;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,12 +27,13 @@ public class QueryWeather {
 
     public static final String TAG = "QueryWeather";
 
-    public static WeatherCurrent fetchCurrent(String requestUrl) {
+    public static Weather fetchCurrent(String requestUrl) {
+
 
         return extractCurrentFromJson(fetch(requestUrl));
     }
 
-    public static List<WeatherForecast> fetchForecasts(String requestUrl) {
+    public static List<Weather> fetchForecasts(String requestUrl) {
 
         return extractForecastFromJson(fetch(requestUrl));
     }
@@ -116,12 +116,12 @@ public class QueryWeather {
         return output.toString();
     }
 
-    private static List<WeatherForecast> extractForecastFromJson(String weatherJSON) {
+    private static List<Weather> extractForecastFromJson(String weatherJSON) {
         if (TextUtils.isEmpty(weatherJSON)) {
             return null;
         }
 
-        List<WeatherForecast> forecasts = new ArrayList<>();
+        List<Weather> forecasts = new ArrayList<>();
 
         try {
             JSONObject baseJsonResponse = new JSONObject(weatherJSON);
@@ -140,7 +140,9 @@ public class QueryWeather {
                 String weatherDescription = propertiesWeather.getString("description");
 
 
-                WeatherForecast weatherForecast = new WeatherForecast(weatherDescription, temperatureCurrent, temperatureMin, temperatureMax, weatherDay);
+                Weather weatherForecast = baseWeatherBuild(temperatureCurrent, temperatureMin, temperatureMax, weatherDescription);
+                weatherForecast.setDayOfForecast(weatherDay);
+
                 Log.d(TAG, weatherForecast.toString());
                 forecasts.add(weatherForecast);
             }
@@ -152,7 +154,8 @@ public class QueryWeather {
         return forecasts;
     }
 
-    private static WeatherCurrent extractCurrentFromJson(String weatherJSON) {
+
+    private static Weather extractCurrentFromJson(String weatherJSON) {
         if (TextUtils.isEmpty(weatherJSON)) {
             return null;
         }
@@ -172,8 +175,9 @@ public class QueryWeather {
             JSONObject propertiesWeather = weatherArray.getJSONObject(0);
             String weatherDescription = propertiesWeather.getString("description");
 
+            Weather weatherCurrent = baseWeatherBuild(temperatureCurrent, temperatureMin, temperatureMax, weatherDescription);
+            weatherCurrent.setHumidity(humidity);
 
-            WeatherCurrent weatherCurrent = new WeatherCurrent(weatherDescription, temperatureCurrent, temperatureMin, temperatureMax, humidity, date);
             Log.d(TAG, weatherCurrent.toString());
             return weatherCurrent;
 
@@ -182,5 +186,17 @@ public class QueryWeather {
             return null;
         }
     }
+
+    private static Weather baseWeatherBuild(double temperatureCurrent, double temperatureMin, double temperatureMax, String weatherDescription){
+        Weather weather = new Weather();
+        weather.setTemperatureCurrent(temperatureCurrent);
+        weather.setTemperatureMin(temperatureMin);
+        weather.setTemperatureMax(temperatureMax);
+        weather.setWeather(weatherDescription);
+        return weather;
+    }
+
+
+
 
 }

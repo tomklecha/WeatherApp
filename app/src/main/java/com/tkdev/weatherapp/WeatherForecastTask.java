@@ -3,7 +3,7 @@ package com.tkdev.weatherapp;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.tkdev.weatherapp.model.WeatherForecast;
+import com.tkdev.weatherapp.model.Weather;
 
 import java.util.List;
 
@@ -15,11 +15,11 @@ import static com.tkdev.weatherapp.MainActivity.WEATHER_TEMPERATURE;
 import static com.tkdev.weatherapp.MainActivity.WEATHER_TEMPERATURE_PREFIX;
 import static com.tkdev.weatherapp.QueryWeather.TAG;
 
-public class WeatherForecastTask extends AsyncTask<Void, Void, List<WeatherForecast>> {
+public class WeatherForecastTask extends AsyncTask<Void, Void, List<Weather>> {
 
 
     @Override
-    protected List<WeatherForecast> doInBackground(Void... voids) {
+    protected List<Weather> doInBackground(Void... voids) {
         String uri = WEATHER_FORECAST_REQUEST +
                 WEATHER_CITY_ID +
                 WEATHER_TEMPERATURE_PREFIX +
@@ -27,7 +27,7 @@ public class WeatherForecastTask extends AsyncTask<Void, Void, List<WeatherForec
                 WEATHER_API_PREFIX +
                 WEATHER_API_KEY;
 
-        List<WeatherForecast> forecasts = QueryWeather.fetchForecasts(uri);
+        List<Weather> forecasts = QueryWeather.fetchForecasts(uri);
         Log.d(TAG, uri);
         return forecasts;
     }
