@@ -54,10 +54,11 @@ public class WeatherForecastFragment extends Fragment implements MainContract.Vi
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        presenter.onWeatherCreated();
+//        presenter.setViewText(currentV);
+//        currentV.setText("TEXT");
+//
 
-
-
-//        currentV.setText(String.valueOf(presenter.onWeatherCreated().getTemperatureCurrent()));
 //        minV.setText(String.valueOf(weather.getTemperatureMin()));
 //        maxV.setText(String.valueOf(weather.getTemperatureMax()));
 //        weatherV.setText(weather.getWeather());
@@ -68,8 +69,8 @@ public class WeatherForecastFragment extends Fragment implements MainContract.Vi
     @Override
     public void onStart() {
         super.onStart();
-        presenter.onWeatherCreated();
-        presenter.setViewText(currentV);
+//        presenter.onWeatherCreated();
+//        presenter.setViewText(currentV);
 
     }
 

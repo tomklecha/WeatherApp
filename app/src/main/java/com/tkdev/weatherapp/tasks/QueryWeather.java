@@ -40,11 +40,6 @@ public class QueryWeather {
 
     private static String fetch(String requestUrl){
         URL url = createUrl(requestUrl);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         String jsonResponse = null;
         try {
             jsonResponse = httpRequest(url);

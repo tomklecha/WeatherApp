@@ -3,6 +3,7 @@ package com.tkdev.weatherapp.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -55,12 +56,20 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
         return rootView;
     }
 
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState == null){
+            presenter.onWeatherCreated();
+            presenter.setCurrentViewText(currentV);
+        }
 
-        presenter.setCurrentViewText(currentV);
-        presenter.onWeatherCreated();
 
         fab.setOnClickListener(v -> WeatherCurrentFragment.this.getFragmentManager().beginTransaction()
                 .replace(R.id.content_main, new WeatherForecastFragment(), "TAG")
@@ -74,6 +83,7 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
 
     }
 
+
     @Override
     public void setPresenter(MainContract.Presenter presenter) {
         this.presenter = (CurrentPresenter) presenter;
@@ -85,4 +95,6 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
         super.onDestroy();
         Log.d("TAGTAG", "view destroyed");
     }
+
+
 }
