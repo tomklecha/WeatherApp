@@ -2,6 +2,7 @@ package com.tkdev.weatherapp.fragments;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,8 +55,7 @@ public class WeatherForecastFragment extends Fragment implements MainContract.Vi
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        presenter.onWeatherCreated();
-        presenter.setViewText(currentV);
+
 
 //        currentV.setText(String.valueOf(presenter.onWeatherCreated().getTemperatureCurrent()));
 //        minV.setText(String.valueOf(weather.getTemperatureMin()));
@@ -66,8 +66,17 @@ public class WeatherForecastFragment extends Fragment implements MainContract.Vi
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        presenter.onWeatherCreated();
+        presenter.setViewText(currentV);
+
+    }
+
+    @Override
     public void setPresenter(MainContract.Presenter presenter) {
         this.presenter = (ForecastPresenter) presenter;
     }
-    
+
+
 }

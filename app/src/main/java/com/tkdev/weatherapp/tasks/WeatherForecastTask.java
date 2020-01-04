@@ -31,4 +31,9 @@ public class WeatherForecastTask extends AsyncTask<Void, Void, List<Weather>> {
         Log.d(TAG, uri);
         return forecasts;
     }
+
+    @Override
+    protected void onPostExecute(List<Weather> weathers) {
+        super.onPostExecute(weathers);
+    }
 }

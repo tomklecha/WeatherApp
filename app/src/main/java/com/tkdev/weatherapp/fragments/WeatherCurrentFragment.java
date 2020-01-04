@@ -6,12 +6,14 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tkdev.weatherapp.R;
 import com.tkdev.weatherapp.model.Weather;
 import com.tkdev.weatherapp.presenter.CurrentPresenter;
@@ -26,6 +28,7 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
     private CurrentPresenter presenter;
     private WeatherCurrentFragment task;;
     private ProgressBar progressBar;
+    private FloatingActionButton fab;
 
     private TextView currentV;
     private TextView minV;
@@ -46,6 +49,7 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
         maxV = rootView.findViewById(R.id.tempMax);
         weatherV = rootView.findViewById(R.id.weatherDescripton);
         progressBar = rootView.findViewById(R.id.progressBar);
+        fab = rootView.findViewById(R.id.fab);
         setPresenter(new CurrentPresenter((MainContract.View) getView()));
 
         return rootView;
@@ -55,9 +59,13 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        presenter.setCurrentViewText(currentV);
+        presenter.setCurrentViewText(currentV);
         presenter.onWeatherCreated();
 
+        fab.setOnClickListener(v -> WeatherCurrentFragment.this.getFragmentManager().beginTransaction()
+                .replace(R.id.content_main, new WeatherForecastFragment(), "TAG")
+                .addToBackStack("TAG")
+                .commit());
 //        currentV.setText(String.valueOf(presenter.onWeatherCreated().getTemperatureCurrent()));
 //        minV.setText(String.valueOf(weather.getTemperatureMin()));
 //        maxV.setText(String.valueOf(weather.getTemperatureMax()));
@@ -71,4 +79,10 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
         this.presenter = (CurrentPresenter) presenter;
     }
 
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("TAGTAG", "view destroyed");
+    }
 }

@@ -2,11 +2,11 @@ package com.tkdev.weatherapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import android.os.Bundle;
 import android.view.Menu;
 
 import com.tkdev.weatherapp.fragments.WeatherCurrentFragment;
-import com.tkdev.weatherapp.fragments.WeatherForecastFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -24,12 +24,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_main, new WeatherForecastFragment())
+                .replace(R.id.content_main, new WeatherCurrentFragment())
                 .commit();
-
-//        getSupportFragmentManager().beginTransaction()
-//                .replace(R.id.content_main, new WeatherCurrentFragment())
-//                .commit();
 
     }
 
@@ -37,5 +33,18 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            super.onBackPressed();
+        } else {
+            getSupportFragmentManager().popBackStack();
+        }
+
     }
 }

@@ -29,6 +29,7 @@ public class ForecastPresenter implements MainContract.Presenter{
             e.printStackTrace();
         }
 
+
         return this.forecasts;
     }
 
@@ -37,7 +38,6 @@ public class ForecastPresenter implements MainContract.Presenter{
         loadForecasts();
     }
 
-    @Override
     public void setViewText(TextView view) {
         String textView = (forecasts.get(0).getDayOfForecast());
         view.setText(textView);

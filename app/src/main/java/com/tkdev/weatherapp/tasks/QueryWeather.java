@@ -143,7 +143,6 @@ public class QueryWeather {
                 Weather weatherForecast = baseWeatherBuild(temperatureCurrent, temperatureMin, temperatureMax, weatherDescription);
                 weatherForecast.setDayOfForecast(weatherDay);
 
-                Log.d(TAG, weatherForecast.toString());
                 forecasts.add(weatherForecast);
             }
 
