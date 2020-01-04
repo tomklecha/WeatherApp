@@ -13,6 +13,14 @@ public class WeatherCurrent extends Weather {
         this.dateOfLastUpdate = dateOfLastUpdate;
     }
 
+    public int getHumidity() {
+        return humidity;
+    }
+
+    public Date getDateOfLastUpdate() {
+        return dateOfLastUpdate;
+    }
+
     @Override
     public String toString() {
         return "WeatherCurrent{" +

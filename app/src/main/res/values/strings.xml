@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">WeatherApp</string>
     <string name="WEATHER_APP_API_KEY">5b08b54ce198509d241991110864cab4</string>
+    <string name="about_dev">About</string>
+    <string name="tempCurrent">Current temperature</string>
+    <string name="tempMin">Minimal temperature</string>
+    <string name="tempMax">Maximum temperature</string>
+    <string name="weatherDescripton">Weather description</string>
 </resources>

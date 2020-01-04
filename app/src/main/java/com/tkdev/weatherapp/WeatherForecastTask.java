@@ -1,6 +1,7 @@
 package com.tkdev.weatherapp;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.tkdev.weatherapp.model.WeatherForecast;
 
@@ -12,6 +13,7 @@ import static com.tkdev.weatherapp.MainActivity.WEATHER_CITY_ID;
 import static com.tkdev.weatherapp.MainActivity.WEATHER_FORECAST_REQUEST;
 import static com.tkdev.weatherapp.MainActivity.WEATHER_TEMPERATURE;
 import static com.tkdev.weatherapp.MainActivity.WEATHER_TEMPERATURE_PREFIX;
+import static com.tkdev.weatherapp.QueryWeather.TAG;
 
 public class WeatherForecastTask extends AsyncTask<Void, Void, List<WeatherForecast>> {
 
@@ -26,6 +28,7 @@ public class WeatherForecastTask extends AsyncTask<Void, Void, List<WeatherForec
                 WEATHER_API_KEY;
 
         List<WeatherForecast> forecasts = QueryWeather.fetchForecasts(uri);
+        Log.d(TAG, uri);
         return forecasts;
     }
 }

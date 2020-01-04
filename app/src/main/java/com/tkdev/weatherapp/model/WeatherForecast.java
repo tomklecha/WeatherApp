@@ -11,6 +11,10 @@ public class WeatherForecast extends Weather {
         this.dayOfForecast = dayOfForecast;
     }
 
+    public String getDayOfForecast() {
+        return dayOfForecast;
+    }
+
     @Override
     public String toString() {
         return "WeatherForecast{" +

@@ -15,6 +15,21 @@ public class Weather {
         this.temperatureMax = temperatureMax;
     }
 
+    public String getWeatherDescription() {
+        return weatherDescription;
+    }
+
+    public double getTemperatureCurrent() {
+        return temperatureCurrent;
+    }
+
+    public double getTemperatureMin() {
+        return temperatureMin;
+    }
+
+    public double getTemperatureMax() {
+        return temperatureMax;
+    }
 
     @Override
     public String toString() {
