@@ -6,4 +6,7 @@
     <string name="tempMin">Minimal temperature</string>
     <string name="tempMax">Maximum temperature</string>
     <string name="weatherDescripton">Weather description</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

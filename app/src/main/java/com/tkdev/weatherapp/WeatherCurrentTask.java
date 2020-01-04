@@ -2,14 +2,12 @@ package com.tkdev.weatherapp;
 
 import android.os.AsyncTask;
 
-import com.tkdev.weatherapp.model.Weather;
-
-import static com.tkdev.weatherapp.MainActivity.WEATHER_API_KEY;
-import static com.tkdev.weatherapp.MainActivity.WEATHER_API_PREFIX;
-import static com.tkdev.weatherapp.MainActivity.WEATHER_CITY_ID;
-import static com.tkdev.weatherapp.MainActivity.WEATHER_CURRENT_REQUEST;
-import static com.tkdev.weatherapp.MainActivity.WEATHER_TEMPERATURE;
-import static com.tkdev.weatherapp.MainActivity.WEATHER_TEMPERATURE_PREFIX;
+import static com.tkdev.weatherapp.Utils.WEATHER_API_KEY;
+import static com.tkdev.weatherapp.Utils.WEATHER_API_PREFIX;
+import static com.tkdev.weatherapp.Utils.WEATHER_CITY_ID;
+import static com.tkdev.weatherapp.Utils.WEATHER_CURRENT_REQUEST;
+import static com.tkdev.weatherapp.Utils.WEATHER_TEMPERATURE;
+import static com.tkdev.weatherapp.Utils.WEATHER_TEMPERATURE_PREFIX;
 
 public class WeatherCurrentTask extends AsyncTask <Void, Void, Weather> {
 
@@ -25,5 +23,6 @@ public class WeatherCurrentTask extends AsyncTask <Void, Void, Weather> {
 
      return QueryWeather.fetchCurrent(uri);
     }
-    }
+
+}
 
