@@ -1,28 +1,46 @@
 package com.tkdev.weatherapp.presenter;
 
-import android.view.View;
+import android.widget.TextView;
 
-import com.tkdev.weatherapp.Weather;
-import com.tkdev.weatherapp.WeatherCurrentTask;
-import com.tkdev.weatherapp.WeatherForecastTask;
+import com.tkdev.weatherapp.model.Weather;
+import com.tkdev.weatherapp.tasks.WeatherCurrentTask;
+import com.tkdev.weatherapp.tasks.WeatherForecastTask;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class ForecastPresenter implements MainContract.Presenter {
+public class ForecastPresenter implements MainContract.Presenter{
 
-    private View view;
-    private WeatherCurrentTask task;
+    private MainContract.View view;
+    private List<Weather> forecasts;
+    private WeatherForecastTask task;
 
-    public ForecastPresenter(View view, WeatherForecastTask task) {
+
+    public ForecastPresenter(MainContract.View view) {
         this.view = view;
-        this.task = new WeatherCurrentTask();
+        this.task = new WeatherForecastTask();
     }
 
+    private List<Weather> loadForecasts() {
+        task.execute();
+        try {
+            this.forecasts = task.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return this.forecasts;
+    }
 
     @Override
-    public Weather onViewCreated() {
-        Weather weather = new Weather();
-        return loadWeather(weather);
+    public void onWeatherCreated() {
+        loadForecasts();
+    }
+
+    @Override
+    public void setViewText(TextView view) {
+        String textView = (forecasts.get(0).getDayOfForecast());
+        view.setText(textView);
     }
 
     @Override
@@ -30,14 +48,4 @@ public class ForecastPresenter implements MainContract.Presenter {
         this.view = null;
     }
 
-    private Weather loadWeather(Weather weather) {
-        task.execute();
-        try {
-            weather = task.get();
-
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return weather;
-    }
 }

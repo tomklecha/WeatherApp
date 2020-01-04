@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 
 import com.tkdev.weatherapp.fragments.WeatherCurrentFragment;
+import com.tkdev.weatherapp.fragments.WeatherForecastFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -23,8 +24,12 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_main, new WeatherCurrentFragment())
+                .replace(R.id.content_main, new WeatherForecastFragment())
                 .commit();
+
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.content_main, new WeatherCurrentFragment())
+//                .commit();
 
     }
 

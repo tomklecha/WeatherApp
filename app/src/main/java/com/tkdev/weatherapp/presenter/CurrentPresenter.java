@@ -1,35 +1,27 @@
 package com.tkdev.weatherapp.presenter;
 
 import android.view.View;
+import android.widget.TextView;
 
-import com.tkdev.weatherapp.Weather;
-import com.tkdev.weatherapp.WeatherCurrentTask;
+import com.tkdev.weatherapp.model.Weather;
+import com.tkdev.weatherapp.tasks.WeatherCurrentTask;
 
 import java.util.concurrent.ExecutionException;
 
-public class CurrentPresenter implements MainContract.Presenter {
+public class CurrentPresenter implements MainContract.Presenter{
 
-    private View view;
+    private MainContract.View view;
+    private Weather weather;
     private WeatherCurrentTask task;
 
-    public CurrentPresenter(View view, WeatherCurrentTask task) {
+
+    public CurrentPresenter(MainContract.View view) {
         this.view = view;
+        this.weather = new Weather();
         this.task = new WeatherCurrentTask();
     }
 
-
-    @Override
-    public Weather onViewCreated() {
-        Weather weather = new Weather();
-        return loadWeather(weather);
-    }
-
-    @Override
-    public void onDestroy() {
-        this.view = null;
-    }
-
-    private Weather loadWeather(Weather weather) {
+    private Weather loadWeather() {
         task.execute();
         try {
             weather = task.get();
@@ -37,6 +29,24 @@ public class CurrentPresenter implements MainContract.Presenter {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+
         return weather;
     }
+
+    @Override
+    public void onWeatherCreated() {
+        loadWeather();
+    }
+
+
+    @Override
+    public void onDestroy() {
+        this.view = null;
+    }
+
+    public void setCurrentViewText(TextView view) {
+        String textView = String.valueOf(weather.getTemperatureCurrent());
+        view.setText(textView);
+    }
+
 }

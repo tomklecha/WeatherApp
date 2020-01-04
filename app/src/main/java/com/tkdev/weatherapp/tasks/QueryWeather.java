@@ -1,7 +1,9 @@
-package com.tkdev.weatherapp;
+package com.tkdev.weatherapp.tasks;
 
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.tkdev.weatherapp.model.Weather;
 
 import org.json.JSONArray;
 import org.json.JSONException;

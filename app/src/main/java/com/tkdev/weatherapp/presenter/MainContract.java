@@ -1,10 +1,16 @@
 package com.tkdev.weatherapp.presenter;
 
-import com.tkdev.weatherapp.Weather;
+import android.view.View;
+import android.widget.TextView;
+
+import com.tkdev.weatherapp.model.Weather;
 
 public interface MainContract {
     interface Presenter extends BasePresenter {
-        Weather onViewCreated();
+        void onWeatherCreated();
+    }
+
+    interface View extends BaseView<Presenter>{
     }
 
 

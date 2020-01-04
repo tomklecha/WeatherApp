@@ -1,4 +1,4 @@
-package com.tkdev.weatherapp;
+package com.tkdev.weatherapp.model;
 
 import java.util.Date;
 

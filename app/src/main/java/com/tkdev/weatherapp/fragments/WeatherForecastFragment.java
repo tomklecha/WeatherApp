@@ -2,29 +2,28 @@ package com.tkdev.weatherapp.fragments;
 
 
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.tkdev.weatherapp.R;
-import com.tkdev.weatherapp.model.Weather;
 import com.tkdev.weatherapp.presenter.CurrentPresenter;
+import com.tkdev.weatherapp.presenter.ForecastPresenter;
 import com.tkdev.weatherapp.presenter.MainContract;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WeatherCurrentFragment extends Fragment implements MainContract.View {
+public class WeatherForecastFragment extends Fragment implements MainContract.View {
 
-    private CurrentPresenter presenter;
-    private WeatherCurrentFragment task;;
+    private ForecastPresenter presenter;
+    private WeatherForecastFragment task;
     private ProgressBar progressBar;
 
     private TextView currentV;
@@ -32,7 +31,7 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
     private TextView maxV;
     private TextView weatherV;
 
-    public WeatherCurrentFragment() {
+    public WeatherForecastFragment() {
     }
 
 
@@ -46,7 +45,7 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
         maxV = rootView.findViewById(R.id.tempMax);
         weatherV = rootView.findViewById(R.id.weatherDescripton);
         progressBar = rootView.findViewById(R.id.progressBar);
-        setPresenter(new CurrentPresenter((MainContract.View) getView()));
+        setPresenter(new ForecastPresenter((MainContract.View) getView()));
 
         return rootView;
     }
@@ -55,8 +54,8 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        presenter.setCurrentViewText(currentV);
         presenter.onWeatherCreated();
+        presenter.setViewText(currentV);
 
 //        currentV.setText(String.valueOf(presenter.onWeatherCreated().getTemperatureCurrent()));
 //        minV.setText(String.valueOf(weather.getTemperatureMin()));
@@ -68,7 +67,7 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
 
     @Override
     public void setPresenter(MainContract.Presenter presenter) {
-        this.presenter = (CurrentPresenter) presenter;
+        this.presenter = (ForecastPresenter) presenter;
     }
-
+    
 }
