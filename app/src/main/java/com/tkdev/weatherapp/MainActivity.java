@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 //        Disable Toolbar Title
-//        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_current,new WeatherCurrentFragment())

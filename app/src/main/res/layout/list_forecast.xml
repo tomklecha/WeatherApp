@@ -1,78 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
+    android:backgroundTintMode="multiply"
     android:orientation="vertical"
     android:padding="8dp">
 
-    <LinearLayout
-        android:layout_width="150dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="120dp"
         android:layout_height="200dp"
-        android:background="#B3E5FC"
-        android:orientation="vertical">
+        android:background="#26000000"
+        android:backgroundTintMode="multiply">
 
         <TextView
             android:id="@+id/forecast_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
             android:padding="4dp"
             android:text="@string/dayOfForecast"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <TextView
             android:id="@+id/forecast_hour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_marginTop="4dp"
             android:padding="2dp"
-            android:text="@string/forecast_hour" />
+            app:layout_constraintEnd_toEndOf="@+id/forecast_day"
+            app:layout_constraintStart_toStartOf="@+id/forecast_day"
+            app:layout_constraintTop_toBottomOf="@+id/forecast_day"
+            tools:text="@string/forecast_hour" />
 
         <TextView
             android:id="@+id/forecast_temp_current"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:padding="2dp"
-            android:text="@string/tempCurrent" />
+            android:text="@string/current_text"
+            app:layout_constraintEnd_toEndOf="@+id/forecast_hour"
+            app:layout_constraintStart_toStartOf="@+id/forecast_hour"
+            app:layout_constraintTop_toBottomOf="@+id/forecast_hour" />
 
         <TextView
             android:id="@+id/forecast_weather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:padding="2dp"
-            android:text="@string/weatherDescription" />
+            app:layout_constraintEnd_toEndOf="@+id/forecast_temp_current"
+            app:layout_constraintStart_toStartOf="@+id/forecast_temp_current"
+            app:layout_constraintTop_toBottomOf="@+id/forecast_temp_current"
+            tools:text="@string/weather_text" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/forecast_temp_min"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_marginTop="8dp"
+            android:padding="2dp"
+            app:layout_constraintEnd_toEndOf="@+id/forecast_temp_min_text"
+            app:layout_constraintStart_toStartOf="@+id/forecast_temp_min_text"
+            app:layout_constraintTop_toBottomOf="@+id/forecast_temp_min_text"
+            tools:text="@string/temp_min_text" />
 
-            <TextView
-                android:id="@+id/forecast_temp_min"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="2dp"
-                tools:text="min" />
+        <TextView
+            android:id="@+id/forecast_temp_max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="2dp"
+            app:layout_constraintEnd_toEndOf="@+id/forecast_temp_max_text"
+            app:layout_constraintStart_toStartOf="@+id/forecast_temp_max_text"
+            app:layout_constraintTop_toBottomOf="@+id/forecast_temp_max_text"
+            tools:text="@string/temp_max_text" />
 
-            <TextView
-                android:id="@+id/forecast_temp_max"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="2dp"
-                tools:text="max" />
+        <TextView
+            android:id="@+id/forecast_temp_min_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:padding="2dp"
+            android:text="@string/temp_min_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/forecast_weather" />
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/forecast_temp_max_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:padding="2dp"
+            android:text="@string/temp_max_text"
+            app:layout_constraintBaseline_toBaselineOf="@+id/forecast_temp_min_text"
+            app:layout_constraintStart_toEndOf="@+id/forecast_temp_min_text" />
 
-    </LinearLayout>
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toBottomOf="@+id/forecast_temp_min"
+            app:layout_constraintEnd_toStartOf="@+id/forecast_temp_max_text"
+            app:layout_constraintStart_toEndOf="@+id/forecast_temp_min_text"
+            app:layout_constraintTop_toTopOf="@+id/forecast_temp_min_text" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </FrameLayout>

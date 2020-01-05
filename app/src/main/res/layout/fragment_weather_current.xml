@@ -5,7 +5,7 @@
     android:id="@+id/current_weather_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:padding="8dp"
     tools:context=".fragments.WeatherCurrentFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.154"
+            app:layout_constraintHorizontal_bias="0.204"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,7 +31,7 @@
             android:id="@+id/city_temp_current"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:textSize="50sp"
             app:layout_constraintStart_toStartOf="@+id/city_name"
             app:layout_constraintTop_toBottomOf="@+id/city_name"
@@ -41,8 +41,8 @@
             android:id="@+id/city_weather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/weatherDescription"
+            android:layout_marginTop="16dp"
+            android:text="@string/weather_text"
             app:layout_constraintStart_toStartOf="@+id/city_temp_current"
             app:layout_constraintTop_toBottomOf="@+id/city_temp_current" />
 
@@ -51,36 +51,82 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="@string/tempMin"
+            android:text="@string/temp_min_text"
             app:layout_constraintBottom_toTopOf="@+id/city_temp_max"
             app:layout_constraintStart_toStartOf="@+id/city_temp_max" />
+
+        <TextView
+            android:id="@+id/city_temp_min_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/temp_min_text"
+            app:layout_constraintBaseline_toBaselineOf="@+id/city_temp_min"
+            app:layout_constraintStart_toEndOf="@+id/city_temp_min" />
 
         <TextView
             android:id="@+id/city_temp_max"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:text="@string/tempMax"
             app:layout_constraintBaseline_toBaselineOf="@+id/city_temp_current"
-            app:layout_constraintStart_toEndOf="@+id/city_temp_current" />
+            app:layout_constraintStart_toEndOf="@+id/city_temp_current"
+            tools:text="@string/temp_max_text" />
+
+        <TextView
+            android:id="@+id/city_temp_max_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/temp_max_text"
+            app:layout_constraintBaseline_toBaselineOf="@+id/city_temp_max"
+            app:layout_constraintStart_toEndOf="@+id/city_temp_max" />
+
+        <TextView
+            android:id="@+id/city_humidity_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/humidity_text"
+            app:layout_constraintStart_toStartOf="@+id/city_weather"
+            app:layout_constraintTop_toBottomOf="@+id/city_weather" />
 
         <TextView
             android:id="@+id/city_humidity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
             android:text="@string/humidity"
-            app:layout_constraintStart_toStartOf="@+id/city_weather"
-            app:layout_constraintTop_toBottomOf="@+id/city_weather" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/city_humidity_text"
+            app:layout_constraintStart_toEndOf="@+id/city_humidity_text" />
+
+        <TextView
+            android:id="@+id/city_hour_update_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/city_hour_update_text"
+            app:layout_constraintStart_toStartOf="@+id/city_humidity_text"
+            app:layout_constraintTop_toBottomOf="@+id/city_humidity_text" />
 
         <TextView
             android:id="@+id/city_hour_update"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/dayOfLastUpdate"
-            app:layout_constraintStart_toStartOf="@+id/city_humidity"
-            app:layout_constraintTop_toBottomOf="@+id/city_humidity" />
+            android:layout_marginStart="8dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/city_hour_update_text"
+            app:layout_constraintStart_toEndOf="@+id/city_hour_update_text"
+            tools:text="@string/dayOfLastUpdate" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="4dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toTopOf="@+id/city_temp_max"
+            app:layout_constraintEnd_toEndOf="@+id/city_temp_max_text"
+            app:layout_constraintStart_toStartOf="@+id/city_temp_max" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
