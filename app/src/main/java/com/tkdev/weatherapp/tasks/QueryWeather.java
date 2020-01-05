@@ -1,7 +1,13 @@
 package com.tkdev.weatherapp.tasks;
 
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.tkdev.weatherapp.model.Weather;
 
@@ -17,15 +23,18 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 
 public class QueryWeather {
 
 
     public static final String TAG = "QueryWeather";
+
 
     public static Weather fetchCurrent(String requestUrl) {
 
@@ -121,23 +130,24 @@ public class QueryWeather {
 
         try {
             JSONObject baseJsonResponse = new JSONObject(weatherJSON);
-            JSONArray featureArray = baseJsonResponse.getJSONArray("list");
+            JSONArray listResponseArray = baseJsonResponse.getJSONArray("list");
 
-            for (int i = 0; i < featureArray.length(); i++) {
-                JSONObject currentForecast = featureArray.getJSONObject(i);
-                JSONObject properties = currentForecast.getJSONObject("main");
-                double temperatureCurrent = properties.getDouble("temp");
-                double temperatureMin = properties.getDouble("temp_min");
-                double temperatureMax = properties.getDouble("temp_max");
-                String weatherDay = currentForecast.getString("dt_txt");
+            for (int i = 0; i < listResponseArray.length(); i++) {
+                JSONObject forecastObject = listResponseArray.getJSONObject(i);
+                JSONObject mainResponse = forecastObject.getJSONObject("main");
+                double temperatureCurrent = mainResponse.getDouble("temp");
+                double temperatureMin = mainResponse.getDouble("temp_min");
+                double temperatureMax = mainResponse.getDouble("temp_max");
+                Date date = new Date( forecastObject.getLong("dt") * 1000);
 
-                JSONArray weatherArray = currentForecast.getJSONArray("weather");
-                JSONObject propertiesWeather = weatherArray.getJSONObject(0);
-                String weatherDescription = propertiesWeather.getString("description");
+
+                JSONArray weatherResponseArray = forecastObject.getJSONArray("weather");
+                JSONObject weatherResponse = weatherResponseArray.getJSONObject(0);
+                String weatherDescription = weatherResponse.getString("main");
 
 
                 Weather weatherForecast = baseWeatherBuild(temperatureCurrent, temperatureMin, temperatureMax, weatherDescription);
-                weatherForecast.setDayOfForecast(weatherDay);
+                weatherForecast.setDayOfForecast(date);
 
                 forecasts.add(weatherForecast);
             }
@@ -158,20 +168,22 @@ public class QueryWeather {
 
         try {
             JSONObject baseJsonResponse = new JSONObject(weatherJSON);
-            JSONObject currentWeather = baseJsonResponse.getJSONObject("main");
-            double temperatureCurrent = currentWeather.getDouble("temp");
-            double temperatureMin = currentWeather.getDouble("temp_min");
-            double temperatureMax = currentWeather.getDouble("temp_max");
-            int humidity = currentWeather.getInt("humidity");
-            Date date = new Date();
-            date.setTime((long) baseJsonResponse.getInt("dt") * 1000);
+            Date date = new Date(baseJsonResponse.getLong("dt") * 1000);
 
-            JSONArray weatherArray = baseJsonResponse.getJSONArray("weather");
-            JSONObject propertiesWeather = weatherArray.getJSONObject(0);
-            String weatherDescription = propertiesWeather.getString("description");
+
+            JSONObject mainResponse = baseJsonResponse.getJSONObject("main");
+            double temperatureCurrent = mainResponse.getDouble("temp");
+            double temperatureMin = mainResponse.getDouble("temp_min");
+            double temperatureMax = mainResponse.getDouble("temp_max");
+            int humidity = mainResponse.getInt("humidity");
+
+            JSONArray weatherResponseArray = baseJsonResponse.getJSONArray("weather");
+            JSONObject weatherResponse = weatherResponseArray.getJSONObject(0);
+            String weatherDescription = weatherResponse.getString("main");
 
             Weather weatherCurrent = baseWeatherBuild(temperatureCurrent, temperatureMin, temperatureMax, weatherDescription);
             weatherCurrent.setHumidity(humidity);
+            weatherCurrent.setDateOfLastUpdate(date);
 
             return weatherCurrent;
 

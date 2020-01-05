@@ -10,10 +10,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tkdev.weatherapp.R;
 import com.tkdev.weatherapp.presenter.CurrentPresenter;
 import com.tkdev.weatherapp.presenter.MainContract;
@@ -28,6 +26,7 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
     private TextView maxV;
     private TextView weatherV;
     private TextView humidityV;
+    private TextView dayUpdateV;
 
     public WeatherCurrentFragment() {
     }
@@ -44,11 +43,12 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_weather_current, container, false);
 
-        currentV = rootView.findViewById(R.id.tempCurrent);
-        minV = rootView.findViewById(R.id.tempMin);
-        maxV = rootView.findViewById(R.id.tempMax);
-        weatherV = rootView.findViewById(R.id.weatherDescription);
-        humidityV = rootView.findViewById(R.id.humidity);
+        currentV = rootView.findViewById(R.id.city_temp_current);
+        minV = rootView.findViewById(R.id.city_temp_min);
+        maxV = rootView.findViewById(R.id.city_temp_max);
+        weatherV = rootView.findViewById(R.id.city_weather);
+        humidityV = rootView.findViewById(R.id.city_humidity);
+        dayUpdateV = rootView.findViewById(R.id.city_hour_update);
 
         return rootView;
     }
@@ -70,6 +70,7 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
         presenter.setTemperatureMaximumTextView(maxV);
         presenter.setWeatherDescriptionTextView(weatherV);
         presenter.setHumidityViewText(humidityV);
+        presenter.setDateUpdateViewText(dayUpdateV);
 
     }
 
@@ -78,7 +79,7 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
     public void setPresenter(MainContract.Presenter presenter) {
         this.presenter = (CurrentPresenter) presenter;
     }
-    }
+}
 
 
 
