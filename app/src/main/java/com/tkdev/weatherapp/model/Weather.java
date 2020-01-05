@@ -9,7 +9,7 @@ public class Weather {
     private double temperatureMax;
     private int humidity;
     private Date dateOfLastUpdate;
-    private String dayOfForecast;
+    private Date dayOfForecast;
     private String weather;
 
     public String getWeather() {
@@ -25,7 +25,7 @@ public class Weather {
     }
 
     public void setTemperatureCurrent(double temperatureCurrent) {
-        this.temperatureCurrent = temperatureCurrent;
+        this.temperatureCurrent = Math.rint(temperatureCurrent*10)/10;
     }
 
     public double getTemperatureMin() {
@@ -33,7 +33,7 @@ public class Weather {
     }
 
     public void setTemperatureMin(double temperatureMin) {
-        this.temperatureMin = temperatureMin;
+        this.temperatureMin = Math.rint(temperatureMin*10)/10;
     }
 
     public double getTemperatureMax() {
@@ -41,7 +41,7 @@ public class Weather {
     }
 
     public void setTemperatureMax(double temperatureMax) {
-        this.temperatureMax = temperatureMax;
+        this.temperatureMax = Math.rint(temperatureMax*10)/10;
     }
 
     public int getHumidity() {
@@ -60,12 +60,11 @@ public class Weather {
         this.dateOfLastUpdate = dateOfLastUpdate;
     }
 
-    public String getDayOfForecast() {
+    public Date getDayOfForecast() {
         return dayOfForecast;
     }
 
-    public void setDayOfForecast(String dayOfForecast) {
+    public void setDayOfForecast(Date dayOfForecast) {
         this.dayOfForecast = dayOfForecast;
     }
-
 }

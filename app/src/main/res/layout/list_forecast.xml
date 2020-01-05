@@ -1,34 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="center"
+    android:layout_margin="8dp"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="8dp">
 
-    <TextView
-        android:id="@+id/forecastTempCurrent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tempCurrent" />
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:background="#B3E5FC"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/forecastTempMin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tempMin" />
+        <TextView
+            android:id="@+id/forecast_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="4dp"
+            android:text="@string/dayOfForecast"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/forecastTempMax"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tempMax" />
+        <TextView
+            android:id="@+id/forecast_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:text="@string/forecast_hour" />
 
-    <TextView
-        android:id="@+id/forecastWeatherDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/weatherDescription" />
+        <TextView
+            android:id="@+id/forecast_temp_current"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:text="@string/tempCurrent" />
+
+        <TextView
+            android:id="@+id/forecast_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:text="@string/weatherDescription" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/forecast_temp_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="2dp"
+                tools:text="min" />
+
+            <TextView
+                android:id="@+id/forecast_temp_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="2dp"
+                tools:text="max" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 
-</LinearLayout>
+</FrameLayout>

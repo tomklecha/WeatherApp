@@ -11,4 +11,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="cityName">London</string>
     <string name="humidity">Humidity</string>
+    <string name="dayOfForecast">Day of Forecast</string>
+    <string name="dayOfLastUpdate">Day of last update</string>
+    <string name="forecast_title">5-day forecast</string>
+    <string name="forecast_hour">Hour of forecast</string>
 </resources>
