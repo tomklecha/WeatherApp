@@ -1,5 +1,6 @@
 package com.tkdev.weatherapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -7,6 +8,9 @@ import android.os.Bundle;
 import android.view.Menu;
 
 import com.tkdev.weatherapp.fragments.WeatherCurrentFragment;
+import com.tkdev.weatherapp.fragments.WeatherForecastFragment;
+
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -23,8 +27,15 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+//        Disable Toolbar Title
+//        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_main, new WeatherCurrentFragment())
+                .replace(R.id.content_current,new WeatherCurrentFragment())
+                .commit();
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_forecast,new WeatherForecastFragment())
                 .commit();
 
     }
@@ -36,15 +47,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-
-        int count = getSupportFragmentManager().getBackStackEntryCount();
-
-        if (count == 0) {
-            super.onBackPressed();
-        } else {
-            getSupportFragmentManager().popBackStack();
-        }
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
 
     }
 }

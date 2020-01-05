@@ -1,59 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/current_weather_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/weather_fragment_layout"
+    android:padding="16dp"
     tools:context=".fragments.WeatherCurrentFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/cityNane"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cityName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.154"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tempCurrent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tempCurrent" />
+            android:layout_marginTop="16dp"
+            android:text="@string/tempCurrent"
+            app:layout_constraintStart_toStartOf="@+id/cityNane"
+            app:layout_constraintTop_toBottomOf="@+id/cityNane"
+            tools:text="20" />
+
+        <TextView
+            android:id="@+id/weatherDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/weatherDescription"
+            app:layout_constraintStart_toStartOf="@+id/tempCurrent"
+            app:layout_constraintTop_toBottomOf="@+id/tempCurrent" />
 
         <TextView
             android:id="@+id/tempMin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tempMin" />
+            android:layout_marginStart="120dp"
+            android:text="@string/tempMin"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tempCurrent"
+            app:layout_constraintStart_toEndOf="@+id/tempCurrent" />
 
         <TextView
             android:id="@+id/tempMax"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tempMax" />
+            android:layout_marginTop="16dp"
+            android:text="@string/tempMax"
+            app:layout_constraintStart_toStartOf="@+id/tempMin"
+            app:layout_constraintTop_toBottomOf="@+id/tempMin" />
 
         <TextView
-            android:id="@+id/weatherDescripton"
+            android:id="@+id/humidity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/weatherDescripton" />
+            android:layout_marginTop="16dp"
+            android:text="@string/humidity"
+            app:layout_constraintStart_toStartOf="@+id/weatherDescription"
+            app:layout_constraintTop_toBottomOf="@+id/weatherDescription" />
 
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.core.widget.ContentLoadingProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
 </FrameLayout>

@@ -2,10 +2,14 @@ package com.tkdev.weatherapp.tasks;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ProgressBar;
 
 import com.tkdev.weatherapp.model.Weather;
 
+import java.util.List;
+
+import static com.tkdev.weatherapp.tasks.QueryWeather.TAG;
 import static com.tkdev.weatherapp.tasks.Utils.WEATHER_API_KEY;
 import static com.tkdev.weatherapp.tasks.Utils.WEATHER_API_PREFIX;
 import static com.tkdev.weatherapp.tasks.Utils.WEATHER_CITY_ID;
@@ -13,7 +17,7 @@ import static com.tkdev.weatherapp.tasks.Utils.WEATHER_CURRENT_REQUEST;
 import static com.tkdev.weatherapp.tasks.Utils.WEATHER_TEMPERATURE;
 import static com.tkdev.weatherapp.tasks.Utils.WEATHER_TEMPERATURE_PREFIX;
 
-public class WeatherCurrentTask extends AsyncTask <Void, Void, Weather> {
+public class WeatherCurrentTask extends AsyncTask<Void, Void, Weather> {
 
 
     @Override
@@ -25,7 +29,8 @@ public class WeatherCurrentTask extends AsyncTask <Void, Void, Weather> {
                 WEATHER_API_PREFIX +
                 WEATHER_API_KEY;
 
-     return QueryWeather.fetchCurrent(uri);
+        Log.d(TAG, uri);
+        return QueryWeather.fetchCurrent(uri);
     }
 
 }

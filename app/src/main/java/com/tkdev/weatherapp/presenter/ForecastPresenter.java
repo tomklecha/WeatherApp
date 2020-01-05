@@ -9,7 +9,7 @@ import com.tkdev.weatherapp.tasks.WeatherForecastTask;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class ForecastPresenter implements MainContract.Presenter{
+public class ForecastPresenter implements MainContract.Presenter {
 
     private MainContract.View view;
     private List<Weather> forecasts;
@@ -28,8 +28,6 @@ public class ForecastPresenter implements MainContract.Presenter{
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-
-
         return this.forecasts;
     }
 
@@ -38,14 +36,12 @@ public class ForecastPresenter implements MainContract.Presenter{
         loadForecasts();
     }
 
-    public void setViewText(TextView view) {
-        String textView = (forecasts.get(0).getDayOfForecast());
-        view.setText(textView);
-    }
-
     @Override
     public void onDestroy() {
         this.view = null;
     }
 
+    public List<Weather> getForecasts() {
+        return forecasts;
+    }
 }

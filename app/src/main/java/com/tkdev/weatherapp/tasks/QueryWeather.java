@@ -38,7 +38,7 @@ public class QueryWeather {
         return extractForecastFromJson(fetch(requestUrl));
     }
 
-    private static String fetch(String requestUrl){
+    private static String fetch(String requestUrl) {
         URL url = createUrl(requestUrl);
         String jsonResponse = null;
         try {
@@ -81,6 +81,7 @@ public class QueryWeather {
                 jsonResponse = readStream(inputStream);
             } else {
                 Log.e(TAG, "Error response code: " + urlConnection.getResponseCode());
+                return null;
             }
 
         } catch (IOException e) {
@@ -163,7 +164,7 @@ public class QueryWeather {
             double temperatureMax = currentWeather.getDouble("temp_max");
             int humidity = currentWeather.getInt("humidity");
             Date date = new Date();
-            date.setTime((long)baseJsonResponse.getInt("dt")*1000);
+            date.setTime((long) baseJsonResponse.getInt("dt") * 1000);
 
             JSONArray weatherArray = baseJsonResponse.getJSONArray("weather");
             JSONObject propertiesWeather = weatherArray.getJSONObject(0);
@@ -172,7 +173,6 @@ public class QueryWeather {
             Weather weatherCurrent = baseWeatherBuild(temperatureCurrent, temperatureMin, temperatureMax, weatherDescription);
             weatherCurrent.setHumidity(humidity);
 
-            Log.d(TAG, weatherCurrent.toString());
             return weatherCurrent;
 
         } catch (JSONException e) {
@@ -181,7 +181,7 @@ public class QueryWeather {
         }
     }
 
-    private static Weather baseWeatherBuild(double temperatureCurrent, double temperatureMin, double temperatureMax, String weatherDescription){
+    private static Weather baseWeatherBuild(double temperatureCurrent, double temperatureMin, double temperatureMax, String weatherDescription) {
         Weather weather = new Weather();
         weather.setTemperatureCurrent(temperatureCurrent);
         weather.setTemperatureMin(temperatureMin);
@@ -189,8 +189,6 @@ public class QueryWeather {
         weather.setWeather(weatherDescription);
         return weather;
     }
-
-
 
 
 }

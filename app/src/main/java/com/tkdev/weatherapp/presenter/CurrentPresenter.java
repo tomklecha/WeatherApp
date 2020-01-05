@@ -38,15 +38,34 @@ public class CurrentPresenter implements MainContract.Presenter{
         loadWeather();
     }
 
+    public void setTemperatureCurrentTextView(TextView textView) {
+        textView.setText( String.valueOf(weather.getTemperatureCurrent()));
+    }
+
+    public void setTemperatureMinimumTextView(TextView textView) {
+        textView.setText(String.valueOf(weather.getTemperatureMin()));
+    }
+
+    public void setTemperatureMaximumTextView(TextView textView) {
+        textView.setText(String.valueOf(weather.getTemperatureMax()));
+    }
+
+    public void setWeatherDescriptionTextView(TextView textView) {
+        textView.setText(String.valueOf(weather.getWeather()));
+    }
+
 
     @Override
     public void onDestroy() {
         this.view = null;
     }
 
-    public void setCurrentViewText(TextView view) {
-        String textView = String.valueOf(weather.getTemperatureCurrent());
-        view.setText(textView);
+    // TestView text changers
+
+
+    public void setHumidityViewText(TextView textView) {
+        String setText = String.valueOf(weather.getHumidity());
+        textView.setText(setText);
     }
 
 }
