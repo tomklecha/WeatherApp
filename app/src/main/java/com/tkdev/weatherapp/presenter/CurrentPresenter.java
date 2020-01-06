@@ -1,15 +1,9 @@
 package com.tkdev.weatherapp.presenter;
 
-import android.os.Build;
 import android.widget.TextView;
-
-import androidx.annotation.RequiresApi;
-
 import com.tkdev.weatherapp.model.Weather;
 import com.tkdev.weatherapp.tasks.WeatherCurrentTask;
-
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.concurrent.ExecutionException;
 
 public class CurrentPresenter implements MainContract.Presenter {
@@ -19,19 +13,16 @@ public class CurrentPresenter implements MainContract.Presenter {
 
     private MainContract.View view;
     private Weather weather;
-    private WeatherCurrentTask task;
 
 
     public CurrentPresenter(MainContract.View view) {
         this.view = view;
         this.weather = new Weather();
-        this.task = new WeatherCurrentTask();
     }
 
     private Weather loadWeather() {
-        task.execute();
         try {
-            weather = task.get();
+            weather = new WeatherCurrentTask().execute().get();
 
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();

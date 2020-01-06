@@ -13,22 +13,18 @@ public class ForecastPresenter implements MainContract.Presenter {
 
     private MainContract.View view;
     private List<Weather> forecasts;
-    private WeatherForecastTask task;
-
 
     public ForecastPresenter(MainContract.View view) {
         this.view = view;
-        this.task = new WeatherForecastTask();
     }
 
     private List<Weather> loadForecasts() {
-        task.execute();
         try {
-            this.forecasts = task.get();
+            forecasts = new WeatherForecastTask().execute().get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return this.forecasts;
+        return forecasts;
     }
 
     @Override
