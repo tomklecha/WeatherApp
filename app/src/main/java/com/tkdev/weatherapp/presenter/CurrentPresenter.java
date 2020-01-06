@@ -11,8 +11,6 @@ import java.util.concurrent.ExecutionException;
 
 public class CurrentPresenter implements MainContract.Presenter {
 
-    private static final String TEMPERATURE_SUFFIX = "°";
-    private static final String HUMIDITY_SUFFIX = " %";
     private static final String CURRENT_DATE_PATTERN = "HH:mm";
     private MainContract.View view;
     private Weather weather;
@@ -43,17 +41,17 @@ public class CurrentPresenter implements MainContract.Presenter {
     }
 
     public void setTemperatureCurrentTextView(TextView textView) {
-        String setText = (weather.getTemperatureCurrent()) + TEMPERATURE_SUFFIX;
+        String setText = (weather.getTemperatureCurrent()) + Weather.TEMPERATURE_SUFFIX;
         textView.setText(setText);
     }
 
     public void setTemperatureMinimumTextView(TextView textView) {
-        String setText = (weather.getTemperatureMin()) + TEMPERATURE_SUFFIX;
+        String setText = (weather.getTemperatureMin()) + Weather.TEMPERATURE_SUFFIX;
         textView.setText(setText);
     }
 
     public void setTemperatureMaximumTextView(TextView textView) {
-        String setText = (weather.getTemperatureCurrent()) + TEMPERATURE_SUFFIX;
+        String setText = (weather.getTemperatureCurrent()) + Weather.TEMPERATURE_SUFFIX;
         textView.setText(setText);
     }
 
@@ -62,7 +60,7 @@ public class CurrentPresenter implements MainContract.Presenter {
     }
 
     public void setHumidityViewText(TextView textView) {
-        String setText = (weather.getHumidity()) + HUMIDITY_SUFFIX;
+        String setText = (weather.getHumidity()) + Weather.TEMPERATURE_SUFFIX;
         textView.setText(setText);
     }
 

@@ -47,9 +47,14 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastViewHolder> {
         SimpleDateFormat weatherDay = new SimpleDateFormat(FORECAST_DAY_PATTERN);
         SimpleDateFormat weatherHour = new SimpleDateFormat(FORECAST_HOUR_PATTERN);
 
-        holder.forecastTempCurrent.setText(String.valueOf(forecast.getTemperatureCurrent()));
-        holder.forecastTempMin.setText(String.valueOf(forecast.getTemperatureMin()));
-        holder.forecastTempMax.setText(String.valueOf(forecast.getTemperatureMax()));
+        String tempCurrent = forecast.getTemperatureCurrent() + Weather.TEMPERATURE_SUFFIX;
+        String tempMin = forecast.getTemperatureCurrent() + Weather.TEMPERATURE_SUFFIX;
+        String tempMax = forecast.getTemperatureCurrent() + Weather.TEMPERATURE_SUFFIX;
+
+
+        holder.forecastTempCurrent.setText(tempCurrent);
+        holder.forecastTempMin.setText(tempMin);
+        holder.forecastTempMax.setText(tempMax);
         holder.forecastWeatherDescription.setText(forecast.getWeather());
         holder.forecastDayOfForecast.setText(weatherDay.format(forecast.getDayOfForecast()));
         holder.forecastHourOfForecast.setText(weatherHour.format(forecast.getDayOfForecast()));
