@@ -4,6 +4,9 @@ import java.util.Date;
 
 public class Weather {
 
+    public static final String TEMPERATURE_SUFFIX = "°";
+    public static final String HUMIDITY_SUFFIX = " %";
+
     private double temperatureCurrent;
     private double temperatureMin;
     private double temperatureMax;
