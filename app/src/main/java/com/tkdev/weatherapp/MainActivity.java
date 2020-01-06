@@ -30,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        Disable Toolbar Title
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
         getSupportFragmentManager().beginTransaction()
