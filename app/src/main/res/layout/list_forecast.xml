@@ -22,7 +22,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:padding="4dp"
-            android:text="@string/dayOfForecast"
+            android:text="@string/day_of_forecast"
+            android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:padding="2dp"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="@+id/forecast_day"
             app:layout_constraintStart_toStartOf="@+id/forecast_day"
             app:layout_constraintTop_toBottomOf="@+id/forecast_day"
@@ -47,6 +49,7 @@
             android:layout_height="wrap_content"
             android:padding="2dp"
             android:text="@string/current_text"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="@+id/forecast_hour"
             app:layout_constraintStart_toStartOf="@+id/forecast_hour"
             app:layout_constraintTop_toBottomOf="@+id/forecast_hour" />
@@ -56,6 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="2dp"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="@+id/forecast_temp_current"
             app:layout_constraintStart_toStartOf="@+id/forecast_temp_current"
             app:layout_constraintTop_toBottomOf="@+id/forecast_temp_current"
@@ -67,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:padding="2dp"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="@+id/forecast_temp_min_text"
             app:layout_constraintStart_toStartOf="@+id/forecast_temp_min_text"
             app:layout_constraintTop_toBottomOf="@+id/forecast_temp_min_text"
@@ -78,6 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:padding="2dp"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="@+id/forecast_temp_max_text"
             app:layout_constraintStart_toStartOf="@+id/forecast_temp_max_text"
             app:layout_constraintTop_toBottomOf="@+id/forecast_temp_max_text"
@@ -91,6 +97,7 @@
             android:layout_marginTop="8dp"
             android:padding="2dp"
             android:text="@string/temp_min_text"
+            android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/forecast_weather" />
 
@@ -101,6 +108,7 @@
             android:layout_marginStart="16dp"
             android:padding="2dp"
             android:text="@string/temp_max_text"
+            android:textAlignment="center"
             app:layout_constraintBaseline_toBaselineOf="@+id/forecast_temp_min_text"
             app:layout_constraintStart_toEndOf="@+id/forecast_temp_min_text" />
 

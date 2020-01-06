@@ -1,17 +1,22 @@
 package com.tkdev.weatherapp.presenter;
 
-import android.view.View;
+import android.os.Build;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 
 import com.tkdev.weatherapp.model.Weather;
 import com.tkdev.weatherapp.tasks.WeatherCurrentTask;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.concurrent.ExecutionException;
 
 public class CurrentPresenter implements MainContract.Presenter {
 
-    private static final String CURRENT_DATE_PATTERN = "HH:mm";
+    private static final String LAST_UPDATE_PATTERN = "HH:mm";
+    private static final String DATE_PATTERN = "EEE dd-MM-yyyy";
+
     private MainContract.View view;
     private Weather weather;
     private WeatherCurrentTask task;
@@ -40,6 +45,13 @@ public class CurrentPresenter implements MainContract.Presenter {
         loadWeather();
     }
 
+    @Override
+    public void onDestroy() {
+        this.view = null;
+    }
+
+    // TestView text changers
+
     public void setTemperatureCurrentTextView(TextView textView) {
         String setText = (weather.getTemperatureCurrent()) + Weather.TEMPERATURE_SUFFIX;
         textView.setText(setText);
@@ -60,22 +72,19 @@ public class CurrentPresenter implements MainContract.Presenter {
     }
 
     public void setHumidityViewText(TextView textView) {
-        String setText = (weather.getHumidity()) + Weather.TEMPERATURE_SUFFIX;
+        String setText = (weather.getHumidity()) + Weather.HUMIDITY_SUFFIX;
         textView.setText(setText);
     }
 
-    public void setDateUpdateViewText(TextView textView) {
-        SimpleDateFormat lastUpdate = new SimpleDateFormat(CURRENT_DATE_PATTERN);
+    public void setLastUpdateViewText(TextView textView) {
+        SimpleDateFormat lastUpdate = new SimpleDateFormat(LAST_UPDATE_PATTERN);
+        textView.setText(lastUpdate.format(weather.getDateOfLastUpdate()));
+    }
+    public void setDateViewText(TextView textView) {
+        SimpleDateFormat lastUpdate = new SimpleDateFormat(DATE_PATTERN);
         textView.setText(lastUpdate.format(weather.getDateOfLastUpdate()));
     }
 
-
-    @Override
-    public void onDestroy() {
-        this.view = null;
-    }
-
-    // TestView text changers
 
 
 }

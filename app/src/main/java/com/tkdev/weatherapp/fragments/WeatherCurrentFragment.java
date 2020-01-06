@@ -26,7 +26,8 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
     private TextView maxV;
     private TextView weatherV;
     private TextView humidityV;
-    private TextView dayUpdateV;
+    private TextView lastUpdate;
+    private TextView dateV;
 
     public WeatherCurrentFragment() {
     }
@@ -48,7 +49,10 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
         maxV = rootView.findViewById(R.id.city_temp_max);
         weatherV = rootView.findViewById(R.id.city_weather);
         humidityV = rootView.findViewById(R.id.city_humidity);
-        dayUpdateV = rootView.findViewById(R.id.city_hour_update);
+        lastUpdate = rootView.findViewById(R.id.city_hour_update);
+
+        View view = getActivity().findViewById(R.id.toolbar);
+        dateV = view.findViewById(R.id.toolbar_date);
 
         return rootView;
     }
@@ -70,7 +74,8 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
         presenter.setTemperatureMaximumTextView(maxV);
         presenter.setWeatherDescriptionTextView(weatherV);
         presenter.setHumidityViewText(humidityV);
-        presenter.setDateUpdateViewText(dayUpdateV);
+        presenter.setLastUpdateViewText(lastUpdate);
+        presenter.setDateViewText(dateV);
 
     }
 

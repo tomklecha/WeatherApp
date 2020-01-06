@@ -19,7 +19,6 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private static final String TAG = "WeatherMainActivity";
 
 
@@ -27,10 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+        toolbarSetup();
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_current, new WeatherCurrentFragment())
@@ -39,6 +35,13 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_forecast, new WeatherForecastFragment())
                 .commit();
+
+    }
+
+    private void toolbarSetup() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
     }
 
@@ -52,9 +55,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.about_dev:
-                AppCompatDialog appCompatDialog = new AppCompatDialog(this);
-                appCompatDialog.setContentView(R.layout.about_dev);
-                appCompatDialog.show();
+                showAboutDialog();
                 return true;
 
             default:
@@ -68,5 +69,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
+    }
+
+    private void showAboutDialog() {
+        AppCompatDialog appCompatDialog = new AppCompatDialog(this);
+        appCompatDialog.setContentView(R.layout.about_dev);
+        appCompatDialog.show();
     }
 }

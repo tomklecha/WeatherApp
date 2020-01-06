@@ -1,14 +1,14 @@
 <resources>
-    <string name="app_name">WeatherApp</string>
     <string name="WEATHER_APP_API_KEY">5b08b54ce198509d241991110864cab4</string>
+    <string name="app_name">WeatherApp</string>
     <string name="about_dev">About</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="cityName">London</string>
-    <string name="humidity">100</string>
-    <string name="dayOfForecast">Day</string>
-    <string name="dayOfLastUpdate">Update hour</string>
+    <string name="city_name">London</string>
+    <string name="humidity">99%</string>
+    <string name="day_of_forecast">Day</string>
+    <string name="last_update">Update hour</string>
     <string name="forecast_title">5-day forecast</string>
     <string name="forecast_hour">Hour</string>
     <string name="humidity_text">Humidity:</string>
@@ -16,6 +16,7 @@
     <string name="temp_max_text">Max</string>
     <string name="current_text">Current </string>
     <string name="city_hour_update_text">Last update:</string>
+    <string name="city_current_date">date</string>
     <string name="weather_text">weather</string>
     <string name="about_copyright">Created by Tomasz Klecha: \nJanuary 2020</string>
     <string name="about_email">Contact email: \ntom.klecha.dev@gmail.com</string>
