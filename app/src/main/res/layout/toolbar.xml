@@ -2,6 +2,15 @@
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
+
+    <TextView
+        android:id="@+id/toolbar_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/city_current_date"
+        android:textAlignment="center"
+        android:textSize="18sp" />
 
 </androidx.appcompat.widget.Toolbar>
