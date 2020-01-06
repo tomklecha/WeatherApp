@@ -2,11 +2,15 @@ package com.tkdev.weatherapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.tkdev.weatherapp.fragments.WeatherCurrentFragment;
 import com.tkdev.weatherapp.fragments.WeatherForecastFragment;
 
@@ -31,11 +35,11 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_current,new WeatherCurrentFragment())
+                .replace(R.id.content_current, new WeatherCurrentFragment())
                 .commit();
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_forecast,new WeatherForecastFragment())
+                .replace(R.id.content_forecast, new WeatherForecastFragment())
                 .commit();
 
     }
@@ -44,6 +48,22 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.about_dev:
+                AppCompatDialog appCompatDialog = new AppCompatDialog(this);
+                appCompatDialog.setContentView(R.layout.about_dev);
+                appCompatDialog.show();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+
     }
 
     @Override
