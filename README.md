@@ -18,3 +18,4 @@ Future implementations:
 - fetch icons coresponding to the weather from OpenWeather API
 - change of background regarding to current time (day/night mode)
 - language localisation
+- implement Retrofit swap to Kotlin language
