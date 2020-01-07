@@ -63,7 +63,7 @@ public class CurrentPresenter implements MainContract.Presenter {
     }
 
     public void setTemperatureMaximumTextView(TextView textView) {
-        String setText = (weather.getTemperatureCurrent()) + Weather.TEMPERATURE_SUFFIX;
+        String setText = (weather.getTemperatureMax()) + Weather.TEMPERATURE_SUFFIX;
         textView.setText(setText);
     }
 
