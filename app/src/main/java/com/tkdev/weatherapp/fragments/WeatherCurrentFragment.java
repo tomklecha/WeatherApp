@@ -35,8 +35,11 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setPresenter(new CurrentPresenter((MainContract.View) getView()));
         presenter.onWeatherCreated();
+
     }
 
     @Override

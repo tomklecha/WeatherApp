@@ -1,5 +1,7 @@
 package com.tkdev.weatherapp.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 public class Weather {
@@ -7,12 +9,24 @@ public class Weather {
     public static final String TEMPERATURE_SUFFIX = "°";
     public static final String HUMIDITY_SUFFIX = " %";
 
+    @SerializedName("temp")
     private double temperatureCurrent;
+
+    @SerializedName("temp_min")
     private double temperatureMin;
+
+    @SerializedName("temp_max")
     private double temperatureMax;
+
+    @SerializedName("humidity")
     private int humidity;
+
+    @SerializedName("dt")
     private Date dateOfLastUpdate;
+
     private Date dayOfForecast;
+
+    @SerializedName("weather")
     private String weather;
 
     public String getWeather() {

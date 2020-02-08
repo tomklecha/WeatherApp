@@ -2,9 +2,9 @@ package com.tkdev.weatherapp.presenter;
 
 import android.widget.TextView;
 import com.tkdev.weatherapp.model.Weather;
-import com.tkdev.weatherapp.tasks.WeatherCurrentTask;
+import com.tkdev.weatherapp.repository.WeatherRetrofitImpl;
+
 import java.text.SimpleDateFormat;
-import java.util.concurrent.ExecutionException;
 
 public class CurrentPresenter implements MainContract.Presenter {
 
@@ -12,24 +12,32 @@ public class CurrentPresenter implements MainContract.Presenter {
     private static final String DATE_PATTERN = "EEE dd-MM-yyyy";
 
     private MainContract.View view;
+    private WeatherRetrofitImpl retrofit;
     private Weather weather;
 
 
     public CurrentPresenter(MainContract.View view) {
         this.view = view;
         this.weather = new Weather();
+        this.retrofit = new WeatherRetrofitImpl();
     }
 
     private Weather loadWeather() {
-        try {
-            weather = new WeatherCurrentTask().execute().get();
 
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+        retrofit.getWeather();
 
-        return weather;
+        return new Weather();
     }
+//    private Weather loadWeather() {
+//        try {
+//            weather = new WeatherCurrentTask().execute().get();
+//
+//        } catch (InterruptedException | ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return weather;
+//    }
 
     @Override
     public void onWeatherCreated() {
@@ -69,11 +77,11 @@ public class CurrentPresenter implements MainContract.Presenter {
 
     public void setLastUpdateViewText(TextView textView) {
         SimpleDateFormat lastUpdate = new SimpleDateFormat(LAST_UPDATE_PATTERN);
-        textView.setText(lastUpdate.format(weather.getDateOfLastUpdate()));
+//        textView.setText(lastUpdate.format(weather.getDateOfLastUpdate()));
     }
     public void setDateViewText(TextView textView) {
         SimpleDateFormat lastUpdate = new SimpleDateFormat(DATE_PATTERN);
-        textView.setText(lastUpdate.format(weather.getDateOfLastUpdate()));
+//        textView.setText(lastUpdate.format(weather.getDateOfLastUpdate()));
     }
 
 

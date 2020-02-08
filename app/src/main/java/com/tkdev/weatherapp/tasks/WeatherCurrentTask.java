@@ -14,6 +14,7 @@ import static com.tkdev.weatherapp.tasks.Utils.WEATHER_API_KEY;
 import static com.tkdev.weatherapp.tasks.Utils.WEATHER_API_PREFIX;
 import static com.tkdev.weatherapp.tasks.Utils.WEATHER_CITY_ID;
 import static com.tkdev.weatherapp.tasks.Utils.WEATHER_CURRENT_REQUEST;
+import static com.tkdev.weatherapp.tasks.Utils.WEATHER_REQUEST_BASE;
 import static com.tkdev.weatherapp.tasks.Utils.WEATHER_TEMPERATURE;
 import static com.tkdev.weatherapp.tasks.Utils.WEATHER_TEMPERATURE_PREFIX;
 
@@ -22,7 +23,8 @@ public class WeatherCurrentTask extends AsyncTask<Void, Void, Weather> {
 
     @Override
     protected Weather doInBackground(Void... voids) {
-        String uri = WEATHER_CURRENT_REQUEST +
+        String uri = WEATHER_REQUEST_BASE +
+                WEATHER_CURRENT_REQUEST +
                 WEATHER_CITY_ID +
                 WEATHER_TEMPERATURE_PREFIX +
                 WEATHER_TEMPERATURE +

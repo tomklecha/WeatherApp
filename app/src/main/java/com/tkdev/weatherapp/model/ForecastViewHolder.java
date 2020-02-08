@@ -39,8 +39,8 @@ public class ForecastViewHolder extends RecyclerView.ViewHolder {
         SimpleDateFormat weatherHour = new SimpleDateFormat(FORECAST_HOUR_PATTERN);
 
         String tempCurrent = forecast.getTemperatureCurrent() + Weather.TEMPERATURE_SUFFIX;
-        String tempMin = forecast.getTemperatureCurrent() + Weather.TEMPERATURE_SUFFIX;
-        String tempMax = forecast.getTemperatureCurrent() + Weather.TEMPERATURE_SUFFIX;
+        String tempMin = forecast.getTemperatureMin() + Weather.TEMPERATURE_SUFFIX;
+        String tempMax = forecast.getTemperatureMax() + Weather.TEMPERATURE_SUFFIX;
 
         this.forecastTempCurrent.setText(tempCurrent);
         this.forecastTempMin.setText(tempMin);
