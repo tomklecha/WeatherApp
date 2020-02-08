@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tkdev.weatherapp.R;
 
+import java.text.SimpleDateFormat;
+
 public class ForecastViewHolder extends RecyclerView.ViewHolder {
 
     public TextView forecastTempCurrent;
@@ -16,6 +18,9 @@ public class ForecastViewHolder extends RecyclerView.ViewHolder {
     public TextView forecastWeatherDescription;
     public TextView forecastDayOfForecast;
     public TextView forecastHourOfForecast;
+
+    private static final String FORECAST_DAY_PATTERN = "EEE";
+    private static final String FORECAST_HOUR_PATTERN = "HH:mm";
 
     public ForecastViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -26,4 +31,25 @@ public class ForecastViewHolder extends RecyclerView.ViewHolder {
         this.forecastDayOfForecast = itemView.findViewById(R.id.forecast_day);
         this.forecastHourOfForecast = itemView.findViewById(R.id.forecast_hour);
     }
+
+
+    public ForecastViewHolder setForecast(Weather forecast) {
+
+        SimpleDateFormat weatherDay = new SimpleDateFormat(FORECAST_DAY_PATTERN);
+        SimpleDateFormat weatherHour = new SimpleDateFormat(FORECAST_HOUR_PATTERN);
+
+        String tempCurrent = forecast.getTemperatureCurrent() + Weather.TEMPERATURE_SUFFIX;
+        String tempMin = forecast.getTemperatureCurrent() + Weather.TEMPERATURE_SUFFIX;
+        String tempMax = forecast.getTemperatureCurrent() + Weather.TEMPERATURE_SUFFIX;
+
+        this.forecastTempCurrent.setText(tempCurrent);
+        this.forecastTempMin.setText(tempMin);
+        this.forecastTempMax.setText(tempMax);
+        this.forecastWeatherDescription.setText(forecast.getWeather());
+        this.forecastDayOfForecast.setText(weatherDay.format(forecast.getDayOfForecast()));
+        this.forecastHourOfForecast.setText(weatherHour.format(forecast.getDayOfForecast()));
+
+        return this;
+    }
+
 }

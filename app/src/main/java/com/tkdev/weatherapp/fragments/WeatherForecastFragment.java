@@ -64,4 +64,8 @@ public class WeatherForecastFragment extends Fragment implements MainContract.Vi
         this.presenter = (ForecastPresenter) presenter;
     }
 
+    @Override
+    public void refreshViews() {
+        presenter.onWeatherCreated();
+    }
 }

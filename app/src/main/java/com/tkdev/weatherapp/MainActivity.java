@@ -4,15 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.tkdev.weatherapp.fragments.WeatherCurrentFragment;
 import com.tkdev.weatherapp.fragments.WeatherForecastFragment;
+import com.tkdev.weatherapp.presenter.MainContract;
 
 import java.util.Objects;
 
@@ -20,6 +20,9 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "WeatherMainActivity";
+
+    private MainContract.View currentListener;
+    private MainContract.View forecastListener;
 
 
     @Override
@@ -36,6 +39,16 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.content_forecast, new WeatherForecastFragment())
                 .commit();
 
+    }
+
+    @Override
+    public void onAttachFragment(@NonNull Fragment fragment) {
+        if (fragment instanceof WeatherCurrentFragment){
+            currentListener = (MainContract.View) fragment;
+        }
+        if (fragment instanceof WeatherForecastFragment){
+            forecastListener = (MainContract.View) fragment;
+        }
     }
 
     private void toolbarSetup() {
@@ -55,7 +68,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.about_dev:
-                showAboutDialog();
+//                showAboutDialog();
+                currentListener.refreshViews();
+                forecastListener.refreshViews();
                 return true;
 
             default:

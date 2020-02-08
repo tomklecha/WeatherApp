@@ -19,11 +19,7 @@ import java.util.TimeZone;
 
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastViewHolder> {
 
-    private static final String FORECAST_DAY_PATTERN = "EEE";
-    private static final String FORECAST_HOUR_PATTERN = "HH:mm";
-
     private List<Weather> forecasts;
-
     private Context context;
 
 
@@ -43,21 +39,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ForecastViewHolder holder, int position) {
         Weather forecast = forecasts.get(position);
-
-        SimpleDateFormat weatherDay = new SimpleDateFormat(FORECAST_DAY_PATTERN);
-        SimpleDateFormat weatherHour = new SimpleDateFormat(FORECAST_HOUR_PATTERN);
-
-        String tempCurrent = forecast.getTemperatureCurrent() + Weather.TEMPERATURE_SUFFIX;
-        String tempMin = forecast.getTemperatureCurrent() + Weather.TEMPERATURE_SUFFIX;
-        String tempMax = forecast.getTemperatureCurrent() + Weather.TEMPERATURE_SUFFIX;
-
-
-        holder.forecastTempCurrent.setText(tempCurrent);
-        holder.forecastTempMin.setText(tempMin);
-        holder.forecastTempMax.setText(tempMax);
-        holder.forecastWeatherDescription.setText(forecast.getWeather());
-        holder.forecastDayOfForecast.setText(weatherDay.format(forecast.getDayOfForecast()));
-        holder.forecastHourOfForecast.setText(weatherHour.format(forecast.getDayOfForecast()));
+        holder.setForecast(forecast);
     }
 
     @Override

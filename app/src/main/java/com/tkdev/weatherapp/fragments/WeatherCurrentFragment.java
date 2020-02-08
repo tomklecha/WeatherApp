@@ -69,6 +69,11 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        presentV();
+
+    }
+
+    private void presentV() {
         presenter.setTemperatureCurrentTextView(currentV);
         presenter.setTemperatureMinimumTextView(minV);
         presenter.setTemperatureMaximumTextView(maxV);
@@ -76,13 +81,19 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
         presenter.setHumidityViewText(humidityV);
         presenter.setLastUpdateViewText(lastUpdate);
         presenter.setDateViewText(dateV);
-
     }
 
 
     @Override
     public void setPresenter(MainContract.Presenter presenter) {
         this.presenter = (CurrentPresenter) presenter;
+    }
+
+
+    @Override
+    public void refreshViews() {
+        presenter.onWeatherCreated();
+        presentV();
     }
 }
 
