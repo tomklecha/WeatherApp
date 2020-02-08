@@ -16,17 +16,18 @@ public class CurrentPresenter implements MainContract.Presenter {
     private Weather weather;
 
 
+
+
     public CurrentPresenter(MainContract.View view) {
         this.view = view;
         this.weather = new Weather();
         this.retrofit = new WeatherRetrofitImpl();
     }
 
-    private Weather loadWeather() {
+    private void loadWeather() {
 
         retrofit.getWeather();
 
-        return new Weather();
     }
 //    private Weather loadWeather() {
 //        try {
@@ -42,6 +43,11 @@ public class CurrentPresenter implements MainContract.Presenter {
     @Override
     public void onWeatherCreated() {
         loadWeather();
+    }
+
+    public void retreiveData(Weather weather) {
+        int i = 1+1;
+        this.weather = weather;
     }
 
     @Override
@@ -67,7 +73,7 @@ public class CurrentPresenter implements MainContract.Presenter {
     }
 
     public void setWeatherDescriptionTextView(TextView textView) {
-        textView.setText(String.valueOf(weather.getWeather()));
+        textView.setText(String.valueOf(weather.getWeatherDescription()));
     }
 
     public void setHumidityViewText(TextView textView) {
@@ -77,11 +83,11 @@ public class CurrentPresenter implements MainContract.Presenter {
 
     public void setLastUpdateViewText(TextView textView) {
         SimpleDateFormat lastUpdate = new SimpleDateFormat(LAST_UPDATE_PATTERN);
-//        textView.setText(lastUpdate.format(weather.getDateOfLastUpdate()));
+//        textView.setText(lastUpdate.format(weather.getDate()));
     }
     public void setDateViewText(TextView textView) {
         SimpleDateFormat lastUpdate = new SimpleDateFormat(DATE_PATTERN);
-//        textView.setText(lastUpdate.format(weather.getDateOfLastUpdate()));
+//        textView.setText(lastUpdate.format(weather.getDate()));
     }
 
 

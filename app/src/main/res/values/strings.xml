@@ -17,7 +17,7 @@
     <string name="current_text">Current </string>
     <string name="city_hour_update_text">Last update:</string>
     <string name="city_current_date">date</string>
-    <string name="weather_text">weather</string>
+    <string name="weather_text">weatherModel</string>
     <string name="about_copyright">Created by Tomasz Klecha: \nJanuary 2020</string>
     <string name="about_email">Contact email: \ntom.klecha.dev@gmail.com</string>
 

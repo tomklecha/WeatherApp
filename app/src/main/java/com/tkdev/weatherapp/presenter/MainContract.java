@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public interface MainContract {
     interface Presenter extends BasePresenter {
         void onWeatherCreated();
+        void retreiveData(Weather weather);
     }
 
     interface View extends BaseView<Presenter>{

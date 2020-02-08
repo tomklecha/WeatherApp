@@ -1,6 +1,8 @@
 package com.tkdev.weatherapp.repository;
 
 import com.tkdev.weatherapp.model.Weather;
+import com.tkdev.weatherapp.modelretro.WeatherRetrofit;
+import com.tkdev.weatherapp.presenter.CurrentPresenter;
 
 import java.util.List;
 
@@ -16,9 +18,10 @@ import static com.tkdev.weatherapp.tasks.Utils.WEATHER_REQUEST_BASE;
 
 public class WeatherRetrofitImpl {
 
-    WeatherRetrofit service;
-    Weather weather;
+    RetrofitService service;
     List<Weather> forecasts;
+    Weather weather = new Weather();
+
 
     public Weather getWeather() {
 
@@ -35,31 +38,29 @@ public class WeatherRetrofitImpl {
                 .client(okHttpClient)
                 .build();
 
-        service = retrofit.create(WeatherRetrofit.class);
+        service = retrofit.create(RetrofitService.class);
 
-        Call<Weather> call = service.getWeather();
-
-
-        call.enqueue(new Callback<Weather>() {
+        Call<WeatherRetrofit> model = service.getWeatherRetrofit();
+        model.enqueue(new Callback<WeatherRetrofit>() {
             @Override
-            public void onResponse(Call<Weather> call, Response<Weather> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                }
+            public void onResponse(Call<WeatherRetrofit> call, Response<WeatherRetrofit> response) {
 
-                weather = response.body();
 
-                }
+                weather.setTemperatureCurrent(response.body().getMain().getTemp());
 
+
+            }
 
             @Override
-            public void onFailure(Call<Weather> call, Throwable t) {
+            public void onFailure(Call<WeatherRetrofit> call, Throwable t) {
 
             }
         });
 
-        return weather;
+
+        return  weather;
     }
+
     public List<Weather> getForecasts() {
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
@@ -75,7 +76,7 @@ public class WeatherRetrofitImpl {
                 .client(okHttpClient)
                 .build();
 
-        service = retrofit.create(WeatherRetrofit.class);
+        service = retrofit.create(RetrofitService.class);
 
         Call<List<Weather>> call = service.getForecast();
 

@@ -45,9 +45,9 @@ public class ForecastViewHolder extends RecyclerView.ViewHolder {
         this.forecastTempCurrent.setText(tempCurrent);
         this.forecastTempMin.setText(tempMin);
         this.forecastTempMax.setText(tempMax);
-        this.forecastWeatherDescription.setText(forecast.getWeather());
-        this.forecastDayOfForecast.setText(weatherDay.format(forecast.getDayOfForecast()));
-        this.forecastHourOfForecast.setText(weatherHour.format(forecast.getDayOfForecast()));
+        this.forecastWeatherDescription.setText(forecast.getWeatherDescription());
+        this.forecastDayOfForecast.setText(weatherDay.format(forecast.getDate()));
+        this.forecastHourOfForecast.setText(weatherHour.format(forecast.getDate()));
 
         return this;
     }

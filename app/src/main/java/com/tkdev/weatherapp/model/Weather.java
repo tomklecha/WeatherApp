@@ -9,40 +9,41 @@ public class Weather {
     public static final String TEMPERATURE_SUFFIX = "°";
     public static final String HUMIDITY_SUFFIX = " %";
 
-    @SerializedName("temp")
+
+//    @SerializedName("temp")
     private double temperatureCurrent;
 
-    @SerializedName("temp_min")
+//    @SerializedName("temp_min")
     private double temperatureMin;
 
-    @SerializedName("temp_max")
+//    @SerializedName("temp_max")
     private double temperatureMax;
 
-    @SerializedName("humidity")
+//    @SerializedName("humidity")
     private int humidity;
 
-    @SerializedName("dt")
-    private Date dateOfLastUpdate;
+//    @SerializedName("dt")
+    private Date date;
 
-    private Date dayOfForecast;
+//    @SerializedName("weather")
+    private String weatherDescription;
 
-    @SerializedName("weather")
-    private String weather;
-
-    public String getWeather() {
-        return weather;
+    public String getWeatherDescription() {
+        return weatherDescription;
     }
 
-    public void setWeather(String weather) {
-        this.weather = weather;
+    public void setWeatherDescription(String weatherDescription) {
+        this.weatherDescription = weatherDescription;
     }
+
+
 
     public double getTemperatureCurrent() {
         return temperatureCurrent;
     }
 
     public void setTemperatureCurrent(double temperatureCurrent) {
-        this.temperatureCurrent = Math.rint(temperatureCurrent*10)/10;
+        this.temperatureCurrent = Math.rint(temperatureCurrent * 10) / 10;
     }
 
     public double getTemperatureMin() {
@@ -50,7 +51,7 @@ public class Weather {
     }
 
     public void setTemperatureMin(double temperatureMin) {
-        this.temperatureMin = Math.rint(temperatureMin*10)/10;
+        this.temperatureMin = Math.rint(temperatureMin * 10) / 10;
     }
 
     public double getTemperatureMax() {
@@ -58,7 +59,7 @@ public class Weather {
     }
 
     public void setTemperatureMax(double temperatureMax) {
-        this.temperatureMax = Math.rint(temperatureMax*10)/10;
+        this.temperatureMax = Math.rint(temperatureMax * 10) / 10;
     }
 
     public int getHumidity() {
@@ -69,19 +70,12 @@ public class Weather {
         this.humidity = humidity;
     }
 
-    public Date getDateOfLastUpdate() {
-        return dateOfLastUpdate;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDateOfLastUpdate(Date dateOfLastUpdate) {
-        this.dateOfLastUpdate = dateOfLastUpdate;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public Date getDayOfForecast() {
-        return dayOfForecast;
-    }
-
-    public void setDayOfForecast(Date dayOfForecast) {
-        this.dayOfForecast = dayOfForecast;
-    }
 }

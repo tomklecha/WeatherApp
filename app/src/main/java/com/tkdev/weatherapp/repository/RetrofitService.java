@@ -1,6 +1,7 @@
 package com.tkdev.weatherapp.repository;
 
 import com.tkdev.weatherapp.model.Weather;
+import com.tkdev.weatherapp.modelretro.WeatherRetrofit;
 
 import java.util.List;
 
@@ -13,7 +14,10 @@ import static com.tkdev.weatherapp.tasks.Utils.WEATHER_CITY_ID;
 import static com.tkdev.weatherapp.tasks.Utils.WEATHER_CURRENT_REQUEST;
 import static com.tkdev.weatherapp.tasks.Utils.WEATHER_FORECAST_REQUEST;
 
-public interface WeatherRetrofit {
+public interface RetrofitService {
+
+    @GET(WEATHER_CURRENT_REQUEST + WEATHER_CITY_ID + WEATHER_API_PREFIX + WEATHER_API_KEY)
+    Call<WeatherRetrofit> getWeatherRetrofit();
 
     @GET(WEATHER_CURRENT_REQUEST + WEATHER_CITY_ID + WEATHER_API_PREFIX + WEATHER_API_KEY)
     Call<Weather> getWeather();

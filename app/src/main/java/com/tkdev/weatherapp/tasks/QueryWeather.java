@@ -147,7 +147,7 @@ public class QueryWeather {
 
 
                 Weather weatherForecast = baseWeatherBuild(temperatureCurrent, temperatureMin, temperatureMax, weatherDescription);
-                weatherForecast.setDayOfForecast(date);
+                weatherForecast.setDate(date);
 
                 forecasts.add(weatherForecast);
             }
@@ -183,7 +183,7 @@ public class QueryWeather {
 
             Weather weatherCurrent = baseWeatherBuild(temperatureCurrent, temperatureMin, temperatureMax, weatherDescription);
             weatherCurrent.setHumidity(humidity);
-            weatherCurrent.setDateOfLastUpdate(date);
+            weatherCurrent.setDate(date);
 
             return weatherCurrent;
 
@@ -198,7 +198,7 @@ public class QueryWeather {
         weather.setTemperatureCurrent(temperatureCurrent);
         weather.setTemperatureMin(temperatureMin);
         weather.setTemperatureMax(temperatureMax);
-        weather.setWeather(weatherDescription);
+        weather.setWeatherDescription(weatherDescription);
         return weather;
     }
 
