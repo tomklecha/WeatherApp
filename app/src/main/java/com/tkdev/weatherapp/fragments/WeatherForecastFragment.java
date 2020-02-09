@@ -44,10 +44,10 @@ public class WeatherForecastFragment extends Fragment implements MainContract.Vi
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_weather_forecast, container, false);
 
-        forecastRecycleView = rootView.findViewById(R.id.forecast_recycler_view);
-        forecastRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL,false));
-        adapter = new ForecastAdapter(getContext(), presenter.getForecasts());
-        forecastRecycleView.setAdapter(adapter);
+//        forecastRecycleView = rootView.findViewById(R.id.forecast_recycler_view);
+//        forecastRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL,false));
+//        adapter = new ForecastAdapter(getContext(), presenter.getForecasts());
+//        forecastRecycleView.setAdapter(adapter);
 
         return rootView;
     }
@@ -67,5 +67,10 @@ public class WeatherForecastFragment extends Fragment implements MainContract.Vi
     @Override
     public void refreshViews() {
         presenter.onWeatherCreated();
+    }
+
+    @Override
+    public void setText(String setText) {
+
     }
 }

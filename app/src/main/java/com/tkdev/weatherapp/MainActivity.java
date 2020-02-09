@@ -12,17 +12,20 @@ import android.view.MenuItem;
 
 import com.tkdev.weatherapp.fragments.WeatherCurrentFragment;
 import com.tkdev.weatherapp.fragments.WeatherForecastFragment;
+import com.tkdev.weatherapp.modelretro.WeatherRetrofit;
+import com.tkdev.weatherapp.presenter.CurrentPresenter;
 import com.tkdev.weatherapp.presenter.MainContract;
 
 import java.util.Objects;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainContract.View{
 
     private static final String TAG = "WeatherMainActivity";
 
     private MainContract.View currentListener;
     private MainContract.View forecastListener;
+    private MainContract.Presenter presenter;
 
 
     @Override
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbarSetup();
+
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_current, new WeatherCurrentFragment())
@@ -90,5 +94,21 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDialog appCompatDialog = new AppCompatDialog(this);
         appCompatDialog.setContentView(R.layout.about_dev);
         appCompatDialog.show();
+    }
+
+    @Override
+    public void setPresenter(MainContract.Presenter presenter) {
+        this.presenter = (CurrentPresenter) presenter;
+    }
+
+    @Override
+    public void refreshViews() {
+        presenter.onWeatherCreated();
+
+    }
+
+    @Override
+    public void setText(String setText) {
+
     }
 }

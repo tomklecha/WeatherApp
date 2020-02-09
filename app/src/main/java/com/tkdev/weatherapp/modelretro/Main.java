@@ -29,7 +29,7 @@ public class Main {
     }
 
     public void setTemp(Double temp) {
-        this.temp = temp;
+        this.temp = temp ;
     }
 
     public Main withTemp(Double temp) {

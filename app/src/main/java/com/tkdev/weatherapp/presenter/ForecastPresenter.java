@@ -42,11 +42,6 @@ public class ForecastPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void retreiveData(Weather weather) {
-
-    }
-
-    @Override
     public void onDestroy() {
         this.view = null;
     }
