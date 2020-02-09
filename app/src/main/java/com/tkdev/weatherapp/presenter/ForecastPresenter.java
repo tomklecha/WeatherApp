@@ -1,44 +1,32 @@
 package com.tkdev.weatherapp.presenter;
 
-import android.widget.TextView;
-
-import com.tkdev.weatherapp.model.Weather;
+import com.tkdev.weatherapp.model.current_weather.WeatherRetrofit;
+import com.tkdev.weatherapp.model.forecast_weather.ForecastRetrofit;
 import com.tkdev.weatherapp.repository.WeatherRetrofitImpl;
-import com.tkdev.weatherapp.tasks.WeatherCurrentTask;
-import com.tkdev.weatherapp.tasks.WeatherForecastTask;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
+import retrofit2.Response;
 
-public class ForecastPresenter implements MainContract.Presenter {
+public class ForecastPresenter implements MainContract.Presenter, MainContract.APIForecastListener {
 
     private MainContract.View view;
-    private List<Weather> forecasts;
-    private WeatherRetrofitImpl retrofit;
+    private ForecastRetrofit forecasts;
+    private MainContract.Model model;
+    private WeatherRetrofit forecastCallback;
+
 
     public ForecastPresenter(MainContract.View view) {
         this.view = view;
-        this.retrofit = new WeatherRetrofitImpl();
+        this.model = new WeatherRetrofitImpl();
+        this.forecastCallback = new WeatherRetrofit();
     }
 
-    //    private List<Weather> loadForecasts() {
-//        try {
-//            forecasts = new WeatherForecastTask().execute().get();
-//        } catch (InterruptedException | ExecutionException e) {
-//            e.printStackTrace();
-//        }
-//        return forecasts;
-//    }
-    private List<Weather> loadForecasts() {
-
-        return retrofit.getForecasts();
-
+    public WeatherRetrofit getForecasts() {
+        return null;
     }
 
     @Override
     public void onWeatherCreated() {
-        loadForecasts();
+        model.getForecast(this);
     }
 
     @Override
@@ -46,7 +34,14 @@ public class ForecastPresenter implements MainContract.Presenter {
         this.view = null;
     }
 
-    public List<Weather> getForecasts() {
-        return forecasts;
+
+    @Override
+    public void onSuccess(Response<ForecastRetrofit> response) {
+        forecasts = response.body();
+    }
+
+    @Override
+    public void onFailure(Throwable t) {
+
     }
 }

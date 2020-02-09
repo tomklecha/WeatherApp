@@ -1,13 +1,11 @@
 package com.tkdev.weatherapp.repository;
 
-import com.tkdev.weatherapp.model.Weather;
-import com.tkdev.weatherapp.modelretro.WeatherRetrofit;
-import com.tkdev.weatherapp.presenter.CurrentPresenter;
+import com.tkdev.weatherapp.model.current_weather.WeatherRetrofit;
+import com.tkdev.weatherapp.model.forecast_weather.ForecastRetrofit;
+import com.tkdev.weatherapp.presenter.ForecastPresenter;
 import com.tkdev.weatherapp.presenter.MainContract;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
+
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -17,14 +15,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.tkdev.weatherapp.tasks.Utils.WEATHER_REQUEST_BASE;
+import static com.tkdev.weatherapp.repository.Utils.WEATHER_REQUEST_BASE;
 
 public class WeatherRetrofitImpl implements MainContract.Model {
 
     RetrofitService service;
-    List<Weather> forecasts;
 
 
+    @Override
     public void getWeather(MainContract.APIListener callback) {
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
@@ -45,6 +43,7 @@ public class WeatherRetrofitImpl implements MainContract.Model {
                 @Override
                 public void onResponse(Call<WeatherRetrofit> call, Response<WeatherRetrofit> response) {
                     callback.onSuccess(response);
+                    int i = 1+1;
                 }
 
                 @Override
@@ -54,8 +53,8 @@ public class WeatherRetrofitImpl implements MainContract.Model {
             });
     }
 
-    public List<Weather> getForecasts() {
-
+    @Override
+    public void getForecast(MainContract.APIForecastListener callback) {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -71,32 +70,23 @@ public class WeatherRetrofitImpl implements MainContract.Model {
 
         service = retrofit.create(RetrofitService.class);
 
-        Call<List<Weather>> call = service.getForecast();
+        Call<ForecastRetrofit> call = service.getForecast();
+        int i = 1+1;
 
-        call.enqueue(new Callback<List<Weather>>() {
+        call.enqueue(new Callback<ForecastRetrofit>() {
             @Override
-            public void onResponse(Call<List<Weather>> call, Response<List<Weather>> response) {
-
+            public void onResponse(Call<ForecastRetrofit> call, Response<ForecastRetrofit> response) {
+                callback.onSuccess(response);
             }
 
             @Override
-            public void onFailure(Call<List<Weather>> call, Throwable t) {
+            public void onFailure(Call<ForecastRetrofit> call, Throwable t) {
 
             }
         });
 
-        return forecasts;
-    }
-
-    public interface SuccessCallback<T> {
-
-        /**
-         * Callback method for successful service calls.
-         *
-         * @param result The result received from the service.
-         */
-        void onSuccess(T result);
 
     }
+
 
 }

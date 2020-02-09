@@ -1,4 +1,4 @@
-package com.tkdev.weatherapp.modelretro;
+package com.tkdev.weatherapp.model.current_weather;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

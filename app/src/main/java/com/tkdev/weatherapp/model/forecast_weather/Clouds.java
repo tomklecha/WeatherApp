@@ -1,4 +1,4 @@
-package com.tkdev.weatherapp.modelretro;
+package com.tkdev.weatherapp.model.forecast_weather;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -21,5 +21,4 @@ public class Clouds {
         this.all = all;
         return this;
     }
-
 }

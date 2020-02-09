@@ -1,5 +1,5 @@
 
-package com.tkdev.weatherapp.modelretro;
+package com.tkdev.weatherapp.model.current_weather;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

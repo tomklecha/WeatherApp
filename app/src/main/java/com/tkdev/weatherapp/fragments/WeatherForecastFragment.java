@@ -5,10 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -44,10 +41,9 @@ public class WeatherForecastFragment extends Fragment implements MainContract.Vi
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_weather_forecast, container, false);
 
-//        forecastRecycleView = rootView.findViewById(R.id.forecast_recycler_view);
-//        forecastRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL,false));
-//        adapter = new ForecastAdapter(getContext(), presenter.getForecasts());
-//        forecastRecycleView.setAdapter(adapter);
+        forecastRecycleView = rootView.findViewById(R.id.forecast_recycler_view);
+        forecastRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL,false));
+
 
         return rootView;
     }
@@ -66,7 +62,8 @@ public class WeatherForecastFragment extends Fragment implements MainContract.Vi
 
     @Override
     public void refreshViews() {
-        presenter.onWeatherCreated();
+//        adapter = new ForecastAdapter(getContext(), (List<WeatherRetrofit>) presenter.getForecasts());
+//        forecastRecycleView.setAdapter(adapter);
     }
 
     @Override

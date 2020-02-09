@@ -1,4 +1,4 @@
-package com.tkdev.weatherapp.tasks;
+package com.tkdev.weatherapp.repository;
 
 public class Utils {
 

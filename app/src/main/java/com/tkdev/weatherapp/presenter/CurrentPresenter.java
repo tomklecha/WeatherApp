@@ -1,15 +1,8 @@
 package com.tkdev.weatherapp.presenter;
 
-import android.util.Log;
-import android.widget.TextView;
-
-import com.tkdev.weatherapp.model.Weather;
-import com.tkdev.weatherapp.modelretro.WeatherRetrofit;
+import com.tkdev.weatherapp.model.current_weather.WeatherRetrofit;
 import com.tkdev.weatherapp.repository.WeatherRetrofitImpl;
-
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import retrofit2.Response;
 
 public class CurrentPresenter implements MainContract.Presenter, MainContract.APIListener {
@@ -51,16 +44,16 @@ public class CurrentPresenter implements MainContract.Presenter, MainContract.AP
 
 
     public String setTemperatureCurrentTextView() {
-        return (Math.rint((weather.getMain().getTemp()) * 10) / 10) + Weather.TEMPERATURE_SUFFIX;
+        return (Math.rint((weather.getMain().getTemp()) * 10) / 10) +"";
     }
 
     public String setTemperatureMinimumTextView() {
-        return (Math.rint((weather.getMain().getTempMin()) * 10) / 10) + Weather.TEMPERATURE_SUFFIX;
+        return (Math.rint((weather.getMain().getTempMin()) * 10) / 10) + "";
 
     }
 
     public String setTemperatureMaximumTextView() {
-        return (Math.rint((weather.getMain().getTempMax()) * 10) / 10) + Weather.TEMPERATURE_SUFFIX;
+        return (Math.rint((weather.getMain().getTempMax()) * 10) / 10) + "";
     }
 
     public String setWeatherDescriptionTextView() {
@@ -68,7 +61,7 @@ public class CurrentPresenter implements MainContract.Presenter, MainContract.AP
     }
 
     public String setHumidityViewText() {
-        return (weather.getMain().getHumidity()) + Weather.HUMIDITY_SUFFIX;
+        return (weather.getMain().getHumidity()) + "";
     }
 
     public String setLastUpdateViewText() {

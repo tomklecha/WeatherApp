@@ -1,12 +1,7 @@
 package com.tkdev.weatherapp.presenter;
 
-import android.view.View;
-import android.widget.TextView;
-
-import com.tkdev.weatherapp.model.Weather;
-import com.tkdev.weatherapp.modelretro.WeatherRetrofit;
-
-import java.util.ArrayList;
+import com.tkdev.weatherapp.model.current_weather.WeatherRetrofit;
+import com.tkdev.weatherapp.model.forecast_weather.ForecastRetrofit;
 
 import retrofit2.Response;
 
@@ -14,6 +9,7 @@ public interface MainContract {
 
     interface Model {
         void getWeather(final APIListener listener);	// Retrieve list of movies
+        void getForecast(final APIForecastListener listener);	// Retrieve list of movies
     }
 
     interface Presenter extends BasePresenter {
@@ -25,9 +21,11 @@ public interface MainContract {
         void setText(String setText);
     }
     interface APIListener {
-
         void onSuccess(Response<WeatherRetrofit> response);
         void onFailure(Throwable t);
     }
-
-}
+    interface APIForecastListener {
+        void onSuccess(Response<ForecastRetrofit> response);
+        void onFailure(Throwable t);
+    }
+  }

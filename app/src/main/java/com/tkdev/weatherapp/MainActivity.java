@@ -12,7 +12,6 @@ import android.view.MenuItem;
 
 import com.tkdev.weatherapp.fragments.WeatherCurrentFragment;
 import com.tkdev.weatherapp.fragments.WeatherForecastFragment;
-import com.tkdev.weatherapp.modelretro.WeatherRetrofit;
 import com.tkdev.weatherapp.presenter.CurrentPresenter;
 import com.tkdev.weatherapp.presenter.MainContract;
 
@@ -74,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             case R.id.about_dev:
 //                showAboutDialog();
                 currentListener.refreshViews();
-                forecastListener.refreshViews();
+//                forecastListener.refreshViews();
                 return true;
 
             default:
