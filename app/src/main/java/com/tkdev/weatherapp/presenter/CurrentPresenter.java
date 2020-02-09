@@ -76,4 +76,7 @@ public class CurrentPresenter implements MainContract.Presenter, MainContract.AP
     }
 
 
+    public String setCityName() {
+        return weather.getName();
+    }
 }

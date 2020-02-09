@@ -18,7 +18,9 @@ import com.tkdev.weatherapp.presenter.MainContract;
 import java.util.Objects;
 
 
-public class MainActivity extends AppCompatActivity implements MainContract.View{
+public class MainActivity extends AppCompatActivity
+//        implements MainContract.View
+{
 
     private static final String TAG = "WeatherMainActivity";
 
@@ -46,10 +48,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void onAttachFragment(@NonNull Fragment fragment) {
-        if (fragment instanceof WeatherCurrentFragment){
+        if (fragment instanceof WeatherCurrentFragment) {
             currentListener = (MainContract.View) fragment;
         }
-        if (fragment instanceof WeatherForecastFragment){
+        if (fragment instanceof WeatherForecastFragment) {
             forecastListener = (MainContract.View) fragment;
         }
     }
@@ -71,7 +73,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.about_dev:
-//                showAboutDialog();
+                showAboutDialog();
+//                currentListener.refreshViews();
+//                forecastListener.refreshViews();
+                return true;
+
+            case R.id.refresh_weather:
                 currentListener.refreshViews();
                 forecastListener.refreshViews();
                 return true;
@@ -95,19 +102,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         appCompatDialog.show();
     }
 
-    @Override
-    public void setPresenter(MainContract.Presenter presenter) {
-        this.presenter = (CurrentPresenter) presenter;
-    }
-
-    @Override
-    public void refreshViews() {
-        presenter.onWeatherCreated();
-
-    }
-
-    @Override
-    public void setText(String setText) {
-
-    }
+//    @Override
+//    public void setPresenter(MainContract.Presenter presenter) {
+//        this.presenter = (CurrentPresenter) presenter;
+//    }
+//
+//    @Override
+//    public void refreshViews() {
+//        presenter.onWeatherCreated();
+//
+//    }
+//
+//    @Override
+//    public void setText(String setText) {
+//
+//    }
 }

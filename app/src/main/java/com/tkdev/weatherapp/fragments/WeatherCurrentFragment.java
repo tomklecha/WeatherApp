@@ -21,6 +21,7 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
 
     private CurrentPresenter presenter;
 
+    private TextView cityNameV;
     private TextView currentV;
     private TextView minV;
     private TextView maxV;
@@ -47,6 +48,7 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_weather_current, container, false);
 
+        cityNameV = rootView.findViewById(R.id.city_name);
         currentV = rootView.findViewById(R.id.city_temp_current);
         minV = rootView.findViewById(R.id.city_temp_min);
         maxV = rootView.findViewById(R.id.city_temp_max);
@@ -72,19 +74,8 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        presentV();
-
     }
 
-    private void presentV() {
-//        currentV.setText(presenter.);
-//        minV
-//        maxV
-//        weatherV
-//        humidityV
-//        lastUpdate
-//        dateV
-    }
 
 
     @Override
@@ -95,6 +86,7 @@ public class WeatherCurrentFragment extends Fragment implements MainContract.Vie
 
     @Override
     public void refreshViews() {
+        cityNameV.setText(presenter.setCityName());
         currentV.setText(presenter.setTemperatureCurrentTextView());
         minV.setText(presenter.setTemperatureMinimumTextView());
         maxV.setText(presenter.setTemperatureMaximumTextView());
