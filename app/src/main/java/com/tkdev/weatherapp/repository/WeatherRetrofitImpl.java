@@ -2,7 +2,6 @@ package com.tkdev.weatherapp.repository;
 
 import com.tkdev.weatherapp.model.current_weather.WeatherRetrofit;
 import com.tkdev.weatherapp.model.forecast_weather.ForecastRetrofit;
-import com.tkdev.weatherapp.presenter.ForecastPresenter;
 import com.tkdev.weatherapp.presenter.MainContract;
 
 
@@ -39,7 +38,7 @@ public class WeatherRetrofitImpl implements MainContract.Model {
                 .build()
                 .create(RetrofitService.class);
 
-            service.getWeatherRetrofit().enqueue(new Callback<WeatherRetrofit>() {
+            service.getCurrentWeather().enqueue(new Callback<WeatherRetrofit>() {
                 @Override
                 public void onResponse(Call<WeatherRetrofit> call, Response<WeatherRetrofit> response) {
                     callback.onSuccess(response);
@@ -70,7 +69,7 @@ public class WeatherRetrofitImpl implements MainContract.Model {
 
         service = retrofit.create(RetrofitService.class);
 
-        Call<ForecastRetrofit> call = service.getForecast();
+        Call<ForecastRetrofit> call = service.getForecastWeather();
         int i = 1+1;
 
         call.enqueue(new Callback<ForecastRetrofit>() {

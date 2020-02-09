@@ -20,8 +20,8 @@ public class ForecastPresenter implements MainContract.Presenter, MainContract.A
         this.forecastCallback = new WeatherRetrofit();
     }
 
-    public WeatherRetrofit getForecasts() {
-        return null;
+    public ForecastRetrofit getForecasts() {
+        return forecasts;
     }
 
     @Override

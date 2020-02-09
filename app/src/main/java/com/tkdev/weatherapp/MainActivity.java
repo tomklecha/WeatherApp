@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             case R.id.about_dev:
 //                showAboutDialog();
                 currentListener.refreshViews();
-//                forecastListener.refreshViews();
+                forecastListener.refreshViews();
                 return true;
 
             default:

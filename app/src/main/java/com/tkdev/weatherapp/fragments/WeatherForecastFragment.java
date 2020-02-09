@@ -13,8 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tkdev.weatherapp.R;
 import com.tkdev.weatherapp.adapters.ForecastAdapter;
+import com.tkdev.weatherapp.model.current_weather.WeatherRetrofit;
+import com.tkdev.weatherapp.model.forecast_weather.ForecastRetrofit;
 import com.tkdev.weatherapp.presenter.ForecastPresenter;
 import com.tkdev.weatherapp.presenter.MainContract;
+
+import java.util.List;
 
 
 /**
@@ -62,8 +66,8 @@ public class WeatherForecastFragment extends Fragment implements MainContract.Vi
 
     @Override
     public void refreshViews() {
-//        adapter = new ForecastAdapter(getContext(), (List<WeatherRetrofit>) presenter.getForecasts());
-//        forecastRecycleView.setAdapter(adapter);
+        adapter = new ForecastAdapter(presenter.getForecasts(), getContext());
+        forecastRecycleView.setAdapter(adapter);
     }
 
     @Override

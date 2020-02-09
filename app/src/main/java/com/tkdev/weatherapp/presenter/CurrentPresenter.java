@@ -2,13 +2,17 @@ package com.tkdev.weatherapp.presenter;
 
 import com.tkdev.weatherapp.model.current_weather.WeatherRetrofit;
 import com.tkdev.weatherapp.repository.WeatherRetrofitImpl;
-import java.text.SimpleDateFormat;
+
 import retrofit2.Response;
+
+import static com.tkdev.weatherapp.repository.Utils.DATE_PATTERN;
+import static com.tkdev.weatherapp.repository.Utils.HUMIDITY_SYMBOL;
+import static com.tkdev.weatherapp.repository.Utils.LAST_UPDATE_PATTERN;
+import static com.tkdev.weatherapp.repository.Utils.datePattern;
+import static com.tkdev.weatherapp.repository.Utils.temperaturePrefix;
 
 public class CurrentPresenter implements MainContract.Presenter, MainContract.APIListener {
 
-    private static final String LAST_UPDATE_PATTERN = "HH:mm";
-    private static final String DATE_PATTERN = "EEE dd-MM-yyyy";
 
     private MainContract.View view;
     private MainContract.Model model;
@@ -44,16 +48,15 @@ public class CurrentPresenter implements MainContract.Presenter, MainContract.AP
 
 
     public String setTemperatureCurrentTextView() {
-        return (Math.rint((weather.getMain().getTemp()) * 10) / 10) +"";
+        return temperaturePrefix(weather.getMain().getTemp());
     }
 
     public String setTemperatureMinimumTextView() {
-        return (Math.rint((weather.getMain().getTempMin()) * 10) / 10) + "";
-
+        return temperaturePrefix(weather.getMain().getTempMin());
     }
 
     public String setTemperatureMaximumTextView() {
-        return (Math.rint((weather.getMain().getTempMax()) * 10) / 10) + "";
+        return temperaturePrefix(weather.getMain().getTempMax());
     }
 
     public String setWeatherDescriptionTextView() {
@@ -61,18 +64,16 @@ public class CurrentPresenter implements MainContract.Presenter, MainContract.AP
     }
 
     public String setHumidityViewText() {
-        return (weather.getMain().getHumidity()) + "";
+        return (weather.getMain().getHumidity()) + HUMIDITY_SYMBOL;
     }
 
     public String setLastUpdateViewText() {
-        SimpleDateFormat lastUpdate = new SimpleDateFormat(LAST_UPDATE_PATTERN);
-        Long date = Long.valueOf(weather.getDt());
-        return lastUpdate.format(date * 1000);
+        return datePattern(weather.getDt(), LAST_UPDATE_PATTERN);
     }
 
     public String setDateViewText() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
-        Long date = Long.valueOf(weather.getDt());
-        return dateFormat.format(date * 1000);
+        return datePattern(weather.getDt(), DATE_PATTERN);
     }
+
+
 }

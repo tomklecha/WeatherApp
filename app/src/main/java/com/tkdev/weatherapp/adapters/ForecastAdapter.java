@@ -10,21 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tkdev.weatherapp.R;
+import com.tkdev.weatherapp.model.current_weather.Weather;
 import com.tkdev.weatherapp.model.forecast_weather.ForecastRetrofit;
 import com.tkdev.weatherapp.model.forecast_weather.ForecastViewHolder;
 import com.tkdev.weatherapp.model.current_weather.WeatherRetrofit;
+import com.tkdev.weatherapp.model.forecast_weather.List;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastViewHolder> {
 
     private ForecastRetrofit forecasts;
     private Context context;
 
-
-    public ForecastAdapter(Context context, ForecastRetrofit forecasts) {
-        this.context = context;
+    public ForecastAdapter(ForecastRetrofit forecasts, Context context) {
         this.forecasts = forecasts;
+        this.context = context;
     }
 
     @NonNull
@@ -37,8 +38,8 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ForecastViewHolder holder, int position) {
-//        ForecastRetrofit forecast = forecasts.getList().get(position);
-        holder.setForecast(forecasts);
+        List forecastList = forecasts.getList().get(position);
+        holder.setForecast(forecastList);
     }
 
     @Override
