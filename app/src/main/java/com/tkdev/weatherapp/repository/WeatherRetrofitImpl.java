@@ -1,10 +1,13 @@
 package com.tkdev.weatherapp.repository;
 
+import android.util.Log;
+
 import com.tkdev.weatherapp.model.current_weather.WeatherRetrofit;
 import com.tkdev.weatherapp.model.forecast_weather.ForecastRetrofit;
 import com.tkdev.weatherapp.presenter.MainContract;
 
 
+import java.io.IOException;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -38,18 +41,26 @@ public class WeatherRetrofitImpl implements MainContract.Model {
                 .build()
                 .create(RetrofitService.class);
 
-            service.getCurrentWeather().enqueue(new Callback<WeatherRetrofit>() {
-                @Override
-                public void onResponse(Call<WeatherRetrofit> call, Response<WeatherRetrofit> response) {
+        service.getCurrentWeather().enqueue(new Callback<WeatherRetrofit>() {
+            @Override
+            public void onResponse(Call<WeatherRetrofit> call, Response<WeatherRetrofit> response) {
+
+                if (response.body() != null && response.isSuccessful()) {
+                 Log.d("Tag", "response code" + response.code());
+
+
                     callback.onSuccess(response);
-                    int i = 1+1;
-                }
-
-                @Override
-                public void onFailure(Call<WeatherRetrofit> call, Throwable t) {
+                    Log.d("Tag", "response body" + response.body());
 
                 }
-            });
+            }
+
+            @Override
+            public void onFailure(Call<WeatherRetrofit> call, Throwable t) {
+
+            }
+
+        });
     }
 
     @Override
@@ -70,7 +81,6 @@ public class WeatherRetrofitImpl implements MainContract.Model {
         service = retrofit.create(RetrofitService.class);
 
         Call<ForecastRetrofit> call = service.getForecastWeather();
-        int i = 1+1;
 
         call.enqueue(new Callback<ForecastRetrofit>() {
             @Override

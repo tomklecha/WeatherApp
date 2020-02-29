@@ -19,6 +19,8 @@ public class Utils {
     public static final String FORECAST_HOUR_PATTERN = "HH:mm";
     public static final String LAST_UPDATE_PATTERN = "HH:mm";
     public static final String DATE_PATTERN = "EEE dd-MM-yyyy";
+    public static int last_dt = 0;
+
 
     public static String temperaturePrefix(double temp){
         return (Math.rint(temp * 10) / 10) + WEATHER_CELSIUS;

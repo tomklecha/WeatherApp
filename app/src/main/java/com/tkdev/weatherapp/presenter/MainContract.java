@@ -8,8 +8,8 @@ import retrofit2.Response;
 public interface MainContract {
 
     interface Model {
-        void getWeather(final APIListener listener);	// Retrieve list of movies
-        void getForecast(final APIForecastListener listener);	// Retrieve list of movies
+        void getWeather(final APIListener listener);
+        void getForecast(final APIForecastListener listener);
     }
 
     interface Presenter extends BasePresenter {
@@ -18,7 +18,8 @@ public interface MainContract {
 
     interface View extends BaseView<Presenter>{
         void refreshViews();
-        void setText(String setText);
+        void update();
+        void cancelUpdate();
     }
     interface APIListener {
         void onSuccess(Response<WeatherRetrofit> response);

@@ -12,21 +12,18 @@ import android.view.MenuItem;
 
 import com.tkdev.weatherapp.fragments.WeatherCurrentFragment;
 import com.tkdev.weatherapp.fragments.WeatherForecastFragment;
-import com.tkdev.weatherapp.presenter.CurrentPresenter;
 import com.tkdev.weatherapp.presenter.MainContract;
 
 import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity
-//        implements MainContract.View
 {
 
     private static final String TAG = "WeatherMainActivity";
 
     private MainContract.View currentListener;
     private MainContract.View forecastListener;
-    private MainContract.Presenter presenter;
 
 
     @Override
@@ -74,8 +71,6 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.about_dev:
                 showAboutDialog();
-//                currentListener.refreshViews();
-//                forecastListener.refreshViews();
                 return true;
 
             case R.id.refresh_weather:
@@ -102,19 +97,4 @@ public class MainActivity extends AppCompatActivity
         appCompatDialog.show();
     }
 
-//    @Override
-//    public void setPresenter(MainContract.Presenter presenter) {
-//        this.presenter = (CurrentPresenter) presenter;
-//    }
-//
-//    @Override
-//    public void refreshViews() {
-//        presenter.onWeatherCreated();
-//
-//    }
-//
-//    @Override
-//    public void setText(String setText) {
-//
-//    }
 }
