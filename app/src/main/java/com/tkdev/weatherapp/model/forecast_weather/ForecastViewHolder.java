@@ -1,4 +1,4 @@
-package com.tkdev.weatherapp.model;
+package com.tkdev.weatherapp.model.forecast_weather;
 
 import android.view.View;
 import android.widget.TextView;
@@ -7,8 +7,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tkdev.weatherapp.R;
+import com.tkdev.weatherapp.repository.Utils;
 
-import java.text.SimpleDateFormat;
+import static com.tkdev.weatherapp.repository.Utils.FORECAST_DAY_PATTERN;
+import static com.tkdev.weatherapp.repository.Utils.FORECAST_HOUR_PATTERN;
+import static com.tkdev.weatherapp.repository.Utils.datePattern;
 
 public class ForecastViewHolder extends RecyclerView.ViewHolder {
 
@@ -19,8 +22,6 @@ public class ForecastViewHolder extends RecyclerView.ViewHolder {
     public TextView forecastDayOfForecast;
     public TextView forecastHourOfForecast;
 
-    private static final String FORECAST_DAY_PATTERN = "EEE";
-    private static final String FORECAST_HOUR_PATTERN = "HH:mm";
 
     public ForecastViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -33,21 +34,14 @@ public class ForecastViewHolder extends RecyclerView.ViewHolder {
     }
 
 
-    public ForecastViewHolder setForecast(Weather forecast) {
+    public ForecastViewHolder setForecast(List forecast) {
 
-        SimpleDateFormat weatherDay = new SimpleDateFormat(FORECAST_DAY_PATTERN);
-        SimpleDateFormat weatherHour = new SimpleDateFormat(FORECAST_HOUR_PATTERN);
-
-        String tempCurrent = forecast.getTemperatureCurrent() + Weather.TEMPERATURE_SUFFIX;
-        String tempMin = forecast.getTemperatureMin() + Weather.TEMPERATURE_SUFFIX;
-        String tempMax = forecast.getTemperatureMax() + Weather.TEMPERATURE_SUFFIX;
-
-        this.forecastTempCurrent.setText(tempCurrent);
-        this.forecastTempMin.setText(tempMin);
-        this.forecastTempMax.setText(tempMax);
-        this.forecastWeatherDescription.setText(forecast.getWeather());
-        this.forecastDayOfForecast.setText(weatherDay.format(forecast.getDayOfForecast()));
-        this.forecastHourOfForecast.setText(weatherHour.format(forecast.getDayOfForecast()));
+        this.forecastTempCurrent.setText(Utils.temperaturePrefix(forecast.getMain().getTemp()));
+        this.forecastTempMin.setText(Utils.temperaturePrefix(forecast.getMain().getTempMin()));
+        this.forecastTempMax.setText(Utils.temperaturePrefix(forecast.getMain().getTempMax()));
+        this.forecastWeatherDescription.setText(forecast.getWeather().get(0).getMain());
+        this.forecastDayOfForecast.setText(datePattern(forecast.getDt(), FORECAST_DAY_PATTERN));
+        this.forecastHourOfForecast.setText(datePattern(forecast.getDt(), FORECAST_HOUR_PATTERN));
 
         return this;
     }

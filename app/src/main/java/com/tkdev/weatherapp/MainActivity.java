@@ -17,7 +17,8 @@ import com.tkdev.weatherapp.presenter.MainContract;
 import java.util.Objects;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
 
     private static final String TAG = "WeatherMainActivity";
 
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         toolbarSetup();
 
+
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_current, new WeatherCurrentFragment())
                 .commit();
@@ -43,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onAttachFragment(@NonNull Fragment fragment) {
-        if (fragment instanceof WeatherCurrentFragment){
+        if (fragment instanceof WeatherCurrentFragment) {
             currentListener = (MainContract.View) fragment;
         }
-        if (fragment instanceof WeatherForecastFragment){
+        if (fragment instanceof WeatherForecastFragment) {
             forecastListener = (MainContract.View) fragment;
         }
     }
@@ -68,7 +70,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.about_dev:
-//                showAboutDialog();
+                showAboutDialog();
+                return true;
+
+            case R.id.refresh_weather:
                 currentListener.refreshViews();
                 forecastListener.refreshViews();
                 return true;
@@ -91,4 +96,5 @@ public class MainActivity extends AppCompatActivity {
         appCompatDialog.setContentView(R.layout.about_dev);
         appCompatDialog.show();
     }
+
 }

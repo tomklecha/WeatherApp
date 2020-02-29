@@ -1,8 +1,13 @@
 package com.tkdev.weatherapp.repository;
 
-import com.tkdev.weatherapp.model.Weather;
+import android.util.Log;
 
-import java.util.List;
+import com.tkdev.weatherapp.model.current_weather.WeatherRetrofit;
+import com.tkdev.weatherapp.model.forecast_weather.ForecastRetrofit;
+import com.tkdev.weatherapp.presenter.MainContract;
+
+
+import java.io.IOException;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -12,16 +17,54 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.tkdev.weatherapp.tasks.Utils.WEATHER_REQUEST_BASE;
+import static com.tkdev.weatherapp.repository.Utils.WEATHER_REQUEST_BASE;
 
-public class WeatherRetrofitImpl {
+public class WeatherRetrofitImpl implements MainContract.Model {
 
-    WeatherRetrofit service;
-    Weather weather;
-    List<Weather> forecasts;
+    RetrofitService service;
 
-    public Weather getWeather() {
 
+    @Override
+    public void getWeather(MainContract.APIListener callback) {
+
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .build();
+
+        RetrofitService service = new Retrofit.Builder()
+                .baseUrl(WEATHER_REQUEST_BASE)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build()
+                .create(RetrofitService.class);
+
+        service.getCurrentWeather().enqueue(new Callback<WeatherRetrofit>() {
+            @Override
+            public void onResponse(Call<WeatherRetrofit> call, Response<WeatherRetrofit> response) {
+
+                if (response.body() != null && response.isSuccessful()) {
+                 Log.d("Tag", "response code" + response.code());
+
+
+                    callback.onSuccess(response);
+                    Log.d("Tag", "response body" + response.body());
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WeatherRetrofit> call, Throwable t) {
+
+            }
+
+        });
+    }
+
+    @Override
+    public void getForecast(MainContract.APIForecastListener callback) {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -35,63 +78,24 @@ public class WeatherRetrofitImpl {
                 .client(okHttpClient)
                 .build();
 
-        service = retrofit.create(WeatherRetrofit.class);
+        service = retrofit.create(RetrofitService.class);
 
-        Call<Weather> call = service.getWeather();
+        Call<ForecastRetrofit> call = service.getForecastWeather();
 
-
-        call.enqueue(new Callback<Weather>() {
+        call.enqueue(new Callback<ForecastRetrofit>() {
             @Override
-            public void onResponse(Call<Weather> call, Response<Weather> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                }
-
-                weather = response.body();
-
-                }
-
+            public void onResponse(Call<ForecastRetrofit> call, Response<ForecastRetrofit> response) {
+                callback.onSuccess(response);
+            }
 
             @Override
-            public void onFailure(Call<Weather> call, Throwable t) {
+            public void onFailure(Call<ForecastRetrofit> call, Throwable t) {
 
             }
         });
 
-        return weather;
+
     }
-    public List<Weather> getForecasts() {
 
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(WEATHER_REQUEST_BASE)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient)
-                .build();
-
-        service = retrofit.create(WeatherRetrofit.class);
-
-        Call<List<Weather>> call = service.getForecast();
-
-        call.enqueue(new Callback<List<Weather>>() {
-            @Override
-            public void onResponse(Call<List<Weather>> call, Response<List<Weather>> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Weather>> call, Throwable t) {
-
-            }
-        });
-
-        return forecasts;
-    }
 
 }

@@ -59,10 +59,10 @@
             android:id="@+id/city_temp_min_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:text="@string/temp_min_text"
+            android:textAlignment="viewEnd"
             app:layout_constraintBaseline_toBaselineOf="@+id/city_temp_min"
-            app:layout_constraintStart_toEndOf="@+id/city_temp_min" />
+            app:layout_constraintStart_toStartOf="@+id/city_temp_max_text" />
 
         <TextView
             android:id="@+id/city_temp_max"
@@ -79,6 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/temp_max_text"
+            android:textAlignment="viewEnd"
             app:layout_constraintBaseline_toBaselineOf="@+id/city_temp_max"
             app:layout_constraintStart_toEndOf="@+id/city_temp_max" />
 
