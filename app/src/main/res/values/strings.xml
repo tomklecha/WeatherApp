@@ -18,8 +18,16 @@
     <string name="city_hour_update_text">Last update:</string>
     <string name="city_current_date">click map to update data</string>
     <string name="weather_text">Weather Description</string>
-    <string name="about_copyright">Created by Tomasz Klecha: \nJanuary 2020</string>
+    <string name="about_copyright">Created by Tomasz Klecha: \nQ1 2020</string>
     <string name="about_email">Contact email: \ntom.klecha.dev@gmail.com</string>
     <string name="refresh_weather">Refresh</string>
+    <string name="menu_search">Search</string>
+    <string name="apply">Apply</string>
+    <string name="cancel">Cancel</string>
+    <string name="update_succesful">Successful update !</string>
+    <string name="update_server_delay">Data didn\'t changed yet on server ! Try later</string>
+    <string name="update_in_time">Try to update in : %s minutes</string>
+    <string name="search_by_city">Type city</string>
+    <string name="search_dialog_onCancel">Request cancelled</string>
 
 </resources>
