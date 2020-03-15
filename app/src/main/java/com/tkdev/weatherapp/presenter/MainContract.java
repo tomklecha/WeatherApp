@@ -8,25 +8,26 @@ import retrofit2.Response;
 public interface MainContract {
 
     interface Model {
-        void getWeather(final APIListener listener);
-        void getForecast(final APIForecastListener listener);
+        void getWeather(final APIListener listener, String city);
+        void getWeather(final APIForecastListener listener, String city);
     }
 
     interface Presenter extends BasePresenter {
-        void onWeatherCreated();
+        void onRequestWeather(String city);
     }
 
     interface View extends BaseView<Presenter>{
-        void refreshViews();
+        void showWeatherByCity(String city);
         void update();
         void cancelUpdate();
+        void onFailUpdate(String message);
     }
     interface APIListener {
-        void onSuccess(Response<WeatherRetrofit> response);
-        void onFailure(Throwable t);
+        void onSuccessResponse(Response<WeatherRetrofit> response);
+        void onFailureResponse(String responseMessage);
     }
     interface APIForecastListener {
-        void onSuccess(Response<ForecastRetrofit> response);
-        void onFailure(Throwable t);
+        void onSuccessResponse(Response<ForecastRetrofit> response);
+        void onFailureResponse(String responseMessage);
     }
   }
