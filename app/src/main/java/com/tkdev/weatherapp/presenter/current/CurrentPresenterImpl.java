@@ -1,18 +1,14 @@
 package com.tkdev.weatherapp.presenter.current;
 
-import android.util.Log;
-
 import com.tkdev.weatherapp.model.current_weather.WeatherRetrofit;
 import com.tkdev.weatherapp.presenter.MainContract;
 import com.tkdev.weatherapp.repository.WeatherRetrofitImpl;
-
-import java.time.LocalDate;
-
 import retrofit2.Response;
 
 import static com.tkdev.weatherapp.repository.Utils.DATE_PATTERN;
 import static com.tkdev.weatherapp.repository.Utils.HUMIDITY_SYMBOL;
 import static com.tkdev.weatherapp.repository.Utils.LAST_UPDATE_PATTERN;
+import static com.tkdev.weatherapp.repository.Utils.current_city;
 import static com.tkdev.weatherapp.repository.Utils.datePattern;
 import static com.tkdev.weatherapp.repository.Utils.last_dt;
 import static com.tkdev.weatherapp.repository.Utils.temperaturePrefix;
@@ -30,14 +26,15 @@ public class CurrentPresenterImpl implements MainContract.Presenter, MainContrac
         this.weather = new WeatherRetrofit();
     }
 
-    @Override
-    public void onWeatherCreated() {
-        Log.d("PREF=onSuccess", String.valueOf(last_dt));
-        Log.d("PREF=onSuccess", String.valueOf(System.currentTimeMillis()));
 
-        if(last_dt <= System.currentTimeMillis()/1000 - 600)  {
-            model.getWeather(this);
-        }else {
+    @Override
+    public void onRequestWeather(String city) {
+        if (current_city.equals("")) {
+            current_city = "London";
+            model.getWeather(this, current_city);
+        } else if (last_dt <= System.currentTimeMillis() / 1000 - 600 || (!current_city.equals(city))) {
+            model.getWeather(this, city);
+        } else {
             view.cancelUpdate();
         }
     }
@@ -48,17 +45,16 @@ public class CurrentPresenterImpl implements MainContract.Presenter, MainContrac
     }
 
     @Override
-    public void onSuccess(Response<WeatherRetrofit> response) {
+    public void onSuccessResponse(Response<WeatherRetrofit> response) {
         weather = response.body();
         last_dt = weather.getDt();
-        Log.d("PREF=onSuccess",datePattern(weather.getDt(), LAST_UPDATE_PATTERN));
-        Log.d("PREF=onSuccess",weather.getDt().toString());
+        current_city = weather.getName();
         view.update();
     }
 
     @Override
-    public void onFailure(Throwable t) {
-
+    public void onFailureResponse(String message) {
+        view.onFailUpdate(message);
     }
 
     // TestView text changers

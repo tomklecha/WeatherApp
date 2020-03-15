@@ -12,4 +12,5 @@ public interface CurrentPresenter extends MainContract {
     String setLastUpdateViewText();
     String setDateViewText();
     String setCityName();
+
 }
