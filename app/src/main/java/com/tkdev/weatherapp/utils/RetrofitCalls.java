@@ -1,12 +1,17 @@
-package com.tkdev.weatherapp.repository;
+package com.tkdev.weatherapp.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 
-public class Utils {
+public class RetrofitCalls {
+
+
 
 
     public static final String AND_SYMBOL = "&";
@@ -20,7 +25,7 @@ public class Utils {
     public static final String WEATHER_API_PREFIX = "APPID=";
     public static final String WEATHER_API_KEY = "5b08b54ce198509d241991110864cab4";
     public static final String WEATHER_TEMPERATURE_PREFIX = "units=";
-    public static final String WEATHER_TEMPERATURE = "metric";
+    public static final String WEATHER_TEMPERATURE_CELSIUS = "metric";
 
     public static final String CELSIUS_SYMBOL = "°";
     public static final String HUMIDITY_SYMBOL = " %";
@@ -28,8 +33,7 @@ public class Utils {
     public static final String FORECAST_HOUR_PATTERN = "HH:mm";
     public static final String LAST_UPDATE_PATTERN = "HH:mm";
     public static final String DATE_PATTERN = "EEE dd-MM-yyyy";
-    public static int last_dt = 0;
-    public static String current_city = "";
+
 
     public static String temperaturePrefix(double temp) {
         return (Math.rint(temp * 10) / 10) + CELSIUS_SYMBOL;
@@ -44,4 +48,5 @@ public class Utils {
     public static void makeSnack(View view, String message){
         Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show();
     }
+
 }

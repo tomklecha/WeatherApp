@@ -13,4 +13,5 @@ public interface CurrentPresenter extends MainContract {
     String setDateViewText();
     String setCityName();
 
+    String sendCurrentWeather();
 }

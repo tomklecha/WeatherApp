@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/share_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/share_type_data" />
+
+    <CheckBox
+        android:id="@+id/share_current_temp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/share_current_temp" />
+
+    <CheckBox
+        android:id="@+id/share_weather"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/weather_text" />
+
+    <CheckBox
+        android:id="@+id/share_last_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/city_hour_update_text" />
+
+</LinearLayout>

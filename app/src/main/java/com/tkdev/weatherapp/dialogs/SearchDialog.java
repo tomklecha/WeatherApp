@@ -2,7 +2,6 @@ package com.tkdev.weatherapp.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-import com.tkdev.weatherapp.MainActivity;
 import com.tkdev.weatherapp.R;
 
 import java.util.Objects;
@@ -19,9 +17,9 @@ import java.util.Objects;
 public class SearchDialog extends DialogFragment {
 
     public interface SearchDialogListener {
-        void onDialogPositiveClick(String text);
+        void onAboutDialogPositiveClick(String text);
 
-        void onDialogNegativeClick(String text);
+        void onAboutDialogNegativeClick(String text);
     }
 
     SearchDialogListener listener;
@@ -47,14 +45,23 @@ public class SearchDialog extends DialogFragment {
 
         builder.setView(dialogView)
                 .setPositiveButton(R.string.apply, (dialog, id) -> {
-                    listener.onDialogPositiveClick(city.getText().toString());
+                    listener.onAboutDialogPositiveClick(
+                            cityStringRefubrish(city.getText().toString()));
+
                 })
                 .setNegativeButton(R.string.cancel, (dialog, which) -> {
                     setCancelable(true);
-                    listener.onDialogNegativeClick(getString(R.string.search_dialog_onCancel));
+                    listener.onAboutDialogNegativeClick(getString(R.string.search_dialog_onCancel));
                 });
 
 
         return builder.create();
+    }
+
+    private String cityStringRefubrish(String city) {
+        // avoiding different typing in cities - to always have same call
+        return city.substring(0, 1).toUpperCase() +
+                city.substring(1).toLowerCase();
+
     }
 }

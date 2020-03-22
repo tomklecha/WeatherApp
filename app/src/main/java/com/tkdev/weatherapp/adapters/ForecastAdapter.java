@@ -39,7 +39,9 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ForecastViewHolder holder, int position) {
         List forecastList = forecasts.getList().get(position);
-        holder.setForecast(forecastList);
+        int forecastTimezone = forecastList.getDt() + forecasts.getCity().getTimezone();
+
+        holder.setForecast(forecastList, forecastTimezone);
     }
 
     @Override
