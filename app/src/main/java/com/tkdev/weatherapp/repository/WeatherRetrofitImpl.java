@@ -1,7 +1,5 @@
 package com.tkdev.weatherapp.repository;
 
-import android.util.Log;
-
 import com.tkdev.weatherapp.model.current_weather.WeatherRetrofit;
 import com.tkdev.weatherapp.model.forecast_weather.ForecastRetrofit;
 import com.tkdev.weatherapp.presenter.MainContract;
@@ -15,7 +13,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.tkdev.weatherapp.repository.Utils.WEATHER_REQUEST_BASE;
+import static com.tkdev.weatherapp.utils.RetrofitCalls.WEATHER_REQUEST_BASE;
 
 public class WeatherRetrofitImpl implements MainContract.Model {
 

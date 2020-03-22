@@ -7,11 +7,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tkdev.weatherapp.R;
-import com.tkdev.weatherapp.repository.Utils;
+import com.tkdev.weatherapp.utils.RetrofitCalls;
 
-import static com.tkdev.weatherapp.repository.Utils.FORECAST_DAY_PATTERN;
-import static com.tkdev.weatherapp.repository.Utils.FORECAST_HOUR_PATTERN;
-import static com.tkdev.weatherapp.repository.Utils.datePattern;
+import static com.tkdev.weatherapp.utils.RetrofitCalls.FORECAST_DAY_PATTERN;
+import static com.tkdev.weatherapp.utils.RetrofitCalls.FORECAST_HOUR_PATTERN;
+import static com.tkdev.weatherapp.utils.RetrofitCalls.datePattern;
 
 public class ForecastViewHolder extends RecyclerView.ViewHolder {
 
@@ -34,14 +34,14 @@ public class ForecastViewHolder extends RecyclerView.ViewHolder {
     }
 
 
-    public ForecastViewHolder setForecast(List forecast) {
+    public ForecastViewHolder setForecast(List forecast, int forecastTimezone) {
 
-        this.forecastTempCurrent.setText(Utils.temperaturePrefix(forecast.getMain().getTemp()));
-        this.forecastTempMin.setText(Utils.temperaturePrefix(forecast.getMain().getTempMin()));
-        this.forecastTempMax.setText(Utils.temperaturePrefix(forecast.getMain().getTempMax()));
+        this.forecastTempCurrent.setText(RetrofitCalls.temperaturePrefix(forecast.getMain().getTemp()));
+        this.forecastTempMin.setText(RetrofitCalls.temperaturePrefix(forecast.getMain().getTempMin()));
+        this.forecastTempMax.setText(RetrofitCalls.temperaturePrefix(forecast.getMain().getTempMax()));
         this.forecastWeatherDescription.setText(forecast.getWeather().get(0).getMain());
-        this.forecastDayOfForecast.setText(datePattern(forecast.getDt(), FORECAST_DAY_PATTERN));
-        this.forecastHourOfForecast.setText(datePattern(forecast.getDt(), FORECAST_HOUR_PATTERN));
+        this.forecastDayOfForecast.setText(datePattern(forecastTimezone, FORECAST_DAY_PATTERN));
+        this.forecastHourOfForecast.setText(datePattern(forecastTimezone, FORECAST_HOUR_PATTERN));
 
         return this;
     }

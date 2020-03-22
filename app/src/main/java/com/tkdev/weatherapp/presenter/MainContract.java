@@ -3,6 +3,8 @@ package com.tkdev.weatherapp.presenter;
 import com.tkdev.weatherapp.model.current_weather.WeatherRetrofit;
 import com.tkdev.weatherapp.model.forecast_weather.ForecastRetrofit;
 
+import java.util.ArrayList;
+
 import retrofit2.Response;
 
 public interface MainContract {
@@ -21,6 +23,8 @@ public interface MainContract {
         void update();
         void cancelUpdate();
         void onFailUpdate(String message);
+
+        String shareWeather(ArrayList<Boolean> booleanList);
     }
     interface APIListener {
         void onSuccessResponse(Response<WeatherRetrofit> response);

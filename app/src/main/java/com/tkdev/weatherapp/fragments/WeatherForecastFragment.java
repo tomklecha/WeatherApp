@@ -1,13 +1,11 @@
 package com.tkdev.weatherapp.fragments;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,8 +16,7 @@ import com.tkdev.weatherapp.adapters.ForecastAdapter;
 import com.tkdev.weatherapp.presenter.forecast.ForecastPresenterImpl;
 import com.tkdev.weatherapp.presenter.MainContract;
 
-import static com.tkdev.weatherapp.repository.Utils.current_city;
-import static com.tkdev.weatherapp.repository.Utils.last_dt;
+import java.util.ArrayList;
 
 public class WeatherForecastFragment extends Fragment implements MainContract.View {
 
@@ -65,20 +62,14 @@ public class WeatherForecastFragment extends Fragment implements MainContract.Vi
 
     @Override
     public void showWeatherByCity(String city) {
-        if (adapter == null || (!current_city.equals(city)) && last_dt <= System.currentTimeMillis() / 1000 - 600) {
             Log.d(TAG, "Show current forecast for: " + city);
             presenter.onRequestWeather(city);
-        }
     }
 
     @Override
     public void update() {
-        if (adapter == null) {
             adapter = new ForecastAdapter(presenter.getForecasts(), getContext());
             forecastRecycleView.setAdapter(adapter);
-        } else {
-            adapter.notifyDataSetChanged();
-        }
     }
 
     @Override
@@ -89,6 +80,11 @@ public class WeatherForecastFragment extends Fragment implements MainContract.Vi
     @Override
     public void onFailUpdate(String message) {
 
+    }
+
+    @Override
+    public String shareWeather(ArrayList<Boolean> booleanList) {
+        return null;
     }
 }
 

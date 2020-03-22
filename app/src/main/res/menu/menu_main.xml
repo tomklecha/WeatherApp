@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
     <item
         android:id="@+id/menu_app_bar_search"
         android:icon="@android:drawable/ic_menu_search"
@@ -12,8 +14,12 @@
         android:icon="@android:drawable/stat_notify_sync"
         android:title="@string/refresh_weather"
         app:showAsAction="ifRoom"
-        android:visible="false"
         />
+    <item
+        android:id="@+id/menu_share"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="@string/menu_share"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menu_about_dev"
