@@ -21,7 +21,7 @@ class WeatherForecastFragment : Fragment(), MainContract.View {
     private val TAG = "WeatherForecastFragment"
 
     private lateinit var presenter: ForecastPresenterImpl
-    private lateinit var adapter: com.tkdev.weatherapp.adapters.ForecastAdapter
+    private lateinit var adapter: ForecastAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

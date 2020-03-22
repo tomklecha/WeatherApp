@@ -18,10 +18,10 @@ class ForecastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun setForecast(forecast: List, forecastTimezone: Int): ForecastViewHolder
     {
 
-        this.forecastTempCurrent.text = temperaturePrefix(forecast.main.temp);
-        this.forecastTempMin.text = temperaturePrefix(forecast.main.tempMin);
-        this.forecastTempMax.text = temperaturePrefix(forecast.main.tempMax);
-        this.forecastWeatherDescription.text = forecast.weather[0].main;
+        this.forecastTempCurrent.text = forecast.main?.temp?.let { temperaturePrefix(it) }
+        this.forecastTempMin.text = forecast.main?.tempMin?.let { temperaturePrefix(it) }
+        this.forecastTempMax.text = forecast.main?.tempMax?.let { temperaturePrefix(it) }
+        this.forecastWeatherDescription.text = forecast.weather?.get(0)?.main
         this.forecastDayOfForecast.text = datePattern(forecastTimezone, FORECAST_DAY_PATTERN);
         this.forecastHourOfForecast.text = datePattern(forecastTimezone, FORECAST_HOUR_PATTERN);
 
