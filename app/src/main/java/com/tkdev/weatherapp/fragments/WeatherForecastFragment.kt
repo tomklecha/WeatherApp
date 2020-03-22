@@ -23,6 +23,15 @@ class WeatherForecastFragment : Fragment(), MainContract.View {
     private lateinit var presenter: ForecastPresenterImpl
     private lateinit var adapter: ForecastAdapter
 
+    companion object {
+        fun newInstance(): WeatherForecastFragment = WeatherForecastFragment()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val rootView: View = inflater.inflate(R.layout.fragment_weather_forecast, container, false)
@@ -30,11 +39,13 @@ class WeatherForecastFragment : Fragment(), MainContract.View {
         return rootView
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        forecast_recycler_view.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        forecast_recycler_view.apply {
+            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        }
     }
+
 
     override fun setPresenter(presenter: Presenter) {
         this.presenter = presenter as ForecastPresenterImpl
@@ -46,7 +57,6 @@ class WeatherForecastFragment : Fragment(), MainContract.View {
     }
 
     override fun update() {
-
         adapter = ForecastAdapter(presenter.forecasts)
         forecast_recycler_view.adapter = adapter
     }

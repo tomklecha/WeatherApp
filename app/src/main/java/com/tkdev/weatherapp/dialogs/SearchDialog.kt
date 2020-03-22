@@ -7,6 +7,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.tkdev.weatherapp.R
+import kotlinx.android.synthetic.main.fragment_search.view.*
 
 class SearchDialog : DialogFragment() {
 
@@ -34,7 +35,7 @@ class SearchDialog : DialogFragment() {
             val builder: AlertDialog.Builder? = AlertDialog.Builder(it)
             val inflater = requireActivity().layoutInflater
             val dialogLayout = inflater.inflate(R.layout.fragment_search, null)
-            val editText: EditText = dialogLayout.findViewById(R.id.city_search_text)
+            val editText: EditText = dialogLayout.city_search_text
             builder?.setView(dialogLayout)
 
             builder?.setPositiveButton(R.string.apply)

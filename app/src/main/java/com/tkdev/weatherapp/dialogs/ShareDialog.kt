@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.CheckBox
 import androidx.fragment.app.DialogFragment
 import com.tkdev.weatherapp.R
+import kotlinx.android.synthetic.main.fragment_share.view.*
 
 class ShareDialog: DialogFragment() {
 
@@ -34,9 +35,9 @@ class ShareDialog: DialogFragment() {
             val builder: AlertDialog.Builder? = AlertDialog.Builder(it)
             val inflater = requireActivity().layoutInflater
             val dialogLayout = inflater.inflate(R.layout.fragment_share, null)
-            val currentCheckBox: CheckBox = dialogLayout.findViewById(R.id.share_current_temp)
-            val weatherCheckBox: CheckBox = dialogLayout.findViewById(R.id.share_weather)
-            val lastUpdateCheckBox: CheckBox = dialogLayout.findViewById(R.id.share_last_update)
+            val currentCheckBox: CheckBox = dialogLayout.share_current_temp
+            val weatherCheckBox: CheckBox = dialogLayout.share_weather
+            val lastUpdateCheckBox: CheckBox = dialogLayout.share_last_update
             val share = ArrayList<Boolean>()
             builder?.setView(dialogLayout)
 

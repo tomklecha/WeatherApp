@@ -19,12 +19,18 @@ import kotlinx.android.synthetic.main.fragment_weather_current.*
 
 class WeatherCurrentFragment : Fragment(), MainContract.View {
 
-    private val s = "WeatherCurrentFragment"
-
-
+    private val TAG = "WeatherCurrentFragment"
     private lateinit var presenter: CurrentPresenterImpl
     private lateinit var sharedPreferences: SharedPreferences
 
+    companion object {
+        fun newInstance(): WeatherCurrentFragment = WeatherCurrentFragment()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -46,7 +52,7 @@ class WeatherCurrentFragment : Fragment(), MainContract.View {
     }
 
     override fun showWeatherByCity(city: String) {
-        Log.d(s, "Show current weather for: $city")
+        Log.d(TAG, "Show current weather for: $city")
         presenter.onRequestWeather(city)
     }
 
@@ -106,15 +112,14 @@ class WeatherCurrentFragment : Fragment(), MainContract.View {
 //                putString(PreferencesVariables.TODAY_DAY_VIEW, today_date_toolbar.text.toString())
                 commit()
             }
-            Log.d(s, "Prefs are saved")
+            Log.d(TAG, "Prefs are saved")
 
         } else {
-            Log.d(s, "date is same")
+            Log.d(TAG, "date is same")
         }
     }
 
     private fun loadSharedPreferences() {
-
         with(sharedPreferences) {
             PreferencesVariables.last_dt = getInt(PreferencesVariables.LAST_DT_STRING, 0)
             PreferencesVariables.current_city = getString(PreferencesVariables.CURRENT_CITY_STRING, "")

@@ -6,6 +6,8 @@ import com.tkdev.weatherapp.presenter.MainContract.APIListener
 import com.tkdev.weatherapp.presenter.MainContract.Presenter
 import com.tkdev.weatherapp.repository.WeatherRetrofitImpl
 import com.tkdev.weatherapp.utils.PreferencesVariables
+import com.tkdev.weatherapp.utils.PreferencesVariables.current_city
+import com.tkdev.weatherapp.utils.PreferencesVariables.last_dt
 import com.tkdev.weatherapp.utils.RetrofitCalls
 import retrofit2.Response
 
@@ -22,12 +24,12 @@ class CurrentPresenterImpl(
     }
 
     override fun onRequestWeather(city: String) {
-        if (PreferencesVariables.current_city == "") {
-            PreferencesVariables.current_city = "london"
-            model.getWeather(this, PreferencesVariables.current_city)
-        } else if (PreferencesVariables.last_dt <= System.currentTimeMillis() / 1000 - 600
+        if (current_city == "") {
+            current_city = "london"
+            model.getWeather(this, current_city)
+        } else if (last_dt <= System.currentTimeMillis() / 1000 - 600
                 ||
-                PreferencesVariables.current_city != city) {
+                current_city != city) {
             model.getWeather(this, city)
         } else {
             view.cancelUpdate()
@@ -40,8 +42,8 @@ class CurrentPresenterImpl(
 
     override fun onSuccessResponse(response: Response<WeatherRetrofit>) {
         weather = response.body()
-        PreferencesVariables.last_dt = weather?.dt!!
-        PreferencesVariables.current_city = weather!!.name
+        last_dt = weather?.dt!!
+        current_city = weather!!.name
         view.update()
     }
 
