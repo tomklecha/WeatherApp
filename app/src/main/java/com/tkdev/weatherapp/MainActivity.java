@@ -19,13 +19,18 @@ import com.tkdev.weatherapp.fragments.WeatherCurrentFragment;
 import com.tkdev.weatherapp.fragments.WeatherForecastFragment;
 import com.tkdev.weatherapp.presenter.MainContract;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
 import static com.tkdev.weatherapp.utils.PreferencesVariables.current_city;
 
 
-public class MainActivity extends AppCompatActivity implements SearchDialog.SearchDialogListener, ShareDialog.ShareDialogListener {
+public class MainActivity extends AppCompatActivity implements
+        SearchDialog.SearchDialogListener,
+        ShareDialog.ShareDialogListener
+{
 
     private static final String TAG = "WeatherMainActivity";
 
@@ -86,17 +91,6 @@ public class MainActivity extends AppCompatActivity implements SearchDialog.Sear
         }
     }
 
-    @Override
-    public void onAboutDialogPositiveClick(String city) {
-        currentListener.showWeatherByCity(city);
-        forecastListener.showWeatherByCity(city);
-    }
-
-    @Override
-    public void onAboutDialogNegativeClick(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
-    }
-
     private void toolbarSetup() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -113,16 +107,6 @@ public class MainActivity extends AppCompatActivity implements SearchDialog.Sear
                 .commit();
     }
 
-    @Override
-    public void onShareDialogPositiveClick(ArrayList<Boolean> booleanList) {
-        shareWeather(booleanList);
-    }
-
-
-    @Override
-    public void onShareDialogNegativeClick(String text) {
-
-    }
 
     private void shareWeather(ArrayList<Boolean> booleanList) {
         Intent weatherIntent = new Intent();
@@ -132,6 +116,27 @@ public class MainActivity extends AppCompatActivity implements SearchDialog.Sear
 
         Intent shareIntent = Intent.createChooser(weatherIntent, null);
         startActivity(shareIntent);
+    }
+
+    @Override
+    public void onSearchPositiveClick(@NotNull String city) {
+        currentListener.showWeatherByCity(city);
+        forecastListener.showWeatherByCity(city);
+    }
+
+    @Override
+    public void onSearchNegativeClick(@NotNull String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSharePositiveClick(@NotNull ArrayList<Boolean> list) {
+        shareWeather(list);
+    }
+
+    @Override
+    public void onShareNegativeClick(@NotNull String message) {
+
     }
 
     // TODO !!!
