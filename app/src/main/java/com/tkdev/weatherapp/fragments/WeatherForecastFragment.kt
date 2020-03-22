@@ -18,10 +18,10 @@ import java.util.*
 
 class WeatherForecastFragment : Fragment(), MainContract.View {
 
-    private  val TAG = "WeatherForecastFragment"
+    private val TAG = "WeatherForecastFragment"
 
     private lateinit var presenter: ForecastPresenterImpl
-    private lateinit var adapter: ForecastAdapter
+    private lateinit var adapter: com.tkdev.weatherapp.adapters.ForecastAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -46,7 +46,8 @@ class WeatherForecastFragment : Fragment(), MainContract.View {
     }
 
     override fun update() {
-        adapter = ForecastAdapter(presenter.forecasts, context)
+
+        adapter = ForecastAdapter(presenter.forecasts)
         forecast_recycler_view.adapter = adapter
     }
 
