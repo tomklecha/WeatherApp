@@ -7,7 +7,7 @@
     tools:menu="@menu/menu_main">
 
     <TextView
-        android:id="@+id/toolbar_date"
+        android:id="@+id/today_date_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/city_current_date"

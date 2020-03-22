@@ -15,8 +15,7 @@ import android.widget.Toast;
 import com.tkdev.weatherapp.dialogs.AboutDialog;
 import com.tkdev.weatherapp.dialogs.SearchDialog;
 import com.tkdev.weatherapp.dialogs.ShareDialog;
-import com.tkdev.weatherapp.fragments.WeatherCurrentFragment;
-import com.tkdev.weatherapp.fragments.WeatherForecastFragment;
+import com.tkdev.weatherapp.fragments.*;
 import com.tkdev.weatherapp.presenter.MainContract;
 
 import org.jetbrains.annotations.NotNull;
@@ -99,11 +98,14 @@ public class MainActivity extends AppCompatActivity implements
 
     private void showBasicFragments() {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_current, new WeatherCurrentFragment())
+                .replace(R.id.content_current,
+                        new WeatherCurrentFragment()
+                )
                 .commit();
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_forecast, new WeatherForecastFragment())
+                .replace(R.id.content_forecast,
+                        new WeatherForecastFragment())
                 .commit();
     }
 
