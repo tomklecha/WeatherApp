@@ -1,5 +1,11 @@
 package com.tkdev.weatherapp.current
 
+import android.graphics.Bitmap
+import android.util.Log
+import android.view.View
+import android.widget.ImageView
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 import com.tkdev.weatherapp.current.model.WeatherRetrofit
 import com.tkdev.weatherapp.common.MainContract
 import com.tkdev.weatherapp.common.MainContract.APIListener
@@ -86,10 +92,16 @@ class CurrentPresenterImpl(
 
     override fun sendCurrentWeather(): String {
         val weatherShare = StringBuilder()
-        weatherShare.append(PreferencesVariables.current_city)
+        weatherShare.append(current_city)
                 .append(" ")
                 .append(weather!!.main!!.temp)
         return weatherShare.toString()
+    }
+
+    override fun setWeatherIcon(imageView: ImageView) {
+        return Picasso.get()
+                .load(String.format("http://openweathermap.org/img/wn/%s@2x.png",weather!!.weather!![0].icon!!))
+                .into(imageView)
     }
 
 

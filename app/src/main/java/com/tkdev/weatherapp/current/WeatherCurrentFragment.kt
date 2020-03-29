@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 import com.tkdev.weatherapp.R
 import com.tkdev.weatherapp.common.MainContract
 import com.tkdev.weatherapp.common.MainContract.Presenter
@@ -64,6 +66,8 @@ class WeatherCurrentFragment : Fragment(), MainContract.View {
             city_weather.text = presenter.setWeatherDescriptionTextView()
             city_humidity.text = presenter.setHumidityViewText()
             city_hour_update.text = presenter.setLastUpdateViewText()
+            presenter.setWeatherIcon(city_weather_icon)
+
 //            today_date_toolbar.text = presenter.setDateViewText()
             saveCurrentData()
             RetrofitCalls.makeSnack((view), getString(R.string.update_succesful))
