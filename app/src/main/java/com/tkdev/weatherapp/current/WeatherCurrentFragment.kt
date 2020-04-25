@@ -68,7 +68,6 @@ class WeatherCurrentFragment : Fragment(), MainContract.View {
             city_hour_update.text = presenter.setLastUpdateViewText()
             presenter.setWeatherIcon(city_weather_icon)
 
-//            today_date_toolbar.text = presenter.setDateViewText()
             saveCurrentData()
             RetrofitCalls.makeSnack((view), getString(R.string.update_succesful))
         } else {

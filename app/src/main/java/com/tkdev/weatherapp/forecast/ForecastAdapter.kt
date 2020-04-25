@@ -17,7 +17,7 @@ class ForecastAdapter(private val forecasts: ForecastRetrofit) : RecyclerView.Ad
 
     override fun onBindViewHolder(holder: ForecastViewHolder, position: Int) {
         val forecastList = forecasts.list[position]
-        val forecastTimezone = forecastList.dt + forecasts.city.timezone
+        val forecastTimezone = (forecastList.dt + forecasts.city.timezone - 3600).toLong() * 1000
         holder.setForecast(forecastList, forecastTimezone)
     }
 

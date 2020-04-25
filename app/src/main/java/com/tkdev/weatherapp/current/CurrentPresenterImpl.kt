@@ -10,11 +10,11 @@ import com.tkdev.weatherapp.current.model.WeatherRetrofit
 import com.tkdev.weatherapp.common.MainContract
 import com.tkdev.weatherapp.common.MainContract.APIListener
 import com.tkdev.weatherapp.common.MainContract.Presenter
-import com.tkdev.weatherapp.common.WeatherRetrofitImpl
-import com.tkdev.weatherapp.common.PreferencesVariables
-import com.tkdev.weatherapp.common.PreferencesVariables.current_city
-import com.tkdev.weatherapp.common.PreferencesVariables.last_dt
+import com.tkdev.weatherapp.common.PreferencesVariables.Companion.current_city
+import com.tkdev.weatherapp.common.PreferencesVariables.Companion.last_dt
+import com.tkdev.weatherapp.common.PreferencesVariables.Companion.summer_time
 import com.tkdev.weatherapp.common.RetrofitCalls
+import com.tkdev.weatherapp.common.WeatherRetrofitImpl
 import retrofit2.Response
 
 class CurrentPresenterImpl(
@@ -49,7 +49,7 @@ class CurrentPresenterImpl(
     override fun onSuccessResponse(response: Response<WeatherRetrofit>) {
         weather = response.body()
         last_dt = weather?.dt!!
-        current_city = weather!!.name
+        current_city = weather!!.name!!
         view.update()
     }
 
@@ -79,11 +79,11 @@ class CurrentPresenterImpl(
     }
 
     override fun setLastUpdateViewText(): String {
-        return RetrofitCalls.datePattern(weather!!.dt!! + weather!!.timezone!!, RetrofitCalls.LAST_UPDATE_PATTERN)
+        return RetrofitCalls.datePattern((weather!!.dt!! + weather!!.timezone!! - summer_time).toLong()*1000, RetrofitCalls.LAST_UPDATE_PATTERN)
     }
 
     override fun setDateViewText(): String {
-        return RetrofitCalls.datePattern((System.currentTimeMillis() / 1000).toInt(), RetrofitCalls.DATE_PATTERN)
+        return RetrofitCalls.datePattern((System.currentTimeMillis()), RetrofitCalls.DATE_PATTERN)
     }
 
     override fun setCityName(): String {
@@ -99,6 +99,7 @@ class CurrentPresenterImpl(
     }
 
     override fun setWeatherIcon(imageView: ImageView) {
+
         return Picasso.get()
                 .load(String.format("http://openweathermap.org/img/wn/%s@2x.png",weather!!.weather!![0].icon!!))
                 .into(imageView)

@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.tkdev.weatherapp.R
+import com.tkdev.weatherapp.common.PreferencesVariables.Companion.current_city
+import com.tkdev.weatherapp.common.RetrofitCalls.Companion.DATE_PATTERN
+import com.tkdev.weatherapp.common.RetrofitCalls.Companion.datePattern
 import com.tkdev.weatherapp.common.dialogs.AboutDialog
 import com.tkdev.weatherapp.common.dialogs.SearchDialog
 import com.tkdev.weatherapp.common.dialogs.SearchDialog.SearchDialogListener
@@ -16,7 +19,6 @@ import com.tkdev.weatherapp.common.dialogs.ShareDialog
 import com.tkdev.weatherapp.common.dialogs.ShareDialog.ShareDialogListener
 import com.tkdev.weatherapp.current.WeatherCurrentFragment
 import com.tkdev.weatherapp.forecast.WeatherForecastFragment
-import com.tkdev.weatherapp.common.PreferencesVariables.current_city
 import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
 
@@ -77,6 +79,8 @@ class MainActivity : AppCompatActivity(), SearchDialogListener, ShareDialogListe
     private fun toolbarSetup() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+        today_date_toolbar.text = datePattern(System.currentTimeMillis(), DATE_PATTERN)
+
     }
 
     private fun showBasicFragments() {

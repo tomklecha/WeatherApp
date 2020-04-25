@@ -2,10 +2,10 @@ package com.tkdev.weatherapp.forecast
 
 import com.tkdev.weatherapp.forecast.model.ForecastRetrofit
 import com.tkdev.weatherapp.common.MainContract
+import com.tkdev.weatherapp.common.PreferencesVariables.Companion.current_city
+import com.tkdev.weatherapp.common.PreferencesVariables.Companion.last_dt
 
 import com.tkdev.weatherapp.common.WeatherRetrofitImpl
-import com.tkdev.weatherapp.common.PreferencesVariables.current_city
-import com.tkdev.weatherapp.common.PreferencesVariables.last_dt
 import retrofit2.Response
 
 class ForecastPresenterImpl(private var view: MainContract.View) : MainContract.Presenter, ForecastPresenter, MainContract.APIForecastListener {

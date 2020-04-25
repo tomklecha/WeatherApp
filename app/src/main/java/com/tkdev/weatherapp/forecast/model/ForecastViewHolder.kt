@@ -4,6 +4,10 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tkdev.weatherapp.common.RetrofitCalls.*
+import com.tkdev.weatherapp.common.RetrofitCalls.Companion.FORECAST_DAY_PATTERN
+import com.tkdev.weatherapp.common.RetrofitCalls.Companion.FORECAST_HOUR_PATTERN
+import com.tkdev.weatherapp.common.RetrofitCalls.Companion.datePattern
+import com.tkdev.weatherapp.common.RetrofitCalls.Companion.temperaturePrefix
 import kotlinx.android.synthetic.main.list_forecast.view.*
 
 class ForecastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -15,7 +19,7 @@ class ForecastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var forecastDayOfForecast: TextView = itemView.forecast_day
     private var forecastHourOfForecast: TextView = itemView.forecast_hour
 
-    fun setForecast(forecast: List, forecastTimezone: Int)
+    fun setForecast(forecast: List, forecastTimezone: Long)
     {
         forecastTempCurrent.text = forecast.main?.temp?.let { temperaturePrefix(it) }
         forecastTempMin.text = forecast.main?.tempMin?.let { temperaturePrefix(it) }
