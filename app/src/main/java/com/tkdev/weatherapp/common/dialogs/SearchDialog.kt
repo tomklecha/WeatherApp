@@ -30,7 +30,6 @@ class SearchDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-
         return activity?.let {
             val builder: AlertDialog.Builder? = AlertDialog.Builder(it)
             val inflater = requireActivity().layoutInflater

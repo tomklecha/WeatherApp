@@ -3,121 +3,55 @@ package com.tkdev.weatherapp.current.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class WeatherRetrofit {
+data class WeatherRetrofit (
     @SerializedName("coord")
     @Expose
-    var coord: Coord? = null
+    var coord: Coord,
 
     @SerializedName("weather")
     @Expose
-    var weather: List<Weather>? = null
+    var weather: List<Weather>,
 
     @SerializedName("base")
     @Expose
-    var base: String? = null
+    var base: String,
 
     @SerializedName("main")
     @Expose
-    var main: Main? = null
+    var main: Main,
 
     @SerializedName("visibility")
     @Expose
-    var visibility: Int? = null
+    var visibility: Int,
 
     @SerializedName("wind")
     @Expose
-    var wind: Wind? = null
+    var wind: Wind,
 
     @SerializedName("clouds")
     @Expose
-    var clouds: Clouds? = null
+    var clouds: Clouds,
 
     @SerializedName("dt")
     @Expose
-    var dt: Int? = null
+    var dt: Int,
 
     @SerializedName("sys")
     @Expose
-    var sys: Sys? = null
+    var sys: Sys,
 
     @SerializedName("timezone")
     @Expose
-    var timezone: Int? = null
+    var timezone: Int,
 
     @SerializedName("id")
     @Expose
-    var id: Int? = null
+    var id: Int,
 
     @SerializedName("name")
     @Expose
-    var name: String? = null
+    var name: String,
 
     @SerializedName("cod")
     @Expose
-    var cod: Int? = null
-
-    fun withCoord(coord: Coord?): WeatherRetrofit {
-        this.coord = coord
-        return this
-    }
-
-    fun withWeather(weather: List<Weather>?): WeatherRetrofit {
-        this.weather = weather
-        return this
-    }
-
-    fun withBase(base: String?): WeatherRetrofit {
-        this.base = base
-        return this
-    }
-
-    fun withMain(main: Main?): WeatherRetrofit {
-        this.main = main
-        return this
-    }
-
-    fun withVisibility(visibility: Int?): WeatherRetrofit {
-        this.visibility = visibility
-        return this
-    }
-
-    fun withWind(wind: Wind?): WeatherRetrofit {
-        this.wind = wind
-        return this
-    }
-
-    fun withClouds(clouds: Clouds?): WeatherRetrofit {
-        this.clouds = clouds
-        return this
-    }
-
-    fun withDt(dt: Int?): WeatherRetrofit {
-        this.dt = dt
-        return this
-    }
-
-    fun withSys(sys: Sys?): WeatherRetrofit {
-        this.sys = sys
-        return this
-    }
-
-    fun withTimezone(timezone: Int?): WeatherRetrofit {
-        this.timezone = timezone
-        return this
-    }
-
-    fun withId(id: Int?): WeatherRetrofit {
-        this.id = id
-        return this
-    }
-
-    fun withName(name: String?): WeatherRetrofit {
-        this.name = name
-        return this
-    }
-
-    fun withCod(cod: Int?): WeatherRetrofit {
-        this.cod = cod
-        return this
-    }
-}
+    var cod: Int)

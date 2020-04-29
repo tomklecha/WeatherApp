@@ -7,85 +7,40 @@ import com.tkdev.weatherapp.current.model.Sys
 import com.tkdev.weatherapp.current.model.Weather
 import com.tkdev.weatherapp.current.model.Wind
 
-class List {
+data class List (
     @SerializedName("dt")
     @Expose
-    var dt: Int = 0
+    var dt: Int,
 
     @SerializedName("main")
     @Expose
-    var main: Main? = null
+    var main: Main,
 
     @SerializedName("weather")
     @Expose
-    var weather: kotlin.collections.List<Weather>? = null
+    var weather: kotlin.collections.List<Weather>,
 
     @SerializedName("clouds")
     @Expose
-    var clouds: Clouds? = null
+    var clouds: Clouds,
 
     @SerializedName("wind")
     @Expose
-    var wind: Wind? = null
+    var wind: Wind,
 
     @SerializedName("rain")
     @Expose
-    var rain: Rain? = null
+    var rain: Rain,
 
     @SerializedName("sys")
     @Expose
-    var sys: Sys? = null
+    var sys: Sys,
 
     @SerializedName("dt_txt")
     @Expose
-    var dtTxt: String? = null
+    var dtTxt: String,
 
     @SerializedName("snow")
     @Expose
-    var snow: Snow? = null
-
-    fun withDt(dt: Int): List {
-        this.dt = dt
-        return this
-    }
-
-    fun withMain(main: Main?): List {
-        this.main = main
-        return this
-    }
-
-    fun withWeather(weather: kotlin.collections.List<Weather>?): List {
-        this.weather = weather
-        return this
-    }
-
-    fun withClouds(clouds: Clouds?): List {
-        this.clouds = clouds
-        return this
-    }
-
-    fun withWind(wind: Wind?): List {
-        this.wind = wind
-        return this
-    }
-
-    fun withRain(rain: Rain?): List {
-        this.rain = rain
-        return this
-    }
-
-    fun withSys(sys: Sys?): List {
-        this.sys = sys
-        return this
-    }
-
-    fun withDtTxt(dtTxt: String?): List {
-        this.dtTxt = dtTxt
-        return this
-    }
-
-    fun withSnow(snow: Snow?): List {
-        this.snow = snow
-        return this
-    }
-}
+    var snow: Snow
+    )

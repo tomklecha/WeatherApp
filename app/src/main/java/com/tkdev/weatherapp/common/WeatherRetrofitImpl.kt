@@ -16,7 +16,6 @@ class WeatherRetrofitImpl : MainContract.Model {
     private var service: RetrofitService
 
     init {
-
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         val okHttpClient = OkHttpClient.Builder()
@@ -43,7 +42,9 @@ class WeatherRetrofitImpl : MainContract.Model {
                 }
             }
 
-            override fun onFailure(call: Call<WeatherRetrofit>, t: Throwable) {}
+            override fun onFailure(call: Call<WeatherRetrofit>, t: Throwable) {
+                t.message?.let { listener.onFailureResponse(it) }
+            }
         })
     }
 

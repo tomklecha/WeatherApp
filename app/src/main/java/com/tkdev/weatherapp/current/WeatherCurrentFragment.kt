@@ -8,8 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
 import com.tkdev.weatherapp.R
 import com.tkdev.weatherapp.common.MainContract
 import com.tkdev.weatherapp.common.MainContract.Presenter
@@ -28,22 +26,15 @@ class WeatherCurrentFragment : Fragment(), MainContract.View {
         fun newInstance(): WeatherCurrentFragment = WeatherCurrentFragment()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        retainInstance = true
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_weather_current, container, false)
-        setPresenter(CurrentPresenterImpl(this))
 
-        return rootView
+        return inflater.inflate(R.layout.fragment_weather_current, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        setPresenter(CurrentPresenterImpl(this))
         sharedPreferences = activity?.getSharedPreferences("mypref", Context.MODE_PRIVATE)!!
         loadSharedPreferences()
     }
@@ -86,10 +77,10 @@ class WeatherCurrentFragment : Fragment(), MainContract.View {
     override fun shareWeather(booleanList: ArrayList<Boolean>): String {
         val shares = ArrayList<String>()
         val stringBuilder = StringBuilder()
-        stringBuilder.append(PreferencesVariables.current_city).append(" weather conditions: ")
-        shares.add(sharedPreferences.getString("currentV", ""))
-        shares.add(sharedPreferences.getString("weatherV", ""))
-        shares.add(sharedPreferences.getString("lastUpdateV", ""))
+        stringBuilder.append(" Weather conditions in ${PreferencesVariables.current_city}: ")
+        shares.add(sharedPreferences.getString(PreferencesVariables.CURRENT_TEMP_VIEW, ""))
+        shares.add(sharedPreferences.getString(PreferencesVariables.WEATHER_DESCRIPTION_VIEW, ""))
+        shares.add(sharedPreferences.getString(PreferencesVariables.LAST_UPDATE_DATE_VIEW, ""))
         for (i in shares.indices) {
             if (booleanList[i]) {
                 stringBuilder.append(shares[i])

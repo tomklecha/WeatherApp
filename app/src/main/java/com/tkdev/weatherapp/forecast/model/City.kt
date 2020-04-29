@@ -4,67 +4,31 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.tkdev.weatherapp.current.model.Coord
 
-class City {
-    @SerializedName("id")
-    @Expose
-    var id: Int? = null
+data class City(
+        @SerializedName("id")
+        @Expose
+        var id: Int,
 
-    @SerializedName("name")
-    @Expose
-    var name: String? = null
+        @SerializedName("name")
+        @Expose
+        var name: String,
 
-    @SerializedName("coord")
-    @Expose
-    var coord: Coord? = null
+        @SerializedName("coord")
+        @Expose
+        var coord: Coord,
+        @SerializedName("country")
+        @Expose
+        var country: String,
 
-    @SerializedName("country")
-    @Expose
-    var country: String? = null
+        @SerializedName("timezone")
+        @Expose
+        var timezone: Int,
 
-    @SerializedName("timezone")
-    @Expose
-    var timezone: Int = 0
+        @SerializedName("sunrise")
+        @Expose
+        var sunrise: Int,
 
-    @SerializedName("sunrise")
-    @Expose
-    var sunrise: Int? = null
-
-    @SerializedName("sunset")
-    @Expose
-    var sunset: Int? = null
-
-    fun withId(id: Int?): City {
-        this.id = id
-        return this
-    }
-
-    fun withName(name: String?): City {
-        this.name = name
-        return this
-    }
-
-    fun withCoord(coord: Coord?): City {
-        this.coord = coord
-        return this
-    }
-
-    fun withCountry(country: String?): City {
-        this.country = country
-        return this
-    }
-
-    fun withTimezone(timezone: Int): City {
-        this.timezone = timezone
-        return this
-    }
-
-    fun withSunrise(sunrise: Int?): City {
-        this.sunrise = sunrise
-        return this
-    }
-
-    fun withSunset(sunset: Int?): City {
-        this.sunset = sunset
-        return this
-    }
-}
+        @SerializedName("sunset")
+        @Expose
+        var sunset: Int
+)
