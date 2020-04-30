@@ -4,22 +4,19 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.tkdev.weatherapp.R
-import com.tkdev.weatherapp.common.core.MainContract
-import com.tkdev.weatherapp.common.util.PreferencesVariables
 import com.tkdev.weatherapp.common.domain.RetrofitCalls
+import com.tkdev.weatherapp.common.util.PreferencesVariables
 import com.tkdev.weatherapp.current.bresenter.CurrentPresenter
 import com.tkdev.weatherapp.current.core.CurrentContract
 import kotlinx.android.synthetic.main.fragment_weather_current.*
 
 
-class CurrentFragment:
-    Fragment(R.layout.fragment_weather_current),
-    CurrentContract.View {
+class CurrentFragment :
+        Fragment(R.layout.fragment_weather_current),
+        CurrentContract.View {
 
     private val TAG = "WeatherCurrentFragment"
     private lateinit var presenter: CurrentPresenter
@@ -51,30 +48,34 @@ class CurrentFragment:
     }
 
     override fun update() {
-        if (city_hour_update.text != presenter.getLastUpdate() || city_name.text != presenter.getCityName()) {
-            city_name.text = presenter.getCityName()
-            city_temp_current.text = presenter.getTemperatureCurrent()
-            city_temp_min.text = presenter.getTemperatureMinimum()
-            city_temp_max.text = presenter.getTemperatureMaximum()
-            city_weather.text = presenter.getWeatherDescription()
-            city_humidity.text = presenter.getHumidity()
-            city_hour_update.text = presenter.getLastUpdate()
-            presenter.getWeatherIcon(city_weather_icon)
 
-            saveCurrentData()
-            RetrofitCalls.makeSnack((view), getString(R.string.update_succesful))
-        } else {
-            RetrofitCalls.makeSnack((view), getString(R.string.update_server_delay))
-        }
+//            RetrofitCalls.makeSnack((view), getString(R.string.update_succesful))
+//        } else {
+//            RetrofitCalls.makeSnack((view), getString(R.string.update_server_delay))
+//        }
     }
 
     override fun cancelUpdate() {
         RetrofitCalls.makeSnack((view), String.format(getString(R.string.update_in_time), (10 - (System.currentTimeMillis() / 1000 - PreferencesVariables.last_dt) / 60).toString()))
     }
 
-    override fun onFailUpdate(message: String) {
-        RetrofitCalls.makeSnack((view), message)
-    }
+    override fun onFailUpdate(message: String) { RetrofitCalls.makeSnack((view), message) }
+
+    override fun setTemperatureCurrent(value: String) { city_temp_current.text = value }
+
+    override fun setTemperatureMinimum(value: String) { city_temp_min.text = value }
+
+    override fun setTemperatureMaximum(value: String) { city_temp_max.text = value }
+
+    override fun setWeatherDescription(value: String) { city_weather.text = value }
+
+    override fun setHumidity(value: String) { city_humidity.text = value }
+
+    override fun setLastUpdate(value: String) { city_hour_update.text = value }
+
+    override fun setCityName(value: String) { city_name.text = value }
+
+    override fun setDate(value: String) { TODO() }
 
     override fun shareWeather(booleanList: ArrayList<Boolean>): String {
         val shares = ArrayList<String>()
@@ -129,3 +130,5 @@ class CurrentFragment:
         }
     }
 }
+
+

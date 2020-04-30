@@ -16,6 +16,22 @@ interface CurrentContract {
 
         fun onFailUpdate(message: String)
 
+        fun setTemperatureCurrent(value: String)
+
+        fun setTemperatureMinimum(value: String)
+
+        fun setTemperatureMaximum(value: String)
+
+        fun setWeatherDescription(value: String)
+
+        fun setHumidity(value: String)
+
+        fun setLastUpdate(value: String)
+
+        fun setDate(value: String)
+
+        fun setCityName(value: String)
+
         fun shareWeather(booleanList: ArrayList<Boolean>): String
     }
 
@@ -26,22 +42,6 @@ interface CurrentContract {
 
         fun onRequestWeather(city: String)
 
-        fun getTemperatureCurrent(): String
-
-        fun getTemperatureMinimum(): String
-
-        fun getTemperatureMaximum(): String
-
-        fun getWeatherDescription(): String
-
-        fun getHumidity(): String
-
-        fun getLastUpdate(): String
-
-        fun getDate(): String
-
-        fun getCityName(): String
-
         fun sendCurrentWeather(): String
 
         fun getWeatherIcon(imageView: ImageView)
@@ -49,46 +49,12 @@ interface CurrentContract {
     }
 
     interface Interactor {
-        fun getWeather(city: CurrentWeatherDomainCity)
+        suspend fun getWeather(city: CurrentWeatherDomainCity): RetrofitModel
 
-        fun setTemperatureCurrent(): String
-
-        fun setTemperatureMinimum(): String
-
-        fun setTemperatureMaximum(): String
-
-        fun setWeatherDescription(): String
-
-        fun setHumidity(): String
-
-        fun setLastUpdate(): String
-
-        fun setDate(): String
-
-        fun setCityName(): String
-
-        fun setIcon(): String
-
-        fun sendCurrentWeather(): String
-
-
-    }
-
-    interface PresenterListener{
-        fun getDomainResponse()
-    }
-
-    interface DomainListener {
-        fun getApiResponse(response: RetrofitModel)
     }
 
     interface Repository{
-        fun apiRequest(city: CurrentWeatherDomainCity)
+        suspend fun apiRequest(city: CurrentWeatherDomainCity) : RetrofitModel
     }
 
-    interface APIListener {
-        fun onSuccessResponse(response: Response<RetrofitModel>)
-        fun onFailureResponse(responseMessage: String)
-
-    }
 }
