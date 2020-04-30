@@ -1,17 +1,24 @@
 package com.tkdev.weatherapp.current.core
 
-import com.tkdev.weatherapp.current.bresenter.CurrentPresenter
-import com.tkdev.weatherapp.current.data.retrofit_data_source.dto.RetrofitModel
-
 class CurrentInteractor(
         private val repository: CurrentContract.Repository
 ) : CurrentContract.Interactor {
 
 
-
-    override suspend fun getWeather(city: CurrentWeatherDomainCity): RetrofitModel {
+    override suspend fun getWeather(city: CurrentWeatherDomainCity): CurrentWeatherDomain {
         return repository.apiRequest(city)
     }
 
+// TODO() implement interactions with API like -> city, lang, temp prefix
 
+
+    //        if (current_city == "") {
+//            current_city = "london"
+//            model.getWeather(this, current_city)
+//        } else if (last_dt <= System.currentTimeMillis() / 1000 - 600
+//                ||
+//                current_city != city) {
+//        } else {
+//            view.cancelUpdate()
+//        }
 }

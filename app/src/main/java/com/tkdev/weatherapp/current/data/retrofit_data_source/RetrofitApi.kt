@@ -15,7 +15,7 @@ interface RetrofitApi {
 
 }
 
-class RetrofitApiDefault() : RetrofitApi {
+class RetrofitApiDefault : RetrofitApi {
 
     private var service: RetrofitService
 

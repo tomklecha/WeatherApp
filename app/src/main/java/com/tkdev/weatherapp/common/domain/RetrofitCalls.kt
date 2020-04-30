@@ -28,14 +28,13 @@ class RetrofitCalls {
         const val DATE_PATTERN = "EEE dd-MM-yyyy"
 
 
-        fun temperaturePrefix(temp: Double): String {
-            return (round(temp * 10) / 10).toString() + CELSIUS_SYMBOL
-        }
+        fun temperaturePrefix(temp: Double): String
+            = (round(temp * 10) / 10).toString() + CELSIUS_SYMBOL
 
-        fun datePattern(dt: Long, pattern: String): String {
-            val dateFormat = SimpleDateFormat(pattern)
-            return dateFormat.format(dt)
-        }
+        fun humidityPrefix(humidity: Int): String = humidity.toString() + CELSIUS_SYMBOL
+
+        fun datePattern(dt: Long, pattern: String): String
+            = SimpleDateFormat(pattern).format(dt)
 
         fun makeSnack(view: View?, message: String) {
             view?.let { Snackbar.make(it, message, Snackbar.LENGTH_SHORT).show() }

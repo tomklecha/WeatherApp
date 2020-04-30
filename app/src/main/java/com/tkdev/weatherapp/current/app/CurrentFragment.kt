@@ -12,6 +12,7 @@ import com.tkdev.weatherapp.common.util.PreferencesVariables
 import com.tkdev.weatherapp.current.bresenter.CurrentPresenter
 import com.tkdev.weatherapp.current.core.CurrentContract
 import kotlinx.android.synthetic.main.fragment_weather_current.*
+import kotlinx.android.synthetic.main.toolbar.*
 
 
 class CurrentFragment :
@@ -47,14 +48,6 @@ class CurrentFragment :
         presenter.onRequestWeather(city)
     }
 
-    override fun update() {
-
-//            RetrofitCalls.makeSnack((view), getString(R.string.update_succesful))
-//        } else {
-//            RetrofitCalls.makeSnack((view), getString(R.string.update_server_delay))
-//        }
-    }
-
     override fun cancelUpdate() {
         RetrofitCalls.makeSnack((view), String.format(getString(R.string.update_in_time), (10 - (System.currentTimeMillis() / 1000 - PreferencesVariables.last_dt) / 60).toString()))
     }
@@ -74,8 +67,6 @@ class CurrentFragment :
     override fun setLastUpdate(value: String) { city_hour_update.text = value }
 
     override fun setCityName(value: String) { city_name.text = value }
-
-    override fun setDate(value: String) { TODO() }
 
     override fun shareWeather(booleanList: ArrayList<Boolean>): String {
         val shares = ArrayList<String>()
@@ -105,7 +96,6 @@ class CurrentFragment :
                 putString(PreferencesVariables.WEATHER_DESCRIPTION_VIEW, city_weather.text.toString())
                 putString(PreferencesVariables.HUMIDITY_VIEW, city_humidity.text.toString())
                 putString(PreferencesVariables.LAST_UPDATE_DATE_VIEW, city_hour_update.text.toString())
-//                putString(PreferencesVariables.TODAY_DAY_VIEW, today_date_toolbar.text.toString())
                 commit()
             }
             Log.d(TAG, "Prefs are saved")
@@ -126,9 +116,14 @@ class CurrentFragment :
             city_weather.text = getString(PreferencesVariables.WEATHER_DESCRIPTION_VIEW, "")
             city_humidity.text = getString(PreferencesVariables.HUMIDITY_VIEW, "")
             city_hour_update.text = getString(PreferencesVariables.LAST_UPDATE_DATE_VIEW, "")
-//            today_date_toolbar.text = getString(PreferencesVariables.TODAY_DAY_VIEW, "")
         }
     }
 }
+
+
+//            RetrofitCalls.makeSnack((view), getString(R.string.update_succesful))
+//        } else {
+//            RetrofitCalls.makeSnack((view), getString(R.string.update_server_delay))
+//        }
 
 

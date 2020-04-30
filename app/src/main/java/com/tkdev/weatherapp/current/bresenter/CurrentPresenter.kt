@@ -1,11 +1,10 @@
 package com.tkdev.weatherapp.current.bresenter
 
 import android.widget.ImageView
-import com.squareup.picasso.Picasso
 import com.tkdev.weatherapp.current.core.CurrentContract
+import com.tkdev.weatherapp.current.core.CurrentWeatherDomain
 import com.tkdev.weatherapp.current.core.CurrentWeatherDomainCity
 import com.tkdev.weatherapp.current.coroutines.CoroutineDispatcherFactory
-import com.tkdev.weatherapp.current.data.retrofit_data_source.dto.RetrofitModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -17,7 +16,7 @@ class CurrentPresenter(
 ) : CurrentContract.Presenter, CoroutineScope {
 
     private lateinit var view: CurrentContract.View
-    private lateinit var weather: RetrofitModel
+    private lateinit var weather: CurrentWeatherDomain.Weather
 
     private val job = Job()
     override val coroutineContext: CoroutineContext
@@ -27,15 +26,6 @@ class CurrentPresenter(
         this.view = view
     }
 
-    //        if (current_city == "") {
-//            current_city = "london"
-//            model.getWeather(this, current_city)
-//        } else if (last_dt <= System.currentTimeMillis() / 1000 - 600
-//                ||
-//                current_city != city) {
-//        } else {
-//            view.cancelUpdate()
-//        }
     override fun onRequestWeather(city: String) {
         requestData(city)
     }
@@ -45,23 +35,26 @@ class CurrentPresenter(
     }
 
     private fun CoroutineScope.requestData(city: String) = launch(dispatcher.IO) {
-        weather = interactor.getWeather(CurrentWeatherDomainCity(city))
-        updateViews()
+        when (val result = interactor.getWeather(CurrentWeatherDomainCity(city))) {
+            is CurrentWeatherDomain.Weather -> updateViews(result)
+            is CurrentWeatherDomain.Fail -> view.onFailUpdate(result.errorDomain.value)
+        }
     }
 
-    private fun CoroutineScope.updateViews() = launch(dispatcher.UI) {
-        view.setCityName(weather.name)
-        view.setTemperatureCurrent(weather.main.temp.toString())
-        view.setTemperatureMinimum(weather.main.tempMin.toString())
-        view.setTemperatureMaximum(weather.main.tempMax.toString())
-        view.setHumidity(weather.main.tempMax.toString())
-        view.setWeatherDescription(weather.main.tempMax.toString())
+    private fun CoroutineScope.updateViews(weather: CurrentWeatherDomain.Weather) = launch(dispatcher.UI) {
+        view.setCityName(weather.city.value)
+        view.setTemperatureCurrent(weather.temp.value)
+        view.setTemperatureMinimum(weather.tempMin.value)
+        view.setTemperatureMaximum(weather.tempMax.value)
+        view.setHumidity(weather.humidity.value)
+        view.setWeatherDescription(weather.description.value)
     }
 
     override fun getWeatherIcon(imageView: ImageView) {
-        return Picasso.get()
-                .load(String.format("http://openweathermap.org/img/wn/%s@2x.png", weather.weather[0].icon))
-                .into(imageView)
+//        return Picasso.get()
+//                .load(String.format("http://openweathermap.org/img/wn/%s@2x.png", weather.weather[0].icon))
+//                .into(imageView)
+        TODO()
     }
 
     override fun sendCurrentWeather(): String {

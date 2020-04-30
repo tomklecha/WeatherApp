@@ -10,8 +10,6 @@ interface CurrentContract {
     interface View {
         fun showWeatherByCity(city: String)
 
-        fun update()
-
         fun cancelUpdate()
 
         fun onFailUpdate(message: String)
@@ -27,8 +25,6 @@ interface CurrentContract {
         fun setHumidity(value: String)
 
         fun setLastUpdate(value: String)
-
-        fun setDate(value: String)
 
         fun setCityName(value: String)
 
@@ -49,12 +45,12 @@ interface CurrentContract {
     }
 
     interface Interactor {
-        suspend fun getWeather(city: CurrentWeatherDomainCity): RetrofitModel
+        suspend fun getWeather(city: CurrentWeatherDomainCity): CurrentWeatherDomain
 
     }
 
     interface Repository{
-        suspend fun apiRequest(city: CurrentWeatherDomainCity) : RetrofitModel
+        suspend fun apiRequest(city: CurrentWeatherDomainCity) : CurrentWeatherDomain
     }
 
 }

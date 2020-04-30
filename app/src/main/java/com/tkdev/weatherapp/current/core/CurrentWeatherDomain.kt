@@ -10,7 +10,7 @@ sealed class CurrentWeatherDomain {
             val tempMax: CurrentWeatherDomainTempMax,
             val humidity: CurrentWeatherDomainHumidity,
             val description: CurrentWeatherDomainDescription
-    )
+    ) : CurrentWeatherDomain()
 }
 
 inline class CurrentWeatherDomainCity(val value: String)
