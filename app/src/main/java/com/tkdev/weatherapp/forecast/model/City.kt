@@ -2,7 +2,7 @@ package com.tkdev.weatherapp.forecast.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import com.tkdev.weatherapp.current.model.Coord
+import com.tkdev.weatherapp.current.data.retrofit_data_source.dto.Coord
 
 data class City(
         @SerializedName("id")

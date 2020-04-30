@@ -2,45 +2,45 @@ package com.tkdev.weatherapp.forecast.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import com.tkdev.weatherapp.current.model.Main
-import com.tkdev.weatherapp.current.model.Sys
-import com.tkdev.weatherapp.current.model.Weather
-import com.tkdev.weatherapp.current.model.Wind
+import com.tkdev.weatherapp.current.data.retrofit_data_source.dto.Main
+import com.tkdev.weatherapp.current.data.retrofit_data_source.dto.Sys
+import com.tkdev.weatherapp.current.data.retrofit_data_source.dto.Weather
+import com.tkdev.weatherapp.current.data.retrofit_data_source.dto.Wind
 
 data class List (
-    @SerializedName("dt")
+        @SerializedName("dt")
     @Expose
     var dt: Int,
 
-    @SerializedName("main")
+        @SerializedName("main")
     @Expose
     var main: Main,
 
-    @SerializedName("weather")
+        @SerializedName("weather")
     @Expose
     var weather: kotlin.collections.List<Weather>,
 
-    @SerializedName("clouds")
+        @SerializedName("clouds")
     @Expose
     var clouds: Clouds,
 
-    @SerializedName("wind")
+        @SerializedName("wind")
     @Expose
     var wind: Wind,
 
-    @SerializedName("rain")
+        @SerializedName("rain")
     @Expose
     var rain: Rain,
 
-    @SerializedName("sys")
+        @SerializedName("sys")
     @Expose
     var sys: Sys,
 
-    @SerializedName("dt_txt")
+        @SerializedName("dt_txt")
     @Expose
     var dtTxt: String,
 
-    @SerializedName("snow")
+        @SerializedName("snow")
     @Expose
     var snow: Snow
     )
