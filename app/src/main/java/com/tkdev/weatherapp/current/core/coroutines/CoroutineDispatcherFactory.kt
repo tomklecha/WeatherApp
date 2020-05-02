@@ -1,4 +1,4 @@
-package com.tkdev.weatherapp.current.coroutines
+package com.tkdev.weatherapp.current.core.coroutines
 
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext

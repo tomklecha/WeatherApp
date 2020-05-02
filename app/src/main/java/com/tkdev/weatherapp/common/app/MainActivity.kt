@@ -18,6 +18,7 @@ import com.tkdev.weatherapp.common.app.dialogs.SearchDialog
 import com.tkdev.weatherapp.common.app.dialogs.SearchDialog.SearchDialogListener
 import com.tkdev.weatherapp.common.app.dialogs.ShareDialog
 import com.tkdev.weatherapp.common.app.dialogs.ShareDialog.ShareDialogListener
+import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.current_prefix
 import com.tkdev.weatherapp.current.app.CurrentFragment
 import com.tkdev.weatherapp.current.core.CurrentContract
 import com.tkdev.weatherapp.forecast.app.WeatherForecastFragment
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity(), SearchDialogListener, ShareDialogListe
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_refresh_weather -> {
-                currentListener.showWeatherByCity(current_city)
+                currentListener.showWeatherByCity(current_city, current_prefix)
 //                forecastListener.showWeatherByCity(current_city)
                 true
             }
@@ -105,7 +106,7 @@ class MainActivity : AppCompatActivity(), SearchDialogListener, ShareDialogListe
     }
 
     override fun onSearchPositiveClick(city: String) {
-        currentListener.showWeatherByCity(city)
+        currentListener.showWeatherByCity(city, current_prefix)
 //        forecastListener.showWeatherByCity(city)
     }
 

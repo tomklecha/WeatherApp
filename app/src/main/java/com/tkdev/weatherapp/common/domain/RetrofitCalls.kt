@@ -1,6 +1,7 @@
 package com.tkdev.weatherapp.common.domain
 
 import android.view.View
+import androidx.annotation.VisibleForTesting
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import kotlin.math.round
@@ -17,10 +18,13 @@ class RetrofitCalls {
         const val WEATHER_CITY_ID_RETROFIT = "{city}"
         const val WEATHER_API_PREFIX = "APPID="
         const val WEATHER_API_KEY = "5b08b54ce198509d241991110864cab4"
-        const val WEATHER_TEMPERATURE_PREFIX = "units="
+        const val WEATHER_TEMPERATURE_PREFIX = "units"
         const val WEATHER_TEMPERATURE_CELSIUS = "metric"
+        const val WEATHER_TEMPERATURE_FARHENHEIT = "imperial"
 
         const val CELSIUS_SYMBOL = "°"
+        const val KELVIN_SYMBOL = "°K"
+        const val FARHENHEIT_SYMBOL = "°F"
         const val HUMIDITY_SYMBOL = " %"
         const val FORECAST_DAY_PATTERN = "EEE"
         const val FORECAST_HOUR_PATTERN = "HH:mm"
@@ -28,16 +32,19 @@ class RetrofitCalls {
         const val DATE_PATTERN = "EEE dd-MM-yyyy"
 
 
-        fun temperaturePrefix(temp: Double): String
-            = (round(temp * 10) / 10).toString() + CELSIUS_SYMBOL
+        fun temperaturePrefix(temp: Double, prefix: String): String{
+            var newTempPref: String = (round(temp * 10) / 10).toString()
+            newTempPref += when(prefix){
+                WEATHER_TEMPERATURE_CELSIUS -> CELSIUS_SYMBOL
+                WEATHER_TEMPERATURE_FARHENHEIT -> FARHENHEIT_SYMBOL
+                else -> KELVIN_SYMBOL
+            }
+            return newTempPref
+        }
 
-        fun humidityPrefix(humidity: Int): String = humidity.toString() + CELSIUS_SYMBOL
+        fun humidityPrefix(humidity: Int): String = humidity.toString() + HUMIDITY_SYMBOL
 
         fun datePattern(dt: Long, pattern: String): String
             = SimpleDateFormat(pattern).format(dt)
-
-        fun makeSnack(view: View?, message: String) {
-            view?.let { Snackbar.make(it, message, Snackbar.LENGTH_SHORT).show() }
-        }
     }
 }

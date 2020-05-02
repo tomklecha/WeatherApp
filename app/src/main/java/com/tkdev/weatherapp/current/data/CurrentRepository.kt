@@ -1,9 +1,6 @@
 package com.tkdev.weatherapp.current.data
 
-import com.tkdev.weatherapp.current.core.CurrentContract
-import com.tkdev.weatherapp.current.core.CurrentWeatherDomain
-import com.tkdev.weatherapp.current.core.CurrentWeatherDomainCity
-import com.tkdev.weatherapp.current.core.CurrentWeatherErrorDomain
+import com.tkdev.weatherapp.current.core.*
 import com.tkdev.weatherapp.current.data.retrofit_data_source.RetrofitApi
 
 class CurrentRepository(
@@ -11,10 +8,12 @@ class CurrentRepository(
         private val dto: DtoMapper)
     : CurrentContract.Repository {
 
-    override suspend fun apiRequest(city: CurrentWeatherDomainCity): CurrentWeatherDomain = try {
-        dto.toDomain(api.getCurrentWeather(city.value))
+    override suspend fun apiRequest(city: WeatherDomainCity, prefix: WeatherDomainTempPrefix): WeatherDomain = try {
+        dto.toDomain(api.getCurrentWeather(city.value, prefix.value), prefix.value)
+    }catch (e: NullPointerException){
+        WeatherDomain.Fail(WeatherErrorDomain(e.message.toString()))
     } catch (e: Exception) {
-        CurrentWeatherDomain.Fail(CurrentWeatherErrorDomain(e.message.toString()))
+        WeatherDomain.Fail(WeatherErrorDomain(e.message.toString()))
     }
 }
 

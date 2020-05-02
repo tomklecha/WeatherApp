@@ -124,7 +124,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:contentDescription="TODO"
             app:layout_constraintBaseline_toBaselineOf="@+id/city_temp_min_text"
             app:layout_constraintStart_toEndOf="@+id/divider"
             tools:srcCompat="@drawable/ic_launcher_foreground"

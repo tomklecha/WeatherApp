@@ -11,8 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 interface RetrofitApi {
-    suspend fun getCurrentWeather(city: String) : Response<RetrofitModel>
-
+    suspend fun getCurrentWeather(city: String, prefix: String) : Response<RetrofitModel>
 }
 
 class RetrofitApiDefault : RetrofitApi {
@@ -33,7 +32,8 @@ class RetrofitApiDefault : RetrofitApi {
         service = retrofit.create(RetrofitService::class.java)
     }
 
-    override suspend fun getCurrentWeather(city: String): Response<RetrofitModel> =
-             service.getCurrentWeather(city).awaitResponse()
+    override suspend fun getCurrentWeather(city: String, prefix: String): Response<RetrofitModel> =
+//             service.getCurrentWeather(city).awaitResponse()
+             service.getCurrentWeather(city,prefix).awaitResponse()
 
 }

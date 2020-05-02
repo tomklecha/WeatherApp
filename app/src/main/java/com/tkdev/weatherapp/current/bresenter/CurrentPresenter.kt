@@ -1,10 +1,13 @@
 package com.tkdev.weatherapp.current.bresenter
 
 import android.widget.ImageView
+import com.tkdev.weatherapp.current.bresenter.model.ModelMapper
+import com.tkdev.weatherapp.current.bresenter.model.WeatherModel
 import com.tkdev.weatherapp.current.core.CurrentContract
-import com.tkdev.weatherapp.current.core.CurrentWeatherDomain
-import com.tkdev.weatherapp.current.core.CurrentWeatherDomainCity
-import com.tkdev.weatherapp.current.coroutines.CoroutineDispatcherFactory
+import com.tkdev.weatherapp.current.core.WeatherDomain
+import com.tkdev.weatherapp.current.core.WeatherDomainCity
+import com.tkdev.weatherapp.current.core.WeatherDomainTempPrefix
+import com.tkdev.weatherapp.current.core.coroutines.CoroutineDispatcherFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -12,11 +15,11 @@ import kotlin.coroutines.CoroutineContext
 
 class CurrentPresenter(
         private val interactor: CurrentContract.Interactor,
-        private val dispatcher: CoroutineDispatcherFactory
+        private val dispatcher: CoroutineDispatcherFactory,
+        private val mapper: ModelMapper
 ) : CurrentContract.Presenter, CoroutineScope {
 
     private lateinit var view: CurrentContract.View
-    private lateinit var weather: CurrentWeatherDomain.Weather
 
     private val job = Job()
     override val coroutineContext: CoroutineContext
@@ -26,28 +29,29 @@ class CurrentPresenter(
         this.view = view
     }
 
-    override fun onRequestWeather(city: String) {
-        requestData(city)
+    override fun onRequestWeather(city: String, prefix: String) {
+        requestData(city, prefix)
     }
 
     override fun onDestroy() {
 
     }
 
-    private fun CoroutineScope.requestData(city: String) = launch(dispatcher.IO) {
-        when (val result = interactor.getWeather(CurrentWeatherDomainCity(city))) {
-            is CurrentWeatherDomain.Weather -> updateViews(result)
-            is CurrentWeatherDomain.Fail -> view.onFailUpdate(result.errorDomain.value)
+    private fun CoroutineScope.requestData(city: String, prefix: String) = launch(dispatcher.IO) {
+        when (val result = interactor.getWeather(WeatherDomainCity(city), WeatherDomainTempPrefix(prefix))) {
+            is WeatherDomain.Weather -> updateViews(mapper.toModel(result))
+            is WeatherDomain.Fail -> view.onFailUpdate(result.errorDomain.value)
         }
     }
 
-    private fun CoroutineScope.updateViews(weather: CurrentWeatherDomain.Weather) = launch(dispatcher.UI) {
+    private fun CoroutineScope.updateViews(weather: WeatherModel) = launch(dispatcher.UI) {
         view.setCityName(weather.city.value)
-        view.setTemperatureCurrent(weather.temp.value)
-        view.setTemperatureMinimum(weather.tempMin.value)
-        view.setTemperatureMaximum(weather.tempMax.value)
+        view.setTemperatureCurrent(weather.tempObject.temp.value)
+        view.setTemperatureMinimum(weather.tempObject.tempMin.value)
+        view.setTemperatureMaximum(weather.tempObject.tempMax.value)
         view.setHumidity(weather.humidity.value)
         view.setWeatherDescription(weather.description.value)
+        view.setLastUpdate(weather.lastUpdate.value)
     }
 
     override fun getWeatherIcon(imageView: ImageView) {

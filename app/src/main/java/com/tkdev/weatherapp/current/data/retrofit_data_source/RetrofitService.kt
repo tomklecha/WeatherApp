@@ -14,7 +14,10 @@ import retrofit2.http.Query
 
 interface RetrofitService {
     @GET(WEATHER_CURRENT_REQUEST + WEATHER_API_PREFIX + WEATHER_API_KEY +
-            AND_SYMBOL + WEATHER_TEMPERATURE_PREFIX + WEATHER_TEMPERATURE_CELSIUS)
+            AND_SYMBOL + WEATHER_TEMPERATURE_PREFIX+ WEATHER_TEMPERATURE_CELSIUS)
     fun getCurrentWeather(@Query(WEATHER_CITY_NAME) city: String): Call<RetrofitModel>
+
+    @GET(WEATHER_CURRENT_REQUEST + WEATHER_API_PREFIX + WEATHER_API_KEY)
+    fun getCurrentWeather(@Query(WEATHER_CITY_NAME) city: String, @Query(WEATHER_TEMPERATURE_PREFIX) prefix: String ): Call<RetrofitModel>
 
 }

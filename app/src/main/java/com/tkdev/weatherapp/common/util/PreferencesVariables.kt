@@ -3,7 +3,8 @@ package com.tkdev.weatherapp.common.util
 class PreferencesVariables {
     companion object {
         var last_dt = 0
-        var current_city = ""
+        var current_city = "london"
+        var current_prefix = "metric"
 
         const val summer_time = 3600
         const val LAST_DT_STRING = "last_dt"

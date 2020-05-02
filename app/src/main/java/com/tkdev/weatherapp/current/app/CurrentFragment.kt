@@ -6,13 +6,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.tkdev.weatherapp.R
-import com.tkdev.weatherapp.common.domain.RetrofitCalls
 import com.tkdev.weatherapp.common.util.PreferencesVariables
 import com.tkdev.weatherapp.current.bresenter.CurrentPresenter
 import com.tkdev.weatherapp.current.core.CurrentContract
 import kotlinx.android.synthetic.main.fragment_weather_current.*
-import kotlinx.android.synthetic.main.toolbar.*
 
 
 class CurrentFragment :
@@ -40,19 +39,22 @@ class CurrentFragment :
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        sharedPreferences = activity?.getSharedPreferences("mypref", Context.MODE_PRIVATE)!!
-        loadSharedPreferences()
+//        sharedPreferences = activity?.getSharedPreferences("mypref", Context.MODE_PRIVATE)!!
+//        loadSharedPreferences()
     }
 
-    override fun showWeatherByCity(city: String) {
-        presenter.onRequestWeather(city)
-    }
+    override fun showWeatherByCity(city: String, prefix: String) { presenter.onRequestWeather(city, prefix) }
 
     override fun cancelUpdate() {
-        RetrofitCalls.makeSnack((view), String.format(getString(R.string.update_in_time), (10 - (System.currentTimeMillis() / 1000 - PreferencesVariables.last_dt) / 60).toString()))
+        view?.let { Snackbar.make(it,
+                String.format(getString(R.string.update_in_time),
+                        (10 - (System.currentTimeMillis() / 1000 - PreferencesVariables.last_dt) / 60).toString()),
+                Snackbar.LENGTH_SHORT).show()
+        }
     }
 
-    override fun onFailUpdate(message: String) { RetrofitCalls.makeSnack((view), message) }
+    override fun onFailUpdate(message: String) {
+        view?.let { Snackbar.make(it, message, Snackbar.LENGTH_SHORT).show() } }
 
     override fun setTemperatureCurrent(value: String) { city_temp_current.text = value }
 

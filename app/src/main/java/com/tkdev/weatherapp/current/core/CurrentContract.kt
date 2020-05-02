@@ -1,14 +1,12 @@
 package com.tkdev.weatherapp.current.core
 
 import android.widget.ImageView
-import com.tkdev.weatherapp.current.data.retrofit_data_source.dto.RetrofitModel
-import retrofit2.Response
 import java.util.*
 
 interface CurrentContract {
 
     interface View {
-        fun showWeatherByCity(city: String)
+        fun showWeatherByCity(city: String, prefix: String)
 
         fun cancelUpdate()
 
@@ -36,7 +34,7 @@ interface CurrentContract {
 
         fun bind(view: View)
 
-        fun onRequestWeather(city: String)
+        fun onRequestWeather(city: String, prefix: String)
 
         fun sendCurrentWeather(): String
 
@@ -45,12 +43,12 @@ interface CurrentContract {
     }
 
     interface Interactor {
-        suspend fun getWeather(city: CurrentWeatherDomainCity): CurrentWeatherDomain
+        suspend fun getWeather(city: WeatherDomainCity, prefix: WeatherDomainTempPrefix): WeatherDomain
 
     }
 
     interface Repository{
-        suspend fun apiRequest(city: CurrentWeatherDomainCity) : CurrentWeatherDomain
+        suspend fun apiRequest(city: WeatherDomainCity, prefix: WeatherDomainTempPrefix) : WeatherDomain
     }
 
 }
