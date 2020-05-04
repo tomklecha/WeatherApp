@@ -18,6 +18,7 @@ interface RetrofitService {
     fun getCurrentWeather(@Query(WEATHER_CITY_NAME) city: String): Call<RetrofitModel>
 
     @GET(WEATHER_CURRENT_REQUEST + WEATHER_API_PREFIX + WEATHER_API_KEY)
-    fun getCurrentWeather(@Query(WEATHER_CITY_NAME) city: String, @Query(WEATHER_TEMPERATURE_PREFIX) prefix: String ): Call<RetrofitModel>
+    fun getCurrentWeather(@Query(WEATHER_CITY_NAME) city: String,
+                          @Query(WEATHER_TEMPERATURE_PREFIX) prefix: String ): Call<RetrofitModel>
 
 }

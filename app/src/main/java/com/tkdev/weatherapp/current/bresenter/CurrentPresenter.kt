@@ -34,7 +34,7 @@ class CurrentPresenter(
     }
 
     override fun onDestroy() {
-
+        job.cancel()
     }
 
     private fun CoroutineScope.requestData(city: String, prefix: String) = launch(dispatcher.IO) {
@@ -55,20 +55,10 @@ class CurrentPresenter(
     }
 
     override fun getWeatherIcon(imageView: ImageView) {
-//        return Picasso.get()
-//                .load(String.format("http://openweathermap.org/img/wn/%s@2x.png", weather.weather[0].icon))
-//                .into(imageView)
         TODO()
     }
 
     override fun sendCurrentWeather(): String {
         TODO()
-//        val weatherShare = StringBuilder()
-//        weatherShare.append(current_city)
-//                .append(" ")
-//                .append(weather.main.temp)
-//        return weatherShare.toString()
     }
-
-
 }

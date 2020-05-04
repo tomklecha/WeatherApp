@@ -33,7 +33,5 @@ class RetrofitApiDefault : RetrofitApi {
     }
 
     override suspend fun getCurrentWeather(city: String, prefix: String): Response<RetrofitModel> =
-//             service.getCurrentWeather(city).awaitResponse()
              service.getCurrentWeather(city,prefix).awaitResponse()
-
 }

@@ -10,8 +10,6 @@ class CurrentRepository(
 
     override suspend fun apiRequest(city: WeatherDomainCity, prefix: WeatherDomainTempPrefix): WeatherDomain = try {
         dto.toDomain(api.getCurrentWeather(city.value, prefix.value), prefix.value)
-    }catch (e: NullPointerException){
-        WeatherDomain.Fail(WeatherErrorDomain(e.message.toString()))
     } catch (e: Exception) {
         WeatherDomain.Fail(WeatherErrorDomain(e.message.toString()))
     }

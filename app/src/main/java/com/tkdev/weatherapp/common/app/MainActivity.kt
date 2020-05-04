@@ -9,27 +9,25 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.tkdev.weatherapp.R
-import com.tkdev.weatherapp.common.core.MainContract
-import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.current_city
-import com.tkdev.weatherapp.common.domain.RetrofitCalls.Companion.DATE_PATTERN
-import com.tkdev.weatherapp.common.domain.RetrofitCalls.Companion.datePattern
 import com.tkdev.weatherapp.common.app.dialogs.AboutDialog
 import com.tkdev.weatherapp.common.app.dialogs.SearchDialog
 import com.tkdev.weatherapp.common.app.dialogs.SearchDialog.SearchDialogListener
 import com.tkdev.weatherapp.common.app.dialogs.ShareDialog
 import com.tkdev.weatherapp.common.app.dialogs.ShareDialog.ShareDialogListener
+import com.tkdev.weatherapp.common.domain.RetrofitCalls.Companion.DATE_PATTERN
+import com.tkdev.weatherapp.common.domain.RetrofitCalls.Companion.datePattern
+import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.current_city
 import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.current_prefix
 import com.tkdev.weatherapp.current.app.CurrentFragment
 import com.tkdev.weatherapp.current.core.CurrentContract
-import com.tkdev.weatherapp.forecast.app.WeatherForecastFragment
 import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
 
 class MainActivity : AppCompatActivity(), SearchDialogListener, ShareDialogListener {
-    private val TAG = "WeatherMainActivity"
 
     private lateinit var currentListener: CurrentContract.View
-//    private lateinit var forecastListener: MainContract.View
+
+    //    private lateinit var forecastListener: MainContract.View
     private lateinit var dialog: DialogFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +69,7 @@ class MainActivity : AppCompatActivity(), SearchDialogListener, ShareDialogListe
     }
 
     override fun onAttachFragment(fragment: Fragment) {
-        when(fragment){
+        when (fragment) {
             is CurrentFragment -> currentListener = fragment
 //            is WeatherForecastFragment -> forecastListener = fragment
         }
@@ -84,11 +82,8 @@ class MainActivity : AppCompatActivity(), SearchDialogListener, ShareDialogListe
     }
 
     private fun showBasicFragments() {
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.content_current,
-                        CurrentFragment.newInstance()
-                )
-                .commit()
+        supportFragmentManager.beginTransaction().replace(R.id.content_current,
+                CurrentFragment.newInstance()).commit()
 //        supportFragmentManager.beginTransaction()
 //                .replace(R.id.content_forecast,
 //                        WeatherForecastFragment.newInstance()
@@ -97,12 +92,7 @@ class MainActivity : AppCompatActivity(), SearchDialogListener, ShareDialogListe
     }
 
     private fun shareWeather(booleanList: ArrayList<Boolean>) {
-        val weatherIntent = Intent()
-        weatherIntent.action = Intent.ACTION_SEND
-        weatherIntent.putExtra(Intent.EXTRA_TEXT, currentListener.shareWeather(booleanList))
-        weatherIntent.type = "text/plain"
-        val shareIntent = Intent.createChooser(weatherIntent, null)
-        startActivity(shareIntent)
+        TODO()
     }
 
     override fun onSearchPositiveClick(city: String) {
@@ -115,19 +105,11 @@ class MainActivity : AppCompatActivity(), SearchDialogListener, ShareDialogListe
     }
 
     override fun onSharePositiveClick(list: ArrayList<Boolean>) {
-        shareWeather(list)
+        TODO()
     }
 
-    override fun onShareNegativeClick(message: String) {} // TODO !!!
-
-    //    private boolean connectivity() {
-    //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-    //            if (checkSelfPermission(Manifest.permission.ACCESS_NETWORK_STATE) == PackageManager.PERMISSION_GRANTED) {
-    //                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-    //                return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-    //                        connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
-    //            }
-    //        }
-    //    }
+    override fun onShareNegativeClick(message: String) {
+        TODO()
+    }
 
 }

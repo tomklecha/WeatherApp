@@ -8,8 +8,6 @@ interface CurrentContract {
     interface View {
         fun showWeatherByCity(city: String, prefix: String)
 
-        fun cancelUpdate()
-
         fun onFailUpdate(message: String)
 
         fun setTemperatureCurrent(value: String)
@@ -25,8 +23,6 @@ interface CurrentContract {
         fun setLastUpdate(value: String)
 
         fun setCityName(value: String)
-
-        fun shareWeather(booleanList: ArrayList<Boolean>): String
     }
 
     interface Presenter {
@@ -39,12 +35,10 @@ interface CurrentContract {
         fun sendCurrentWeather(): String
 
         fun getWeatherIcon(imageView: ImageView)
-
     }
 
     interface Interactor {
         suspend fun getWeather(city: WeatherDomainCity, prefix: WeatherDomainTempPrefix): WeatherDomain
-
     }
 
     interface Repository{
