@@ -1,11 +1,10 @@
 package com.tkdev.weatherapp.current.bresenter
 
-import com.tkdev.weatherapp.common.core.MainContract
-import com.tkdev.weatherapp.current.data.retrofit_data_source.dto.RetrofitModel
+import com.tkdev.weatherapp.forecast.core.ForecastContract
+import com.tkdev.weatherapp.common.domain.retrofit_data_source.current_dto.CurrentRetrofit
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 
@@ -13,16 +12,16 @@ internal class CurrentPresenterImplTest {
 
 
     @MockK
-    private lateinit var view: MainContract.View
+    private lateinit var view: ForecastContract.View
 
     @MockK
-    private lateinit var weatherRetrofit: RetrofitModel
+    private lateinit var weatherRetrofit: CurrentRetrofit
 
     @MockK
-    private lateinit var model: MainContract.Model
+    private lateinit var model: ForecastContract.Model
 
     @InjectMockKs
-    private lateinit var presenter: CurrentPresenter
+    private lateinit var presenter: ForecastPresenter
 
     @Before
     fun setup() {

@@ -1,8 +1,11 @@
 package com.tkdev.weatherapp.common.util
 
+import com.tkdev.weatherapp.common.domain.RetrofitCalls
+
 class PreferencesVariables {
     companion object {
         var last_dt = 0
+        var todays_day = RetrofitCalls.todaysDayPattern(System.currentTimeMillis(), RetrofitCalls.DATE_PATTERN)
         var current_city = "london"
         var current_prefix = "metric"
 

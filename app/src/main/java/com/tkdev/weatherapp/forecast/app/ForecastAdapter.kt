@@ -4,8 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tkdev.weatherapp.R
-import com.tkdev.weatherapp.forecast.model.ForecastRetrofit
-import com.tkdev.weatherapp.forecast.model.ForecastViewHolder
+import com.tkdev.weatherapp.common.domain.retrofit_data_source.forecast_dto.ForecastRetrofit
 
 class ForecastAdapter(private val forecasts: ForecastRetrofit) : RecyclerView.Adapter<ForecastViewHolder>() {
 
@@ -17,7 +16,7 @@ class ForecastAdapter(private val forecasts: ForecastRetrofit) : RecyclerView.Ad
 
     override fun onBindViewHolder(holder: ForecastViewHolder, position: Int) {
         val forecastList = forecasts.list[position]
-        val forecastTimezone = (forecastList.dt + forecasts.city.timezone - 3600).toLong() * 1000
+        val forecastTimezone = forecasts.city.timezone
         holder.setForecast(forecastList, forecastTimezone)
     }
 

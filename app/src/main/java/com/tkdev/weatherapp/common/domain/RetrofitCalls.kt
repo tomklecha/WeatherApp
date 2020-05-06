@@ -1,8 +1,5 @@
 package com.tkdev.weatherapp.common.domain
 
-import android.view.View
-import androidx.annotation.VisibleForTesting
-import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import kotlin.math.round
 
@@ -32,9 +29,9 @@ class RetrofitCalls {
         const val DATE_PATTERN = "EEE dd-MM-yyyy"
 
 
-        fun temperaturePrefix(temp: Double, prefix: String): String{
+        fun temperaturePrefix(temp: Double, prefix: String): String {
             var newTempPref: String = (round(temp * 10) / 10).toString()
-            newTempPref += when(prefix){
+            newTempPref += when (prefix) {
                 WEATHER_TEMPERATURE_CELSIUS -> CELSIUS_SYMBOL
                 WEATHER_TEMPERATURE_FARHENHEIT -> FARHENHEIT_SYMBOL
                 else -> KELVIN_SYMBOL
@@ -44,7 +41,10 @@ class RetrofitCalls {
 
         fun humidityPrefix(humidity: Int): String = humidity.toString() + HUMIDITY_SYMBOL
 
-        fun datePattern(dt: Long, pattern: String): String
-            = SimpleDateFormat(pattern).format(dt)
+        fun todaysDayPattern(dt: Long, pattern: String): String = SimpleDateFormat(pattern).format(dt)
+
+        fun datePattern(dt: Int, timezone: Int, pattern: String): String {
+            return SimpleDateFormat(pattern).format((dt + timezone - 3600).toLong() * 1000)
+        }
     }
 }

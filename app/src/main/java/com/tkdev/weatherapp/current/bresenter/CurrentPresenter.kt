@@ -1,13 +1,13 @@
 package com.tkdev.weatherapp.current.bresenter
 
 import android.widget.ImageView
+import com.tkdev.weatherapp.common.core.coroutines.CoroutineDispatcherFactory
 import com.tkdev.weatherapp.current.bresenter.model.ModelMapper
 import com.tkdev.weatherapp.current.bresenter.model.WeatherModel
 import com.tkdev.weatherapp.current.core.CurrentContract
 import com.tkdev.weatherapp.current.core.WeatherDomain
 import com.tkdev.weatherapp.current.core.WeatherDomainCity
 import com.tkdev.weatherapp.current.core.WeatherDomainTempPrefix
-import com.tkdev.weatherapp.current.core.coroutines.CoroutineDispatcherFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

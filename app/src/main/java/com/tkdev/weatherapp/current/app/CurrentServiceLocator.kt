@@ -1,17 +1,17 @@
 package com.tkdev.weatherapp.current.app
 
+import com.tkdev.weatherapp.common.core.coroutines.CoroutineDispatcherFactory
+import com.tkdev.weatherapp.common.core.coroutines.CoroutineDispatcherFactoryDefault
+import com.tkdev.weatherapp.common.domain.retrofit_data_source.RetrofitApiDefault
+import com.tkdev.weatherapp.common.domain.retrofit_data_source.RetrofitCurrentApi
 import com.tkdev.weatherapp.current.bresenter.CurrentPresenter
 import com.tkdev.weatherapp.current.bresenter.model.ModelMapper
 import com.tkdev.weatherapp.current.bresenter.model.ModelMapperDefault
 import com.tkdev.weatherapp.current.core.CurrentContract
 import com.tkdev.weatherapp.current.core.CurrentInteractor
-import com.tkdev.weatherapp.current.core.coroutines.CoroutineDispatcherFactory
-import com.tkdev.weatherapp.current.core.coroutines.CoroutineDispatcherFactoryDefault
+import com.tkdev.weatherapp.current.data.CurrentDtoMapper
+import com.tkdev.weatherapp.current.data.CurrentDtoMapperDefault
 import com.tkdev.weatherapp.current.data.CurrentRepository
-import com.tkdev.weatherapp.current.data.DtoMapper
-import com.tkdev.weatherapp.current.data.DtoMapperDefault
-import com.tkdev.weatherapp.current.data.retrofit_data_source.RetrofitApi
-import com.tkdev.weatherapp.current.data.retrofit_data_source.RetrofitApiDefault
 
 class CurrentServiceLocator {
 
@@ -21,9 +21,9 @@ class CurrentServiceLocator {
 
     private fun getRepository(): CurrentContract.Repository = CurrentRepository(getApi(), getDomainMapper())
 
-    private fun getApi(): RetrofitApi = RetrofitApiDefault()
+    private fun getApi(): RetrofitCurrentApi = RetrofitApiDefault()
 
-    private fun getDomainMapper(): DtoMapper = DtoMapperDefault()
+    private fun getDomainMapper(): CurrentDtoMapper = CurrentDtoMapperDefault()
 
     private fun getCoroutineDispatcher(): CoroutineDispatcherFactory = CoroutineDispatcherFactoryDefault()
 

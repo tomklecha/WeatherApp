@@ -1,6 +1,5 @@
 package com.tkdev.weatherapp.common.app
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -14,20 +13,21 @@ import com.tkdev.weatherapp.common.app.dialogs.SearchDialog
 import com.tkdev.weatherapp.common.app.dialogs.SearchDialog.SearchDialogListener
 import com.tkdev.weatherapp.common.app.dialogs.ShareDialog
 import com.tkdev.weatherapp.common.app.dialogs.ShareDialog.ShareDialogListener
-import com.tkdev.weatherapp.common.domain.RetrofitCalls.Companion.DATE_PATTERN
-import com.tkdev.weatherapp.common.domain.RetrofitCalls.Companion.datePattern
 import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.current_city
+import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.todays_day
 import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.current_prefix
 import com.tkdev.weatherapp.current.app.CurrentFragment
 import com.tkdev.weatherapp.current.core.CurrentContract
+import com.tkdev.weatherapp.forecast.app.ForecastFragment
+import com.tkdev.weatherapp.forecast.core.ForecastContract
 import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
 
 class MainActivity : AppCompatActivity(), SearchDialogListener, ShareDialogListener {
 
     private lateinit var currentListener: CurrentContract.View
+    private lateinit var forecastListener: ForecastContract.View
 
-    //    private lateinit var forecastListener: MainContract.View
     private lateinit var dialog: DialogFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(), SearchDialogListener, ShareDialogListe
         return when (item.itemId) {
             R.id.menu_refresh_weather -> {
                 currentListener.showWeatherByCity(current_city, current_prefix)
-//                forecastListener.showWeatherByCity(current_city)
+                forecastListener.showWeatherByCity(current_city, current_prefix)
                 true
             }
             R.id.menu_app_bar_search -> {
@@ -71,24 +71,25 @@ class MainActivity : AppCompatActivity(), SearchDialogListener, ShareDialogListe
     override fun onAttachFragment(fragment: Fragment) {
         when (fragment) {
             is CurrentFragment -> currentListener = fragment
-//            is WeatherForecastFragment -> forecastListener = fragment
+            is ForecastFragment -> forecastListener = fragment
         }
     }
 
     private fun toolbarSetup() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        today_date_toolbar.text = datePattern(System.currentTimeMillis(), DATE_PATTERN)
+
+        today_date_toolbar.text = todays_day
     }
 
     private fun showBasicFragments() {
         supportFragmentManager.beginTransaction().replace(R.id.content_current,
                 CurrentFragment.newInstance()).commit()
-//        supportFragmentManager.beginTransaction()
-//                .replace(R.id.content_forecast,
-//                        WeatherForecastFragment.newInstance()
-//                )
-//                .commit()
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.content_forecast,
+                        ForecastFragment.newInstance()
+                )
+                .commit()
     }
 
     private fun shareWeather(booleanList: ArrayList<Boolean>) {
@@ -97,7 +98,7 @@ class MainActivity : AppCompatActivity(), SearchDialogListener, ShareDialogListe
 
     override fun onSearchPositiveClick(city: String) {
         currentListener.showWeatherByCity(city, current_prefix)
-//        forecastListener.showWeatherByCity(city)
+        forecastListener.showWeatherByCity(city, current_prefix)
     }
 
     override fun onSearchNegativeClick(message: String) {
