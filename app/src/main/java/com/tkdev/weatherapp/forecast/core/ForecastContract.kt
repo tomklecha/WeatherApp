@@ -10,7 +10,7 @@ interface ForecastContract {
 
         fun onFailUpdate(message: String)
 
-        fun update()
+        fun update(prefix: String)
     }
 
     interface Presenter {

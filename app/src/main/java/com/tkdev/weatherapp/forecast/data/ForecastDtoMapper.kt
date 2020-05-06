@@ -1,7 +1,6 @@
 package com.tkdev.weatherapp.forecast.data
 
 import com.tkdev.weatherapp.common.domain.retrofit_data_source.forecast_dto.ForecastRetrofit
-import com.tkdev.weatherapp.current.core.WeatherDomain
 import com.tkdev.weatherapp.forecast.core.*
 import retrofit2.Response
 
@@ -18,8 +17,9 @@ class ForecastDtoMapperDefault : ForecastDtoMapper {
     }
 
     private fun responseToDomain(body: ForecastRetrofit, prefix: String): ForecastDomain =
-
-            TODO()
+        ForecastDomain.WeatherForecast(
+                body
+        )
 
 
 

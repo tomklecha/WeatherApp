@@ -38,24 +38,21 @@ class ForecastPresenter(private val interactor: ForecastContract.Interactor,
 
     private fun CoroutineScope.requestData(city: String, prefix: String) = launch(dispatcher.IO) {
         when (val result = interactor.getForecasts(ForecastDomainCity(city), ForecastDomainTempPrefix(prefix))) {
-            is ForecastDomain.Weather ->
-//                view.onFailUpdate(result.city.value)
-            view.update()
-//                updateViews(mapper.toModel(result))
-            is ForecastDomain.Fail -> view.onFailUpdate(result.errorDomain.value)
+            is ForecastDomain.WeatherForecast -> {
+                forecasts = result.listForecasts
+                updateViews(prefix)
+            }
+            is ForecastDomain.Fail -> failedUpdate(result.errorDomain.value)
         }
     }
 
     override fun getForecastsList(): ForecastRetrofit = forecasts
-}
 
-//if (current_city == "") {
-//            current_city = "london"
-//            model.getWeather(this, current_city)
-//        } else if (last_dt <= System.currentTimeMillis() / 1000 - 600
-//                ||
-//                current_city != city) {
-//            model.getWeather(this, city)
-//        } else {
-//            view.cancelUpdate()
-//        }
+    private fun CoroutineScope.updateViews(prefix: String) = launch(dispatcher.UI) {
+        view.update(prefix)
+    }
+
+    private fun CoroutineScope.failedUpdate(message: String) = launch(dispatcher.UI) {
+        view.onFailUpdate(message)
+    }
+}

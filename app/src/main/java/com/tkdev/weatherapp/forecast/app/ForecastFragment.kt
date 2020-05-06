@@ -50,8 +50,8 @@ class ForecastFragment : Fragment(), ForecastContract.View {
         view?.let { Snackbar.make(it, message, Snackbar.LENGTH_SHORT).show() }
     }
 
-    override fun update() {
-        adapter = ForecastAdapter(presenter.getForecastsList())
+    override fun update(prefix: String) {
+        adapter = ForecastAdapter(presenter.getForecastsList(), prefix)
         forecast_recycler_view.adapter = adapter
     }
 //

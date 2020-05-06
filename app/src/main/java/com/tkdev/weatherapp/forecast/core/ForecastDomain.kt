@@ -1,11 +1,13 @@
 package com.tkdev.weatherapp.forecast.core
 
+import com.tkdev.weatherapp.common.domain.retrofit_data_source.forecast_dto.ForecastRetrofit
+
 sealed class ForecastDomain {
     data class Fail(val errorDomain: ForecastErrorDomain): ForecastDomain()
     data class WeatherForecast(
-            val city: ForecastDomainCity,
-            val timezone: ForecastDomainTimezone,
-            val listForecasts: ForecastDomainList
+//            val city: ForecastDomainCity,
+//            val timezone: ForecastDomainTimezone,
+            val listForecasts: ForecastRetrofit
     ) : ForecastDomain()
 }
 

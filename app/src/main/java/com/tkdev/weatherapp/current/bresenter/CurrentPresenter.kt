@@ -40,7 +40,7 @@ class CurrentPresenter(
     private fun CoroutineScope.requestData(city: String, prefix: String) = launch(dispatcher.IO) {
         when (val result = interactor.getWeather(WeatherDomainCity(city), WeatherDomainTempPrefix(prefix))) {
             is WeatherDomain.Weather -> updateViews(mapper.toModel(result))
-            is WeatherDomain.Fail -> view.onFailUpdate(result.errorDomain.value)
+            is WeatherDomain.Fail -> failedUpdate(result.errorDomain.value)
         }
     }
 
@@ -52,6 +52,10 @@ class CurrentPresenter(
         view.setHumidity(weather.humidity.value)
         view.setWeatherDescription(weather.description.value)
         view.setLastUpdate(weather.lastUpdate.value)
+    }
+
+    private fun CoroutineScope.failedUpdate(message: String) = launch(dispatcher.UI) {
+        view.onFailUpdate(message)
     }
 
     override fun getWeatherIcon(imageView: ImageView) {

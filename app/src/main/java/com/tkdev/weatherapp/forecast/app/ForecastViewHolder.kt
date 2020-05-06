@@ -19,12 +19,12 @@ class ForecastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var forecastDayOfForecast: TextView = itemView.forecast_day
     private var forecastHourOfForecast: TextView = itemView.forecast_hour
 
-    fun setForecast(forecast: List, forecastTimezone: Int) {
-        forecastTempCurrent.text = temperaturePrefix(forecast.main.temp,"")
-        forecastTempMin.text = temperaturePrefix(forecast.main.tempMin,"")
-        forecastTempMax.text = temperaturePrefix(forecast.main.tempMax,"")
+    fun setForecast(forecast: List, forecastTimezone: Int, prefix: String) {
+        forecastTempCurrent.text = temperaturePrefix(forecast.main.temp,prefix)
+        forecastTempMin.text = temperaturePrefix(forecast.main.tempMin,prefix)
+        forecastTempMax.text = temperaturePrefix(forecast.main.tempMax,prefix)
         forecastWeatherDescription.text = forecast.weather[0].main
         forecastDayOfForecast.text = datePattern(forecast.dt, forecastTimezone, FORECAST_DAY_PATTERN)
-        forecastHourOfForecast.text = datePattern(forecast.dt, forecastTimezone, FORECAST_DAY_PATTERN)
+        forecastHourOfForecast.text = datePattern(forecast.dt, forecastTimezone, FORECAST_HOUR_PATTERN)
     }
 }

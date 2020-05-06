@@ -7,8 +7,8 @@ sealed class WeatherDomain {
             val tempObject: WeatherDomainTempObject,
             val humidity: WeatherDomainHumidity,
             val description: WeatherDomainDescription,
-            val lastUpdate: WeatherDomainLastUpdate
-            , val timezone: WeatherDomainTimezone
+            val lastUpdate: WeatherDomainLastUpdate,
+            val timezone: WeatherDomainTimezone
     ) : WeatherDomain()
 }
 
