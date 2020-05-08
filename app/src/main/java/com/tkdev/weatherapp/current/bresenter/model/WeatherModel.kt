@@ -5,7 +5,8 @@ data class WeatherModel (
         val tempObject: WeatherModelTempObject,
         val humidity: WeatherModelHumidity,
         val description: WeatherModelDescription,
-        val lastUpdate: WeatherModelLastUpdate
+        val lastUpdate: WeatherModelLastUpdate,
+        val weatherIcon: WeatherModelIcon
     )
 
 data class WeatherModelTempObject(
@@ -24,3 +25,4 @@ inline class WeatherModelTempPrefix(val value: String)
 inline class WeatherModelHumidity(val value: String)
 inline class WeatherModelDescription(val value: String)
 inline class WeatherModelLastUpdate(val value: String)
+inline class WeatherModelIcon(val value: String)

@@ -12,7 +12,7 @@ class CurrentDtoMapperDefault : CurrentDtoMapper {
     override fun toDomain(response: Response<CurrentRetrofit>, prefix: String): WeatherDomain =
             if (response.code() > 400) {
                 WeatherDomain.Fail(WeatherErrorDomain("Domain response failed"))
-            }else    responseToDomain(response.body()!!, prefix)
+            } else responseToDomain(response.body()!!, prefix)
 
     private fun responseToDomain(body: CurrentRetrofit, prefix: String): WeatherDomain = WeatherDomain.Weather(
             WeatherDomainCity(body.name),
@@ -25,7 +25,8 @@ class CurrentDtoMapperDefault : CurrentDtoMapper {
             WeatherDomainHumidity(body.main.humidity),
             WeatherDomainDescription(body.weather[0].description),
             WeatherDomainLastUpdate(body.dt),
-            WeatherDomainTimezone(body.timezone)
+            WeatherDomainTimezone(body.timezone),
+            WeatherDomainWeatherIcon(body.weather[0].icon)
     )
 
 }

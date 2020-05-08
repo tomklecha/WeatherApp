@@ -62,6 +62,7 @@ class CurrentPresenter(
         view.setHumidity(weatherModel.humidity.value)
         view.setWeatherDescription(weatherModel.description.value)
         view.setLastUpdate(weatherModel.lastUpdate.value)
+        view.setImageIcon(weatherModel.weatherIcon.value)
     }
 
     private fun CoroutineScope.failedUpdate(message: String) = launch(dispatcher.UI) {

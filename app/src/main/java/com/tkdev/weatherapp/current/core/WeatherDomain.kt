@@ -8,7 +8,8 @@ sealed class WeatherDomain {
             val humidity: WeatherDomainHumidity,
             val description: WeatherDomainDescription,
             val lastUpdate: WeatherDomainLastUpdate,
-            val timezone: WeatherDomainTimezone
+            val timezone: WeatherDomainTimezone,
+            val icon: WeatherDomainWeatherIcon
     ) : WeatherDomain()
 }
 
@@ -29,3 +30,4 @@ inline class WeatherDomainDescription(val value: String)
 inline class WeatherDomainLastUpdate(val value: Int)
 inline class WeatherErrorDomain(val value: String)
 inline class WeatherDomainTimezone(val value: Int)
+inline class WeatherDomainWeatherIcon(val value: String)

@@ -22,5 +22,6 @@ class PreferencesVariables {
         const val TIMEZONE_VALUE = "timezoneValue"
         const val LAST_UPDATE_DATE_VIEW = "lastUpdateDateView"
         const val TODAY_DAY_VIEW = "todayDayView"
+        const val WEATHER_ICON_VIEW = "weatherIconView"
     }
 }

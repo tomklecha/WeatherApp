@@ -24,6 +24,7 @@ class ModelMapperDefault : ModelMapper {
             ),
             WeatherModelHumidity(humidityPrefix(domain.humidity.value)),
             WeatherModelDescription(domain.description.value),
-            WeatherModelLastUpdate(datePattern(domain.lastUpdate.value,domain.timezone.value, LAST_UPDATE_PATTERN))
+            WeatherModelLastUpdate(datePattern(domain.lastUpdate.value,domain.timezone.value, LAST_UPDATE_PATTERN)),
+            WeatherModelIcon(domain.icon.value)
     )
 }

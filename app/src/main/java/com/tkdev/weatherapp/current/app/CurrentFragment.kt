@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import com.tkdev.weatherapp.R
 import com.tkdev.weatherapp.current.bresenter.CurrentPresenter
 import com.tkdev.weatherapp.current.core.CurrentContract
@@ -71,5 +72,11 @@ class CurrentFragment :
     override fun setCityName(value: String) {
         city_name.text = value
     }
+
+    override fun setImageIcon(icon: String) =
+         Picasso.get()
+                .load(String.format("http://openweathermap.org/img/wn/%s@2x.png", icon))
+                .into(city_weather_icon)
+
 }
 

@@ -22,6 +22,9 @@ interface CurrentContract {
         fun setLastUpdate(value: String)
 
         fun setCityName(value: String)
+
+        fun setImageIcon(icon: String)
+
     }
 
     interface Presenter {
