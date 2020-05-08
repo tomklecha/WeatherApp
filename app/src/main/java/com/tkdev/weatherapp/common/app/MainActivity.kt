@@ -54,11 +54,11 @@ class MainActivity : AppCompatActivity(), SearchDialogListener, ShareDialogListe
                 dialog.show(supportFragmentManager, "SearchDialog")
                 true
             }
-            R.id.menu_share -> {
-                dialog = ShareDialog()
-                dialog.show(supportFragmentManager, "ShareDialog")
-                true
-            }
+//            R.id.menu_share -> {
+//                dialog = ShareDialog()
+//                dialog.show(supportFragmentManager, "ShareDialog")
+//                true
+//            }
             R.id.menu_about_dev -> {
                 dialog = AboutDialog()
                 dialog.show(supportFragmentManager, "AboutDialog")

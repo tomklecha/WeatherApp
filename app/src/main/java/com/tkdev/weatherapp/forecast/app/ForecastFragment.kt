@@ -54,11 +54,5 @@ class ForecastFragment : Fragment(), ForecastContract.View {
         adapter = ForecastAdapter(presenter.getForecastsList())
         forecast_recycler_view.adapter = adapter
     }
-//
-//    override fun cancelUpdate() {}
-//    override fun onFailUpdate(message: String) {}
-//    override fun shareWeather(booleanList: ArrayList<Boolean>): String {
-//        return ""
-//    }
 }
 
