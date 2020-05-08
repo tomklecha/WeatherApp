@@ -2,6 +2,7 @@ package com.tkdev.weatherapp.forecast.bresenter
 
 import com.tkdev.weatherapp.common.core.coroutines.CoroutineDispatcherFactory
 import com.tkdev.weatherapp.common.domain.retrofit_data_source.forecast_dto.ForecastRetrofit
+import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.current_prefix
 import com.tkdev.weatherapp.forecast.core.ForecastContract
 import com.tkdev.weatherapp.forecast.core.ForecastDomain
 import com.tkdev.weatherapp.forecast.core.ForecastDomainCity
@@ -32,15 +33,15 @@ class ForecastPresenter(private val interactor: ForecastContract.Interactor,
         job.cancel()
     }
 
-    override fun onRequestWeather(city: String, prefix: String) {
-        requestData(city, prefix)
+    override fun onRequestWeather(city: String) {
+        requestData(city)
     }
 
-    private fun CoroutineScope.requestData(city: String, prefix: String) = launch(dispatcher.IO) {
-        when (val result = interactor.getForecasts(ForecastDomainCity(city), ForecastDomainTempPrefix(prefix))) {
+    private fun CoroutineScope.requestData(city: String) = launch(dispatcher.IO) {
+        when (val result = interactor.getForecasts(ForecastDomainCity(city))) {
             is ForecastDomain.WeatherForecast -> {
                 forecasts = result.listForecasts
-                updateViews(prefix)
+                updateViews()
             }
             is ForecastDomain.Fail -> failedUpdate(result.errorDomain.value)
         }
@@ -48,8 +49,8 @@ class ForecastPresenter(private val interactor: ForecastContract.Interactor,
 
     override fun getForecastsList(): ForecastRetrofit = forecasts
 
-    private fun CoroutineScope.updateViews(prefix: String) = launch(dispatcher.UI) {
-        view.update(prefix)
+    private fun CoroutineScope.updateViews() = launch(dispatcher.UI) {
+        view.update()
     }
 
     private fun CoroutineScope.failedUpdate(message: String) = launch(dispatcher.UI) {

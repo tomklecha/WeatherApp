@@ -45,8 +45,8 @@ class MainActivity : AppCompatActivity(), SearchDialogListener, ShareDialogListe
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_refresh_weather -> {
-                currentListener.showWeatherByCity(current_city, current_prefix)
-                forecastListener.showWeatherByCity(current_city, current_prefix)
+                currentListener.showWeatherByCity(current_city)
+                forecastListener.showWeatherByCity(current_city)
                 true
             }
             R.id.menu_app_bar_search -> {
@@ -97,8 +97,8 @@ class MainActivity : AppCompatActivity(), SearchDialogListener, ShareDialogListe
     }
 
     override fun onSearchPositiveClick(city: String) {
-        currentListener.showWeatherByCity(city, current_prefix)
-        forecastListener.showWeatherByCity(city, current_prefix)
+        currentListener.showWeatherByCity(city)
+        forecastListener.showWeatherByCity(city)
     }
 
     override fun onSearchNegativeClick(message: String) {

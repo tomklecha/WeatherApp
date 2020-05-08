@@ -22,7 +22,7 @@ class CurrentFragment :
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        val serviceLocator = CurrentServiceLocator()
+        val serviceLocator = CurrentServiceLocator(context)
         presenter = serviceLocator.getPresenter()
     }
 
@@ -31,8 +31,13 @@ class CurrentFragment :
         presenter.bind(this)
     }
 
-    override fun showWeatherByCity(city: String, prefix: String) {
-        presenter.onRequestWeather(city, prefix)
+    override fun onStart() {
+        super.onStart()
+        presenter.loadData()
+    }
+
+    override fun showWeatherByCity(city: String) {
+        presenter.onRequestWeather(city)
     }
 
     override fun onFailUpdate(message: String) {

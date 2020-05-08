@@ -2,6 +2,7 @@ package com.tkdev.weatherapp.current.bresenter
 
 import android.widget.ImageView
 import com.tkdev.weatherapp.common.core.coroutines.CoroutineDispatcherFactory
+import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.current_prefix
 import com.tkdev.weatherapp.current.bresenter.model.ModelMapper
 import com.tkdev.weatherapp.current.bresenter.model.WeatherModel
 import com.tkdev.weatherapp.current.core.CurrentContract
@@ -20,6 +21,7 @@ class CurrentPresenter(
 ) : CurrentContract.Presenter, CoroutineScope {
 
     private lateinit var view: CurrentContract.View
+    private lateinit var weatherModel: WeatherModel
 
     private val job = Job()
     override val coroutineContext: CoroutineContext
@@ -29,29 +31,37 @@ class CurrentPresenter(
         this.view = view
     }
 
-    override fun onRequestWeather(city: String, prefix: String) {
-        requestData(city, prefix)
+    override fun onRequestWeather(city: String) {
+        requestData(city)
     }
 
     override fun onDestroy() {
         job.cancel()
     }
 
-    private fun CoroutineScope.requestData(city: String, prefix: String) = launch(dispatcher.IO) {
-        when (val result = interactor.getWeather(WeatherDomainCity(city), WeatherDomainTempPrefix(prefix))) {
-            is WeatherDomain.Weather -> updateViews(mapper.toModel(result))
+    private fun CoroutineScope.requestData(city: String) = launch(dispatcher.IO) {
+        when (val result = interactor.getWeather(WeatherDomainCity(city))) {
+            is WeatherDomain.Weather ->
+            { weatherModel = mapper.toModel(result)
+                updateViews()
+                saveData(result)
+            }
             is WeatherDomain.Fail -> failedUpdate(result.errorDomain.value)
         }
     }
 
-    private fun CoroutineScope.updateViews(weather: WeatherModel) = launch(dispatcher.UI) {
-        view.setCityName(weather.city.value)
-        view.setTemperatureCurrent(weather.tempObject.temp.value)
-        view.setTemperatureMinimum(weather.tempObject.tempMin.value)
-        view.setTemperatureMaximum(weather.tempObject.tempMax.value)
-        view.setHumidity(weather.humidity.value)
-        view.setWeatherDescription(weather.description.value)
-        view.setLastUpdate(weather.lastUpdate.value)
+    private fun CoroutineScope.saveData(weather: WeatherDomain.Weather) = launch(dispatcher.IO) {
+        interactor.saveCurrentWeather(weather)
+    }
+
+    private fun CoroutineScope.updateViews() = launch(dispatcher.UI) {
+        view.setCityName(weatherModel.city.value)
+        view.setTemperatureCurrent(weatherModel.tempObject.temp.value)
+        view.setTemperatureMinimum(weatherModel.tempObject.tempMin.value)
+        view.setTemperatureMaximum(weatherModel.tempObject.tempMax.value)
+        view.setHumidity(weatherModel.humidity.value)
+        view.setWeatherDescription(weatherModel.description.value)
+        view.setLastUpdate(weatherModel.lastUpdate.value)
     }
 
     private fun CoroutineScope.failedUpdate(message: String) = launch(dispatcher.UI) {
@@ -60,6 +70,12 @@ class CurrentPresenter(
 
     override fun getWeatherIcon(imageView: ImageView) {
         TODO()
+    }
+
+    override fun loadData() {
+        weatherModel = mapper.toModel(interactor.loadData())
+        saveData(interactor.loadData())
+        updateViews()
     }
 
     override fun sendCurrentWeather(): String {

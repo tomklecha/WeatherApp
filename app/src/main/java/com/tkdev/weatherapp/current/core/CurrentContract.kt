@@ -1,12 +1,11 @@
 package com.tkdev.weatherapp.current.core
 
 import android.widget.ImageView
-import java.util.*
 
 interface CurrentContract {
 
     interface View {
-        fun showWeatherByCity(city: String, prefix: String)
+        fun showWeatherByCity(city: String)
 
         fun onFailUpdate(message: String)
 
@@ -30,19 +29,33 @@ interface CurrentContract {
 
         fun bind(view: View)
 
-        fun onRequestWeather(city: String, prefix: String)
+        fun onRequestWeather(city: String)
 
         fun sendCurrentWeather(): String
 
         fun getWeatherIcon(imageView: ImageView)
+
+        fun loadData()
     }
 
     interface Interactor {
-        suspend fun getWeather(city: WeatherDomainCity, prefix: WeatherDomainTempPrefix): WeatherDomain
+        suspend fun getWeather(city: WeatherDomainCity): WeatherDomain
+
+        fun loadData(): WeatherDomain.Weather
+
+        fun saveCurrentWeather(weather: WeatherDomain.Weather) {
+
+        }
     }
 
     interface Repository{
-        suspend fun apiRequest(city: WeatherDomainCity, prefix: WeatherDomainTempPrefix) : WeatherDomain
+        suspend fun apiRequest(city: WeatherDomainCity) : WeatherDomain
+
+        fun loadSharedPreferenceDomain(): WeatherDomain.Weather
+
+        fun saveSharedPreferences(weather: WeatherDomain.Weather) {
+
+        }
     }
 
 }

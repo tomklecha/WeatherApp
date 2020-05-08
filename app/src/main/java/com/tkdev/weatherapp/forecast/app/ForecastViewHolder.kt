@@ -8,6 +8,7 @@ import com.tkdev.weatherapp.common.domain.RetrofitCalls.Companion.FORECAST_HOUR_
 import com.tkdev.weatherapp.common.domain.RetrofitCalls.Companion.datePattern
 import com.tkdev.weatherapp.common.domain.RetrofitCalls.Companion.temperaturePrefix
 import com.tkdev.weatherapp.common.domain.retrofit_data_source.forecast_dto.List
+import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.current_prefix
 import kotlinx.android.synthetic.main.list_forecast.view.*
 
 class ForecastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -19,10 +20,10 @@ class ForecastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var forecastDayOfForecast: TextView = itemView.forecast_day
     private var forecastHourOfForecast: TextView = itemView.forecast_hour
 
-    fun setForecast(forecast: List, forecastTimezone: Int, prefix: String) {
-        forecastTempCurrent.text = temperaturePrefix(forecast.main.temp,prefix)
-        forecastTempMin.text = temperaturePrefix(forecast.main.tempMin,prefix)
-        forecastTempMax.text = temperaturePrefix(forecast.main.tempMax,prefix)
+    fun setForecast(forecast: List, forecastTimezone: Int) {
+        forecastTempCurrent.text = temperaturePrefix(forecast.main.temp,current_prefix)
+        forecastTempMin.text = temperaturePrefix(forecast.main.tempMin,current_prefix)
+        forecastTempMax.text = temperaturePrefix(forecast.main.tempMax,current_prefix)
         forecastWeatherDescription.text = forecast.weather[0].main
         forecastDayOfForecast.text = datePattern(forecast.dt, forecastTimezone, FORECAST_DAY_PATTERN)
         forecastHourOfForecast.text = datePattern(forecast.dt, forecastTimezone, FORECAST_HOUR_PATTERN)

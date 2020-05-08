@@ -6,11 +6,11 @@ import com.tkdev.weatherapp.common.domain.retrofit_data_source.forecast_dto.Fore
 interface ForecastContract {
 
     interface View {
-        fun showWeatherByCity(city: String, prefix: String)
+        fun showWeatherByCity(city: String)
 
         fun onFailUpdate(message: String)
 
-        fun update(prefix: String)
+        fun update()
     }
 
     interface Presenter {
@@ -18,17 +18,17 @@ interface ForecastContract {
 
         fun bind(view: View)
 
-        fun onRequestWeather(city: String, prefix: String)
+        fun onRequestWeather(city: String)
 
         fun getForecastsList() : ForecastRetrofit
     }
 
     interface Interactor {
-        suspend fun getForecasts(city: ForecastDomainCity, prefix: ForecastDomainTempPrefix): ForecastDomain
+        suspend fun getForecasts(city: ForecastDomainCity): ForecastDomain
     }
 
     interface Repository{
-        suspend fun apiRequest(city: ForecastDomainCity, prefix: ForecastDomainTempPrefix) : ForecastDomain
+        suspend fun apiRequest(city: ForecastDomainCity) : ForecastDomain
     }
 
 }

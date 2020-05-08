@@ -5,9 +5,14 @@ class CurrentInteractor(
 ) : CurrentContract.Interactor {
 
 
-    override suspend fun getWeather(city: WeatherDomainCity, prefix: WeatherDomainTempPrefix): WeatherDomain {
-        return repository.apiRequest(city, prefix)
-    }
+    override suspend fun getWeather(city: WeatherDomainCity): WeatherDomain
+   = repository.apiRequest(city)
+
+
+    override fun loadData() : WeatherDomain.Weather = repository.loadSharedPreferenceDomain()
+
+    override fun saveCurrentWeather(weather: WeatherDomain.Weather) = repository.saveSharedPreferences(weather)
+
 }
 
 // TODO() implement interactions with API like -> city, lang, temp prefix

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tkdev.weatherapp.R
 import com.tkdev.weatherapp.common.domain.retrofit_data_source.forecast_dto.ForecastRetrofit
 
-class ForecastAdapter(private val forecasts: ForecastRetrofit, private val prefix: String) : RecyclerView.Adapter<ForecastViewHolder>() {
+class ForecastAdapter(private val forecasts: ForecastRetrofit) : RecyclerView.Adapter<ForecastViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ForecastViewHolder {
@@ -17,7 +17,7 @@ class ForecastAdapter(private val forecasts: ForecastRetrofit, private val prefi
     override fun onBindViewHolder(holder: ForecastViewHolder, position: Int) {
         val forecastList = forecasts.list[position]
         val forecastTimezone = forecasts.city.timezone
-        holder.setForecast(forecastList, forecastTimezone, prefix)
+        holder.setForecast(forecastList, forecastTimezone)
     }
 
     override fun getItemCount(): Int {

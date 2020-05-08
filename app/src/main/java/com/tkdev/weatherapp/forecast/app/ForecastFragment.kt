@@ -42,16 +42,16 @@ class ForecastFragment : Fragment(), ForecastContract.View {
         }
     }
 
-    override fun showWeatherByCity(city: String, prefix: String) {
-        presenter.onRequestWeather(city, prefix)
+    override fun showWeatherByCity(city: String) {
+        presenter.onRequestWeather(city)
     }
 
     override fun onFailUpdate(message: String) {
         view?.let { Snackbar.make(it, message, Snackbar.LENGTH_SHORT).show() }
     }
 
-    override fun update(prefix: String) {
-        adapter = ForecastAdapter(presenter.getForecastsList(), prefix)
+    override fun update() {
+        adapter = ForecastAdapter(presenter.getForecastsList())
         forecast_recycler_view.adapter = adapter
     }
 //
