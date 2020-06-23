@@ -41,8 +41,8 @@ class CurrentPresenter(
 
     private fun CoroutineScope.requestData(city: String) = launch(dispatcher.IO) {
         when (val result = interactor.getWeather(WeatherDomainCity(city))) {
-            is WeatherDomain.Weather ->
-            { weatherModel = mapper.toModel(result)
+            is WeatherDomain.Weather -> {
+                weatherModel = mapper.toModel(result)
                 updateViews()
                 saveData(result)
             }
@@ -74,9 +74,17 @@ class CurrentPresenter(
     }
 
     override fun loadData() {
-        weatherModel = mapper.toModel(interactor.loadData())
-        saveData(interactor.loadData())
-        updateViews()
+        when (val result = interactor.loadData()) {
+            is WeatherDomain.Weather -> {
+                weatherModel = mapper.toModel(result)
+                saveData(result)
+                updateViews()
+            }
+            is WeatherDomain.Fail -> {
+                failedUpdate(result.errorDomain.value)
+            }
+        }
+
     }
 
     override fun sendCurrentWeather(): String {

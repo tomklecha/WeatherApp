@@ -9,7 +9,7 @@ class CurrentInteractor(
    = repository.apiRequest(city)
 
 
-    override fun loadData() : WeatherDomain.Weather = repository.loadSharedPreferenceDomain()
+    override fun loadData() : WeatherDomain = repository.loadSharedPreferenceDomain()
 
     override fun saveCurrentWeather(weather: WeatherDomain.Weather) = repository.saveSharedPreferences(weather)
 

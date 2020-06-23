@@ -1,6 +1,9 @@
 package com.tkdev.weatherapp.current.data
 
 import android.content.SharedPreferences
+import android.provider.Settings.Global.putString
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.tkdev.weatherapp.common.domain.retrofit_data_source.RetrofitCurrentApi
 import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.CITY_NAME_VIEW
 import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.CURRENT_PREFIX
@@ -23,6 +26,7 @@ class CurrentRepository(
         private val sharedPreferences: SharedPreferences)
     : CurrentContract.Repository {
 
+
     override suspend fun apiRequest(city: WeatherDomainCity): WeatherDomain = try {
         dto.toDomain(api.getCurrentWeather(city.value, current_prefix), current_prefix)
 
@@ -30,7 +34,7 @@ class CurrentRepository(
         WeatherDomain.Fail(WeatherErrorDomain(e.message.toString()))
     }
 
-    override fun loadSharedPreferenceDomain(): WeatherDomain.Weather = loadFromSharedPreferences(sharedPreferences)
+    override fun loadSharedPreferenceDomain(): WeatherDomain = loadFromSharedPreferences(sharedPreferences)
 
     override fun saveSharedPreferences(weather: WeatherDomain.Weather) {
         modelToSharedPreferences(weather)
@@ -40,39 +44,28 @@ class CurrentRepository(
         last_dt = weather.lastUpdate.value
         current_city = weather.city.value
         current_prefix = weather.tempObject.prefix.value
+
+        val gson = Gson()
+        val json = gson.toJson(weather)
         with(sharedPreferences.edit()) {
-            putInt(TIMEZONE_VALUE, weather.timezone.value)
-            putString(CITY_NAME_VIEW, weather.city.value)
-            putString(CURRENT_TEMP_VIEW, weather.tempObject.temp.value.toString())
-            putString(MIN_TEMP_VIEW, weather.tempObject.tempMin.value.toString())
-            putString(MAX_TEMP_VIEW, weather.tempObject.tempMax.value.toString())
-            putString(CURRENT_PREFIX, weather.tempObject.prefix.value)
-            putInt(HUMIDITY_VIEW, weather.humidity.value)
-            putString(WEATHER_DESCRIPTION_VIEW, weather.description.value)
-            putInt(LAST_UPDATE_DATE_VIEW, weather.lastUpdate.value)
-            putString(WEATHER_ICON_VIEW, weather.icon.value)
+            putString("current_weather", json)
         }.apply()
     }
 
 
-    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-    private fun loadFromSharedPreferences(sharedPreferences: SharedPreferences): WeatherDomain.Weather =
-            with(sharedPreferences) {
-                WeatherDomain.Weather(WeatherDomainCity(sharedPreferences.getString(CITY_NAME_VIEW, "--")),
-                        WeatherDomainTempObject(
-                                WeatherDomainTemp((sharedPreferences.getString(CURRENT_TEMP_VIEW, "0.0").toDouble())),
-                                WeatherDomainTempMin((sharedPreferences.getString(MIN_TEMP_VIEW, "0.0").toDouble())),
-                                WeatherDomainTempMax((sharedPreferences.getString(MAX_TEMP_VIEW, "0.0").toDouble())),
-                                WeatherDomainTempPrefix(sharedPreferences.getString(CURRENT_PREFIX, "--"))),
-                        WeatherDomainHumidity(sharedPreferences.getInt(HUMIDITY_VIEW, 0)),
-                        WeatherDomainDescription(sharedPreferences.getString(WEATHER_DESCRIPTION_VIEW, "--")),
-                        WeatherDomainLastUpdate(sharedPreferences.getInt(LAST_UPDATE_DATE_VIEW, 0)),
-                        WeatherDomainTimezone(sharedPreferences.getInt(TIMEZONE_VALUE, 0)),
-                        WeatherDomainWeatherIcon(sharedPreferences.getString(WEATHER_ICON_VIEW, "--"))
-                )
+    private fun loadFromSharedPreferences(sharedPreferences: SharedPreferences): WeatherDomain {
+        var weather : WeatherDomain = WeatherDomain.Fail(WeatherErrorDomain("No previously saved data"))
+        with(sharedPreferences) {
+            val json = sharedPreferences.getString("current_weather", null)
+            if (json != null) {
+                val gson = Gson()
+                val type = object : TypeToken<WeatherDomain.Weather>() {}.type
+                weather = gson.fromJson(json, type)
             }
+        }
 
-
+        return weather
+    }
 }
 
 

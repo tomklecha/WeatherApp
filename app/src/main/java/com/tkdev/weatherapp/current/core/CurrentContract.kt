@@ -44,7 +44,7 @@ interface CurrentContract {
     interface Interactor {
         suspend fun getWeather(city: WeatherDomainCity): WeatherDomain
 
-        fun loadData(): WeatherDomain.Weather
+        fun loadData(): WeatherDomain
 
         fun saveCurrentWeather(weather: WeatherDomain.Weather) {
 
@@ -54,7 +54,7 @@ interface CurrentContract {
     interface Repository{
         suspend fun apiRequest(city: WeatherDomainCity) : WeatherDomain
 
-        fun loadSharedPreferenceDomain(): WeatherDomain.Weather
+        fun loadSharedPreferenceDomain(): WeatherDomain
 
         fun saveSharedPreferences(weather: WeatherDomain.Weather) {
 
