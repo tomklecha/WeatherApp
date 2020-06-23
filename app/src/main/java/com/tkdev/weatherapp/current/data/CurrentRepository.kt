@@ -1,20 +1,9 @@
 package com.tkdev.weatherapp.current.data
 
 import android.content.SharedPreferences
-import android.provider.Settings.Global.putString
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.tkdev.weatherapp.common.domain.retrofit_data_source.RetrofitCurrentApi
-import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.CITY_NAME_VIEW
-import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.CURRENT_PREFIX
-import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.CURRENT_TEMP_VIEW
-import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.HUMIDITY_VIEW
-import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.LAST_UPDATE_DATE_VIEW
-import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.MAX_TEMP_VIEW
-import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.MIN_TEMP_VIEW
-import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.TIMEZONE_VALUE
-import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.WEATHER_DESCRIPTION_VIEW
-import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.WEATHER_ICON_VIEW
 import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.current_city
 import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.current_prefix
 import com.tkdev.weatherapp.common.util.PreferencesVariables.Companion.last_dt
@@ -26,6 +15,7 @@ class CurrentRepository(
         private val sharedPreferences: SharedPreferences)
     : CurrentContract.Repository {
 
+    private lateinit var weather: WeatherDomain
 
     override suspend fun apiRequest(city: WeatherDomainCity): WeatherDomain = try {
         dto.toDomain(api.getCurrentWeather(city.value, current_prefix), current_prefix)
@@ -34,13 +24,13 @@ class CurrentRepository(
         WeatherDomain.Fail(WeatherErrorDomain(e.message.toString()))
     }
 
-    override fun loadSharedPreferenceDomain(): WeatherDomain = loadFromSharedPreferences(sharedPreferences)
+    override suspend fun loadSharedPreferenceDomain(): WeatherDomain = loadFromSharedPreferences(sharedPreferences)
 
-    override fun saveSharedPreferences(weather: WeatherDomain.Weather) {
-        modelToSharedPreferences(weather)
+    override suspend fun saveSharedPreferences(weather: WeatherDomain.Weather) {
+        domainToSharedPreferences(weather)
     }
 
-    private fun modelToSharedPreferences(weather: WeatherDomain.Weather) {
+    private fun domainToSharedPreferences(weather: WeatherDomain.Weather) {
         last_dt = weather.lastUpdate.value
         current_city = weather.city.value
         current_prefix = weather.tempObject.prefix.value
@@ -54,17 +44,22 @@ class CurrentRepository(
 
 
     private fun loadFromSharedPreferences(sharedPreferences: SharedPreferences): WeatherDomain {
-        var weather : WeatherDomain = WeatherDomain.Fail(WeatherErrorDomain("No previously saved data"))
+        var isSuccess = false
+
         with(sharedPreferences) {
             val json = sharedPreferences.getString("current_weather", null)
             if (json != null) {
                 val gson = Gson()
                 val type = object : TypeToken<WeatherDomain.Weather>() {}.type
                 weather = gson.fromJson(json, type)
+                isSuccess = true
             }
         }
 
-        return weather
+        return when(isSuccess){
+            true -> weather
+            false -> WeatherDomain.Fail(WeatherErrorDomain("No previously saved data"))
+        }
     }
 }
 

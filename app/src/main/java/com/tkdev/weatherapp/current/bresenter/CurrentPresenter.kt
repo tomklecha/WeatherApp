@@ -31,6 +31,10 @@ class CurrentPresenter(
         this.view = view
     }
 
+    override fun showData() {
+        loadData()
+    }
+
     override fun onRequestWeather(city: String) {
         requestData(city)
     }
@@ -39,12 +43,25 @@ class CurrentPresenter(
         job.cancel()
     }
 
+    private fun CoroutineScope.loadData() = launch(dispatcher.UI) {
+        when (val result = interactor.loadData()) {
+            is WeatherDomain.Weather -> {
+                weatherModel = mapper.toModel(result)
+                saveData(result)
+                updateViews()
+            }
+            is WeatherDomain.Fail -> {
+                failedUpdate(result.errorDomain.value)
+            }
+        }
+    }
+
     private fun CoroutineScope.requestData(city: String) = launch(dispatcher.IO) {
         when (val result = interactor.getWeather(WeatherDomainCity(city))) {
             is WeatherDomain.Weather -> {
                 weatherModel = mapper.toModel(result)
-                updateViews()
                 saveData(result)
+                updateViews()
             }
             is WeatherDomain.Fail -> failedUpdate(result.errorDomain.value)
         }
@@ -71,20 +88,6 @@ class CurrentPresenter(
 
     override fun getWeatherIcon(imageView: ImageView) {
         TODO()
-    }
-
-    override fun loadData() {
-        when (val result = interactor.loadData()) {
-            is WeatherDomain.Weather -> {
-                weatherModel = mapper.toModel(result)
-                saveData(result)
-                updateViews()
-            }
-            is WeatherDomain.Fail -> {
-                failedUpdate(result.errorDomain.value)
-            }
-        }
-
     }
 
     override fun sendCurrentWeather(): String {
