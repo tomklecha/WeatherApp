@@ -32,33 +32,29 @@ interface CurrentContract {
 
         fun bind(view: View)
 
+        fun showData()
+
         fun onRequestWeather(city: String)
 
         fun sendCurrentWeather(): String
 
         fun getWeatherIcon(imageView: ImageView)
-
-        fun loadData()
     }
 
     interface Interactor {
         suspend fun getWeather(city: WeatherDomainCity): WeatherDomain
 
-        fun loadData(): WeatherDomain.Weather
+        suspend fun loadData(): WeatherDomain
 
-        fun saveCurrentWeather(weather: WeatherDomain.Weather) {
-
-        }
+        suspend fun saveCurrentWeather(weather: WeatherDomain.Weather)
     }
 
     interface Repository{
         suspend fun apiRequest(city: WeatherDomainCity) : WeatherDomain
 
-        fun loadSharedPreferenceDomain(): WeatherDomain.Weather
+        suspend fun loadSharedPreferenceDomain(): WeatherDomain
 
-        fun saveSharedPreferences(weather: WeatherDomain.Weather) {
-
-        }
+        suspend fun saveSharedPreferences(weather: WeatherDomain.Weather)
     }
 
 }

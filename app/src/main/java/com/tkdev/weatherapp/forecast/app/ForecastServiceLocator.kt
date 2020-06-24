@@ -1,5 +1,6 @@
 package com.tkdev.weatherapp.forecast.app
 
+import android.content.Context
 import com.tkdev.weatherapp.common.core.coroutines.CoroutineDispatcherFactory
 import com.tkdev.weatherapp.common.core.coroutines.CoroutineDispatcherFactoryDefault
 import com.tkdev.weatherapp.common.domain.retrofit_data_source.RetrofitApiDefault
@@ -12,7 +13,7 @@ import com.tkdev.weatherapp.forecast.data.ForecastDtoMapperDefault
 import com.tkdev.weatherapp.forecast.data.ForecastReopsitory
 
 
-class ForecastServiceLocator {
+class ForecastServiceLocator(val context: Context) {
 
     fun getPresenter(): ForecastPresenter = ForecastPresenter(getInteractor(), getCoroutineDispatcher()
 //            , getModelMapper()
@@ -20,9 +21,7 @@ class ForecastServiceLocator {
 
     private fun getInteractor(): ForecastContract.Interactor = ForecastInteractor(getRepository())
 
-    private fun getRepository(): ForecastContract.Repository = ForecastReopsitory(getApi()
-            , getDomainMapper()
-    )
+    private fun getRepository(): ForecastContract.Repository = ForecastReopsitory(getApi(), getDomainMapper(), context.getSharedPreferences("weatherApp", Context.MODE_PRIVATE))
 
     private fun getApi(): RetrofitForecastApi = RetrofitApiDefault()
 

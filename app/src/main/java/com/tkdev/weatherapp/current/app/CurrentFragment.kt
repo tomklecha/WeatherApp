@@ -34,7 +34,7 @@ class CurrentFragment :
 
     override fun onStart() {
         super.onStart()
-        presenter.loadData()
+        presenter.showData()
     }
 
     override fun showWeatherByCity(city: String) {

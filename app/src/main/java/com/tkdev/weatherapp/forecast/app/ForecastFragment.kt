@@ -25,8 +25,13 @@ class ForecastFragment : Fragment(), ForecastContract.View {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        val serviceLocator = ForecastServiceLocator()
+        val serviceLocator = ForecastServiceLocator(requireContext())
         presenter = serviceLocator.getPresenter()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        presenter.showData()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
