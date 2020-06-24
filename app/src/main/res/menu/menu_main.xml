@@ -15,11 +15,11 @@
         android:title="@string/refresh_weather"
         app:showAsAction="ifRoom"
         />
-    <item
-        android:id="@+id/menu_share"
-        android:icon="@android:drawable/ic_menu_share"
-        android:title="@string/menu_share"
-        app:showAsAction="ifRoom" />
+<!--    <item-->
+<!--        android:id="@+id/menu_share"-->
+<!--        android:icon="@android:drawable/ic_menu_share"-->
+<!--        android:title="@string/menu_share"-->
+<!--        app:showAsAction="ifRoom" />-->
 
     <item
         android:id="@+id/menu_about_dev"

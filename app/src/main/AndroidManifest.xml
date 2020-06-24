@@ -18,7 +18,7 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-        <activity android:name=".common.MainActivity">
+        <activity android:name=".common.app.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
