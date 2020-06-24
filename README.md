@@ -24,6 +24,12 @@ Implemented:
  - all fetch data provided by Retrofit, including fetching icon
  - MVP archtecture
 
+[June 2020]
+- holding instance of recycler adapter
+- erased not used code
+- app works within simple query of city and keeping instance after restart
+
 TODO:
 - JUnit tests
-- holding instance of recycler adapter
+- Update feature for loading first fetch
+- Edit UI in landscape - not visible weather icon
